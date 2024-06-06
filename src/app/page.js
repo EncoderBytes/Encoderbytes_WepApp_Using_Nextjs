@@ -33,7 +33,7 @@ export default function Home() {
             Software Development That Ensures Growth Of Your{" "}
             <br className="hidden md:inline" /> Business.
           </p>
-          <div className=" text-white text-xl rounded-md hover:bg-transparent py-4 px-3 mt-16 bg-custom-blue hover:border-white hover:border-2 w-[200px] flex items-center gap-3">
+          <div className=" text-white text-md rounded-md hover:bg-transparent py-4 px-3 mt-16 bg-custom-blue hover:border-white hover:border-2 w-[200px] flex items-center gap-3">
             <button className="">Let`s Discuss</button>
             <FaArrowCircleRight />
           </div>
@@ -62,7 +62,7 @@ export default function Home() {
         </div>
         {/* Description 1st*/}
 
-        <div className="mt-4 ml-4 md:ml-20 md:w-4/6 font-medium text-xl ">
+        <div className="mt-4 ml-4 md:ml-20 md:w-4/6 font-medium text-md ">
           {/* Added conditional width for laptop screens */}
 
           <p>
@@ -91,7 +91,7 @@ export default function Home() {
                   height={190}
                 />
               </div>
-              <p className="text-xl mt-5 font-normal text-gray-400 leading-6">
+              <p className="text-md mt-5 font-normal text-gray-400 leading-6">
                 We are building stunning Mobile Apps that work across a variety
                 of devices to increase and engage audiences - having security,
                 scalability and usability features.
@@ -127,7 +127,7 @@ export default function Home() {
                   DEVELOPMENT
                 </span> */}
               </div>
-              <p className="text-xl mt-5 pb-28 font-normal text-gray-400 leading-6">
+              <p className="text-md mt-5 pb-28 font-normal text-gray-400 leading-6">
                 By Utilizing the latest technologies, we build web applications
                 that deliver remarkable functionality and user engagement .
               </p>
@@ -156,7 +156,7 @@ export default function Home() {
                   height={190}
                 />
               </div>
-              <p className="text-xl mt-5 pb-5 font-normal text-gray-400 leading-6">
+              <p className="text-md mt-5 pb-5 font-normal text-gray-400 leading-6">
                 We have a rich background in Artificial intelligence software
                 development, with a hands-on AI expert team. AI software
                 enhances the processes and operational efficiency of businesses
@@ -185,7 +185,7 @@ export default function Home() {
                   DESIGN
                 </span>
               </div>
-              <p className="text-xl mt-5 font-normal text-gray-400 leading-6">
+              <p className="text-md mt-5 font-normal text-gray-400 leading-6">
                 Our UI/UX designs are focused on efficient solutions to user
                 problems. We apply design thinking to product design, therefore
                 we categorize the UX process to 5 key phases : Product
@@ -214,7 +214,7 @@ export default function Home() {
               <span className="text-4xl md:text-6xl text-white font-bold">
                 100+
               </span>
-              <p className="text-lg md:text-xl text-white">
+              <p className="text-lg md:text-md text-white">
                 Projects Delivered
               </p>
             </div>
@@ -222,19 +222,19 @@ export default function Home() {
               <span className="text-4xl md:text-6xl text-white font-bold">
                 300
               </span>
-              <p className="text-lg md:text-xl text-white">Happy Clients</p>
+              <p className="text-lg md:text-md text-white">Happy Clients</p>
             </div>
             <div className="py-5 md:py-12 flex flex-col justify-center items-center mt-3 border-r-0 md:border-r-2 border-white">
               <span className="text-4xl md:text-6xl text-white font-bold">
                 01
               </span>
-              <p className="text-lg md:text-xl text-white">Global Office</p>
+              <p className="text-lg md:text-md text-white">Global Office</p>
             </div>
             <div className="py-5 md:py-12 px-5 flex flex-col justify-center items-center mt-3 border-r-0 md:border-r-2 border-white">
               <span className="text-4xl md:text-6xl text-white font-bold">
                 04
               </span>
-              <p className="text-lg md:text-xl text-white">
+              <p className="text-lg md:text-md text-white">
                 Years In the Business
               </p>
             </div>
@@ -242,7 +242,7 @@ export default function Home() {
               <span className="text-4xl md:text-6xl text-white font-bold">
                 50
               </span>
-              <p className="text-lg md:text-xl text-white">Expert Team</p>
+              <p className="text-lg md:text-md text-white">Expert Team</p>
             </div>
           </div>
         </div>
@@ -254,10 +254,10 @@ export default function Home() {
         <div className="flex flex-col md:flex-row md:mt-10 md:justify-between items-center ">
           {/* Text */}
           <div className="px-4 md:px-20">
-            <p className="text-xl md:text-3xl font-bold text-center md:text-left">
+            <p className="text-md md:text-3xl font-bold text-center md:text-left">
               RECENT PROJECTS
             </p>
-            <p className="text-xl md:text-3xl text-custom-blue font-bold text-center md:text-left">
+            <p className="text-md md:text-3xl text-custom-blue font-bold text-center md:text-left">
               FROM OUR PORTFOLIO<span className="text-black">.</span>
             </p>
           </div>
@@ -275,7 +275,7 @@ export default function Home() {
         {/* Description 2nd*/}
         <div className="mt-4 w-full md:w-5/6 md:ml-20">
           {/* Added conditional width for laptop screens */}
-          <p className="text-sm md:text-xl font-normal">
+          <p className="text-sm md:text-md font-normal">
             As we have delivered so many web, mobile and AI projects in the
             recent past but, the recent <br className="hidden md:inline"></br>{" "}
             most project we have completed is given below.
@@ -309,7 +309,7 @@ export default function Home() {
             </div>
           </div>
 
-          <p className="text-sm md:text-xl text-gray-400">
+          <p className="text-sm md:text-md text-gray-400">
             As we have delivered so many web, mobile and AI projects in the
             recent past but, the recent most project we have completed is given
             below.
@@ -331,8 +331,8 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             {/* Text */}
             <div className="px-4 md:px-0 mt-8 md:mt-0 md:ml-20 md:w-[50%]">
-              <p className="text-xl md:text-4xl font-bold">OUR APPROACHES</p>
-              <p className="text-xl md:text-4xl text-custom-blue font-bold">
+              <p className="text-md md:text-4xl font-bold">OUR APPROACHES</p>
+              <p className="text-md md:text-4xl text-custom-blue font-bold">
                 TO SOLVE A PROBLEM<span className="text-black">.</span>
               </p>
             </div>
@@ -347,7 +347,7 @@ export default function Home() {
             </div>
           </div>
           {/* Description 2nd*/}
-          <div className="mt-4 md:mt-8 ml-4 md:ml-20 md:w-[60%] text-xl">
+          <div className="mt-4 md:mt-8 ml-4 md:ml-20 md:w-[60%] text-md">
             <p>
               We here in Encoderbytes follow every possible method to solve a
               problem for our clients and help them in their businesses.
@@ -373,7 +373,7 @@ export default function Home() {
                     height={100}
                     className="mx-auto md:mx-0"
                   />
-                  <p className="mt-6 text-xl text-gray-400">
+                  <p className="mt-6 text-md text-gray-400">
                     {cart.description}
                   </p>
                 </div>
@@ -394,7 +394,7 @@ export default function Home() {
           backgroundPosition: "center", // Center the background image
         }}
       >
-        <div className=" my-10  flex flex-col md:flex-row justify-between items-center  sm:flex-row md:px-40 w-9/12 m-auto ">
+        <div className=" my-10  flex flex-col md:flex-row justify-between items-center  sm:flex-row md:px-16 w-9/12 m-auto ">
           <div className="flex flex-col  gap-4">
             <div className="mb-4 md:mb-0">
               <Image
@@ -423,7 +423,7 @@ export default function Home() {
           <div className="font-bold text-center text-4xl">
             INDUSTRIES WE <span className="text-custom-blue">ARE SERVING</span>
           </div>
-          <div className="mt-5 md:mt-7  text-center text-xl w-3/6">
+          <div className="mt-5 md:mt-7  text-center text-md w-3/6">
             <p>
               We are working with several with industries to improve thier
               businesses and experiences through technology. We have build many
@@ -441,13 +441,13 @@ export default function Home() {
                 <span className="">s t r y .</span>
               </div>
               <div className="text-custom-blue text-4xl font-bold">HEALTH</div>
-              <p className="text-sm md:text-xl text-gray-400">
+              <p className="text-sm md:text-md text-gray-400">
                 We are helping and educating doctors and other people through
                 our applications. Our app is ranked in top five in health
                 category in Pakistan.We provide management systems to health
                 industry.
               </p>
-              <div className="  text-xl rounded-md text-custom-blue py-4 px-3 mt-8  border-custom-blue hover:bg-custom-blue hover:text-white  border-2 w-[200px] flex items-center gap-3">
+              <div className="  text-md rounded-md text-custom-blue py-4 px-3 mt-8  border-custom-blue hover:bg-custom-blue hover:text-white  border-2 w-[200px] flex items-center gap-3">
                 <button className="">READ MORE</button>
                 <FaArrowCircleRight />
               </div>
@@ -477,13 +477,13 @@ export default function Home() {
             <span className="">s t r y .</span>
           </div>
           <div className="text-custom-blue text-4xl font-bold">EDUCATION</div>
-          <p className="text-sm md:text-xl text-gray-400">
+          <p className="text-sm md:text-md text-gray-400">
             We provide training and workshops in different IT skills in
             collaboration with KPIT Board. We have trained thousands of trainees
             through online and physical classes. Also, we develop software for
             different educational institutes.
           </p>
-          <div className="  text-xl rounded-md text-custom-blue py-4 px-3 mt-8  border-custom-blue hover:bg-custom-blue hover:text-white  border-2 w-[200px] flex items-center gap-3">
+          <div className="  text-md rounded-md text-custom-blue py-4 px-3 mt-8  border-custom-blue hover:bg-custom-blue hover:text-white  border-2 w-[200px] flex items-center gap-3">
             <FaArrowAltCircleLeft />
             <button className="">READ MORE</button>
           </div>
@@ -498,12 +498,12 @@ export default function Home() {
             <span className="">s t r y .</span>
           </div>
           <div className="text-custom-blue text-4xl font-bold">BUSINESS</div>
-          <p className="text-sm md:text-xl text-gray-400">
+          <p className="text-sm md:text-md text-gray-400">
             We are working with new business and and startups. We provide IT
             solutions for businesses to get more income. We have developed
             several E-commerce web and mobile applications for them.
           </p>
-          <div className="  text-xl rounded-md text-custom-blue py-4 px-3 mt-8  border-custom-blue hover:bg-custom-blue hover:text-white  border-2 w-[200px] flex items-center gap-3">
+          <div className="  text-md rounded-md text-custom-blue py-4 px-3 mt-8  border-custom-blue hover:bg-custom-blue hover:text-white  border-2 w-[200px] flex items-center gap-3">
             <button className="">READ MORE</button>
             <FaArrowCircleRight />
           </div>

@@ -22,7 +22,7 @@ const page = () => {
             CAREERS
           </div>
           <div className="flex m-auto py-6">
-            <p className="flex w-5/6 md:w-3/6 m-auto justify-center items-center text-center text-xl font-medium">
+            <p className="flex w-5/6 md:w-3/6 m-auto justify-center items-center text-center text-md font-medium">
               We are providing best jobs opportunities for people who want to
               grow their skills and career in different fields of the IT
               industry. Also we provide internship for fresh graduates.
@@ -30,7 +30,7 @@ const page = () => {
           </div>
           <a
             href="/"
-            className="text-black font-bold mt-14 text-center md:text-left text-xl"
+            className="text-black font-bold mt-14 text-center md:text-left text-md"
           >
             Home - <span className="text-custom-blue">Careers</span>
           </a>
@@ -47,7 +47,7 @@ const page = () => {
             <span className="text-gray-800">CAREERS AT </span>
             <span className="text-custom-blue"> ENCODERBYTES</span>
           </div>
-          <p className="text-sm md:text-xl">
+          <p className="text-sm md:text-md">
             We strive to hire the absolute best people. As a services
             organisation, we firmly believe that it is the single most important
             reason for all the success the company has achieved to-date. And
@@ -77,7 +77,7 @@ const page = () => {
                   <div class="text-2xl font-bold text-custom-blue mt-4">
                     DESIRED SKILLS
                   </div>
-                  <div class="pl-4 mt-4 text-xl text-gray-600">
+                  <div class="pl-4 mt-4 text-md text-gray-600">
                     <ul>
                       <li>
                         • 2 Years of experience working on cutting edge web
@@ -138,7 +138,7 @@ const page = () => {
               <span className="text-custom-blue text-2xl font-bold">
                 WHAT WE OFFER
               </span>
-              <ul className="mt-8 text-xl text-gray-600">
+              <ul className="mt-8 text-md text-gray-600">
                 <li> • Basic salary</li>
                 <li> • Health allowance</li>
                 <li> • Paid holidays</li>
@@ -157,7 +157,7 @@ const page = () => {
                   <div class="text-2xl font-bold text-custom-blue mt-6">
                     DESIRED SKILLS
                   </div>
-                  <div class="pl-4 mt-4 text-xl text-gray-600">
+                  <div class="pl-4 mt-4 text-md text-gray-600">
                     <ul>
                       <li>
                         • 2 Years of experience working on cutting edge web
@@ -218,7 +218,7 @@ const page = () => {
               <span className="text-custom-blue text-2xl font-bold">
                 WHAT WE OFFER
               </span>
-              <ul className="mt-8 text-xl text-gray-600">
+              <ul className="mt-8 text-md text-gray-600">
                 <li> • Basic salary</li>
                 <li> • Health allowance</li>
                 <li> • Paid holidays</li>
@@ -226,7 +226,7 @@ const page = () => {
             </div>
           </div>
 
-          <div className="flex justify-center font-bold  text-custom-blue h-1 bg-black px-96 my-4 mt-20"></div>
+          <div className="flex justify-center font-bold  text-custom-blue h-1 bg-black px-96 my-4 mt-20 "></div>
         </div>
       </div>
       <ApplyContactForm />

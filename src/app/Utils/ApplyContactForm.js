@@ -6,7 +6,7 @@ const ApplyContactForm = () => {
       className="flex flex-col md:flex-row items-center justify-center"
       id="Apply"
     >
-      <div class="flex flex-col bg-black md:flex-row md:w-5/6 items-center justify-center mt-10 md:mt-20 rounded-md py-20">
+      <div class="flex flex-col bg-black md:flex-row md:w-5/6 items-center justify-center mt-10 md:mt-20 rounded-md py-20 mb-28">
         <div class="w-4/5 md:w-2/5">
           <div class="flex flex-col justify-center items-start text-start m-6 md:m-16">
             <span class="text-2xl md:text-3xl text-custom-blue  font-bold">

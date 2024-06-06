@@ -240,7 +240,7 @@ const Ai = () => {
           backgroundPosition: "center", // Center the background image
         }}
       >
-        <div className=" my-3  flex flex-col md:flex-row justify-between items-center  sm:flex-row md:px-40 w-10/12 m-auto ">
+        <div className=" my-3  flex flex-col md:flex-row justify-between items-center  sm:flex-row md:px-15 w-10/12 m-auto ">
           <div className="flex flex-col  gap-4">
             <div className="mb-4 md:mb-0">
               <Image
@@ -281,7 +281,7 @@ const Ai = () => {
             technology and we help you to choose right platform for you that
             perfectly work for your requirements
           </p>
-          <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 mt-20 pb-20">
+          <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 mt-20 pb-20 w-5/6">
             {Aiappslogo.map((items) => {
               return (
                 <div className="border-2 border-gray-400 p-8 text-center flex flex-col gap-20  justify-between items-center rounded-lg ">
@@ -320,7 +320,7 @@ const Ai = () => {
               <span className="border-b-4 border-white"> v i d s </span>
               <span className="">s a v e</span>
             </div>
-            <div className=" text-3xl font-bold text-white">
+            <div className=" text-xl font-bold text-white">
               SOCIAL MEDIA VIDEO DOWNLOADER
             </div>
             <p className="text-sm md:text-xl">
@@ -341,7 +341,7 @@ const Ai = () => {
               <span className="border-b-4 border-white"> s t a t s </span>
               <span className="">s v e</span>
             </div>
-            <div className="text-white text-4xl font-bold">
+            <div className="text-white text-xl font-bold">
               STATUS DOWNLOADER
             </div>
             <p className="text-sm md:text-xl">
@@ -378,7 +378,7 @@ const Ai = () => {
               <span className="border-b-2 border-white"> v i d s </span>
               <span className="">s a v e</span>
             </div>
-            <div className=" text-3xl font-bold text-white">
+            <div className=" text-xl font-bold text-white">
               SOCIAL MEDIA VIDEO DOWNLOADER
             </div>
             <p className="text-md md:text-xl">

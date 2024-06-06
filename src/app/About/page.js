@@ -57,7 +57,7 @@ const page = () => {
             <span className="">WHO WE</span>
             <span className="text-custom-blue"> ARE?</span>
           </div>
-          <p className="text-sm md:text-xl">
+          <p className="text-sm md:text-md">
             Encoder Bytes Pvt. is an emerging AI first company that works in
             multiple fronts pertaining to three verticals, i-e training,
             products and services, with a focus on 4th industry.
@@ -151,7 +151,7 @@ const page = () => {
             <span className="">WHY CHOOSE </span>
             <span className="text-custom-blue">US?</span>
           </div>
-          <p className="w-5/6 mt-11 text-center text-xl ">
+          <p className="w-5/6 mt-11 text-center text-md ">
             {/* <p className="flex mx-64 sm:w-4/6 mt-11 text-center border-2 border-black"> */}
             To ensure your business growth with timely delivery of your software
             with multiple revision, we are best fit for you
@@ -177,7 +177,7 @@ const page = () => {
                 <span className="">{cart.text1} </span>
                 <span className="text-custom-blue">{cart.text2}</span>
               </div>
-              <p className="flex justify-center mt-6 text-gray-400 text-xl">
+              <p className="flex justify-center mt-6 text-gray-400 text-md">
                 {cart.description}
               </p>
               {/* </div> */}
@@ -196,7 +196,7 @@ const page = () => {
           backgroundPosition: "center", // Center the background image
         }}
       >
-        <div className=" my-3  flex flex-col md:flex-row justify-between items-center  sm:flex-row md:px-40 w-10/12 m-auto ">
+        <div className=" my-3  flex flex-col md:flex-row justify-between items-center  sm:flex-row md:px-16 w-10/12 m-auto ">
           <div className="flex flex-col  gap-4">
             <div className="mb-4 md:mb-0">
               <Image
@@ -207,7 +207,7 @@ const page = () => {
                 height={400}
               />
             </div>
-            <div className="text-white text-xl font-medium w-5/6 mt-5">
+            <div className="text-white text-md font-medium w-5/6 mt-5">
               DM us, to Know about the Cost and Feasibility of your idea to
               shape it into a robust software .
             </div>
@@ -239,7 +239,7 @@ const page = () => {
           <div className="py-10 text-white font-bold text-3xl md:text-7xl">
             LIFE AT ENCODERBYTES.
           </div>
-          <p className="mt-5 mx-4 md:mx-40 text-white text-start w-4/6 text-xl">
+          <p className="mt-5 mx-4 md:mx-40 text-white text-start w-4/6 text-md">
             Encoder Bytes is in existence since 2020, our multi talented team
             have expertise both in Development and cocurricular activities. We
             Keep our employees active and relax to ensure a healthy working
@@ -254,11 +254,11 @@ const page = () => {
       {/* section 6th team */}
       <div className="w-full min-h-full flex justify-center items-center mt-14">
         <div className="flex justify-center items-center flex-col mt-4">
-          <div className="text-xl md:text-4xl font-bold">
+          <div className="text-md md:text-4xl font-bold">
             MEET OUR
             <span className="text-custom-blue"> TEAM.</span>
           </div>
-          <p className="mx-64 mt-5 text-center w-4/6 text-xl">
+          <p className="mx-64 mt-5 text-center w-4/6 text-md">
             Our team consists of Super programmers. World Class business
             analysts. Creative designers and problem solvers. There's hardly a
             software app development challenge that our team cannot tackle.
@@ -268,42 +268,44 @@ const page = () => {
 
       <div class="grid grid-cols-1 md:grid-cols-4  mt-12  pb-20 w-5/6 m-auto">
         {Teammembers.map((team) => (
-          <div class="px-20 mt-10 md:p-4">
-            <div class="cardtext1 border-2 border-gray-300 rounded-lg shadow-md p-4 text-center h-[500px] hover:border-2 hover:border-custom-blue filter grayscale hover:filter-none transition duration-300">
+          <div class="px-20 mt-4 md:py-1 md:px-3">
+            <div class="cardtext1 border-2 border-gray-300 rounded-xl shadow-md text-center h-[400px]  py-10 hover:border-2 hover:border-custom-blue ">
               <div class="row">
                 <div class="col-md-12 flex justify-center rounded-full">
                   <Image
                     src={team.image}
-                    className="img-fluid py-3 rounded-full"
+                    className="img-fluid  rounded-full  filter grayscale hover:filter-none transition duration-300"
                     alt="Logo"
-                    width={200}
-                    height={200}
+                    width={170}
+                    height={170}
                     style={{ backgroundSize: "cover" }}
                   />
                 </div>
               </div>
 
-              <h1 class="py-3 px-4 mt-10">
-                <span class="font-bold text-custom-blue text-2xl">
+              <h1 class="py-3 px-4 mt-2">
+                <span class="font-bold text-custom-blue text-xl">
                   {team.name}
                 </span>
-                <p class="text-md card-text box-content">{team.status}</p>
+                <p class="text-xs card-text box-content text-gray-400">
+                  {team.status}
+                </p>
               </h1>
-              <div class="social-icons mt-10 pb-10">
-                <div className="flex justify-center bg-gray-400 w-4/6 m-auto items-center">
+              <div class="social-icons mt-10 pb-10 ">
+                <div className="flex justify-center bg-gray-300 w-3/6 m-auto items-center rounded-md text-gray-500 hover:bg-blue-100">
                   {team.LinkedIn && (
                     <a href={team.LinkedIn} class="px-2 py-1">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
-                        class="w-6 h-6 fill-current text-blue-600"
+                        class="w-6 h-6 fill-current hover:text-blue-600 text-gray-500"
                       >
                         <path d="M22,0H2A2,2,0,0,0,0,2V22a2,2,0,0,0,2,2H22a2,2,0,0,0,2-2V2A2,2,0,0,0,22,0ZM7.57,20H4V9H7.57ZM5.76,7.68A2.75,2.75,0,1,1,8.28,5.2,2.76,2.76,0,0,1,5.76,7.68ZM20,20H16V14c0-1.14-.42-1.91-1.52-1.91S13,12.86,13,14v6H9V9h3v1.27A4.22,4.22,0,0,1,16,8.8c3.71,0,4.52,2.44,4.52,5.6Z"></path>
                       </svg>
                     </a>
                   )}
                   {team.Github && (
-                    <a href={team.Github} class="px-2 py-1">
+                    <a href={team.Github} class="px-2 py-1 hover:text-blue-600">
                       <FaGithubSquare size={25} />
                     </a>
                   )}
@@ -318,11 +320,11 @@ const page = () => {
 
       <div className="w-full min-h-full flex justify-center items-center  bg-gray-200">
         <div className="flex justify-center items-center flex-col mt-4 bg-gray-200">
-          <div className="text-xl md:text-4xl font-bold mt-14">
+          <div className="text-md md:text-4xl font-bold mt-14">
             CAREER AT
             <span className="text-custom-blue"> ENCODERBYTES.</span>
           </div>
-          <div className="flex w-3/4 m-auto text-center mt-5 text-xl">
+          <div className="flex w-3/4 m-auto text-center mt-5 text-md">
             We are starving for the talented accordant, passionate who wants to
             work on real world products and acquired hands-on skills. Among
             hundreds, we chose you to be the family of Encoderbyte if you have
@@ -334,87 +336,14 @@ const page = () => {
           </div>
         </div>
       </div>
-      {/* <div className="p-10 bg-gray-300">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3  mt-10">
-          <div className="flex flex-col justify-center mx-auto cardContent bg-white rounded-md">
-            <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto">
-              <div className="card c1 shadow text-dark rounded-lg">
-                <div className="card-body my-3" id="cardBody1">
-                  <div className="mt-2 cardtext1 text-center">
-                    <h1 className="font-bold text-xl text-custom-blue">
-                      PROJECT MANAGEMENT
-                    </h1>
-                    <p className="text-wrap card-text box-content mt-3">
-                      For team members who enjoy client interaction and bringing
-                      discipline to complex situations and projects.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center mx-auto cardContent bg-white rounded-md">
-            <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto">
-              <div className="card c1 shadow text-dark rounded-lg">
-                <div className="card-body my-3" id="cardBody1">
-                  <div className="mt-2 cardtext1 text-center">
-                    <h1 className="font-bold text-3xl text-custom-blue">
-                      TECHNICAL/ENGINEERING
-                    </h1>
-                    <p className="text-wrap card-text box-content mt-3">
-                      For the geniuses who thrive on solving technical puzzles
-                      and have a passion for engineering ambitious software
-                      systems.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center mx-auto cardContent bg-white rounded-md">
-            <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto">
-              <div className="card c1 shadow text-dark rounded-lg">
-                <div className="card-body my-3" id="cardBody1">
-                  <div className="mt-2 cardtext1 text-center">
-                    <h1 className="font-bold text-3xl text-custom-blue">
-                      QUALITY ASSURANCE
-                    </h1>
-                    <p className="text-wrap card-text box-content mt-3">
-                      For people with a razor-sharp eye and a knack for spotting
-                      imperfections in software systems.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center mx-auto cardContent bg-white rounded-md">
-            <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto">
-              <div className="card c1 shadow text-dark rounded-lg">
-                <div className="card-body my-3" id="cardBody1">
-                  <div className="mt-2 cardtext1 text-center">
-                    <h1 className="font-bold text-3xl text-custom-blue">
-                      MARKETING
-                    </h1>
-                    <p className="text-wrap card-text box-content mt-3">
-                      For the evangelists who have a passion for telling
-                      compelling stories to the world that resonate with our
-                      clients.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
+
       <div className="bg-gray-200 p-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-9  mt-10 w-5/6 m-auto ">
           <div className="flex flex-col justify-center bg-white mx-auto cardContent rounded-xl p-6">
             <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto  ">
               <div className="card-body" id="cardBody1">
                 <div className="mt-2  cardtext1 text-center p-3">
-                  <h1 className="font-bold text-xl text-custom-blue">
+                  <h1 className="font-bold text-md text-custom-blue">
                     PROJECT MANAGEMENT
                   </h1>
                   <p className="text-wrap card-text box-content mt-3 text-sm">
@@ -432,8 +361,9 @@ const page = () => {
               {/* <div className="card c1 shadow text-dark rounded-lg"> */}
               <div className="card-body my-3" id="cardBody1">
                 <div className="mt-2 cardtext1 text-center p-5">
-                  <h1 className="font-bold text-xl text-custom-blue">
-                    TECHNICAL/ENGINEERING
+                  <h1 className="font-bold text-md text-custom-blue">
+                    TECHNICAL/ <br />
+                    ENGINEERING
                   </h1>
                   <p className="text-wrap card-text box-content mt-3 text-sm">
                     For the aspirants of emerging technologies like AI, Data
@@ -451,7 +381,7 @@ const page = () => {
               {/* <div className="card c1 shadow text-dark rounded-lg"> */}
               <div className="card-body my-3" id="cardBody1">
                 <div className="mt-2 cardtext1 text-center p-5">
-                  <h1 className="font-bold text-xl text-custom-blue">
+                  <h1 className="font-bold text-md text-custom-blue">
                     {" "}
                     QUALITY ASSURANCE
                   </h1>
@@ -470,7 +400,7 @@ const page = () => {
               {/* <div className="card c1 shadow text-dark rounded-lg"> */}
               <div className="card-body my-3" id="cardBody1">
                 <div className="mt-2 cardtext1 text-center p-5">
-                  <h1 className="font-bold text-xl text-custom-blue">
+                  <h1 className="font-bold text-md text-custom-blue">
                     MARKETING
                   </h1>
                   <p className="text-wrap card-text box-content mt-3 text-sm ">

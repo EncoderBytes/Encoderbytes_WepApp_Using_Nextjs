@@ -28,13 +28,13 @@ const Ai = () => {
             USER EXPERIENCE DESIGING
           </div>
           <div className="flex  m-auto py-3">
-            <p className="flex   m-auto justify-center items-center text-center text-xl">
+            <p className="flex   m-auto justify-center items-center text-center text-md">
               We design clean and asthetic user experiences for businesses.
             </p>
           </div>
           <a
             href="/"
-            className="text-black font-bold text-center md:text-left mt-24 text-xl"
+            className="text-black font-bold text-center md:text-left mt-24 text-md"
           >
             Home - Services - <span className="text-custom-blue">UI / UX</span>
           </a>
@@ -44,7 +44,7 @@ const Ai = () => {
       <div id="section2"></div>
       <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-20 md:gap-x-8 mb-32">
         <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
-          <div className="text-2xl font-bold">
+          <div className="text-md font-bold text-gray-500">
             <span className="border-b-4 border-custom-blue">u s e r </span>
             <span className="">
               {" "}
@@ -55,7 +55,7 @@ const Ai = () => {
             <span className="">IMPOROVE YOUR </span>
             <span className="text-custom-blue">USER EXPERIENCE?</span>
           </div>
-          <p className="text-sm md:text-xl">
+          <p className="text-sm md:text-md">
             Grabbing the market by your brands depends on the sophisticated
             aesthetic UI/UX designs of your product. One of the leading
             expertise of Encoderbytes is the strong UI/UX designing background
@@ -87,7 +87,7 @@ const Ai = () => {
             <span className="text-black">MOBILE APP</span>
             <span className="text-custom-blue"> DEVELOPMENT SERVICES</span>
           </div>
-          <div className="text-center w-4/6 mt-4 text-xl">
+          <div className="text-center w-4/6 mt-4 text-md">
             Do you know what makes a good mobile app different from a poor one?
             It’s the UI/UX design! A well-designed user interface can raise your
             conversion rate by 200 percent. Our mobile solutions balance
@@ -106,7 +106,7 @@ const Ai = () => {
               <span className="text-6xl font-bold text-slate-400">0 1</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-xl">
+              <p className="mt-6 text-md">
                 Our AI development services help you by avoiding biases and
                 human error and also helps you by saving your money and time
                 through automating and optimizing everyday processes and daily
@@ -124,7 +124,7 @@ const Ai = () => {
               <span className="text-6xl font-bold text-slate-400">0 2</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-xl">
+              <p className="mt-6 text-md">
                 As a leading UX and UI design Company, it is an utmost crucial
                 responsibility for us to understand your requirements in a
                 better way,for that reason we create user personas to explain
@@ -143,7 +143,7 @@ const Ai = () => {
               <span className="text-6xl font-bold text-slate-400">0 3</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-xl">
+              <p className="mt-6 text-md">
                 The benefits of doing empathy mapping are manifold. We believe
                 it removes bias from our designs and aligns the team on a
                 single, shared understanding of the user’s empathy like what
@@ -164,7 +164,7 @@ const Ai = () => {
               <span className="text-6xl font-bold text-slate-400">0 4</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-xl">
+              <p className="mt-6 text-md">
                 To identify the defensive or offensive strategic context or to
                 know about the opportunities and threats you must be aware of
                 with whom you are competing.So that way we recognize potential
@@ -185,7 +185,7 @@ const Ai = () => {
               <span className="text-6xl font-bold text-slate-400">0 5</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-xl">
+              <p className="mt-6 text-md">
                 In this step all the data we have collected on the wall we
                 represent by engaging the product owners,developer,manager and
                 designers.After that we group the collected data on the sticky
@@ -207,7 +207,7 @@ const Ai = () => {
               <span className="text-6xl font-bold text-slate-400">0 6</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-xl">
+              <p className="mt-6 text-md">
                 Prevention from findability and usability disaster -directing to
                 costly redesigns we take architectural information in creating a
                 plan.That is why in our UX and UI design services incorporate
@@ -228,7 +228,7 @@ const Ai = () => {
               <span className="text-6xl font-bold text-slate-400">0 7</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-xl">
+              <p className="mt-6 text-md">
                 We have an equitable understanding of how to compose a screen,
                 after a detailed architectural information is out .For each user
                 requirement we start to create fast and cheap on-paper
@@ -249,7 +249,7 @@ const Ai = () => {
               <span className="text-6xl font-bold text-slate-400">0 8</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-xl">
+              <p className="mt-6 text-md">
                 To detailing out the screens in its exact shape and style we
                 further transform the paper prototype into high fidelity
                 wireframes. For our visual design expert the sole reference is
@@ -269,7 +269,7 @@ const Ai = () => {
               <span className="text-6xl font-bold text-slate-400">0 9</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-xl">
+              <p className="mt-6 text-md">
                 We carefully design your web and mobile applications by setting
                 up different components like color palette,typography,the
                 call-to-action buttons, notifications and alerts,icons and
@@ -291,7 +291,7 @@ const Ai = () => {
             <span className="text-custom-blue">TECHNOLOGIES</span>
           </div>
 
-          <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 mt-20 pb-20">
+          <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 mt-20 pb-20 w-5/6">
             {Uiuxappslogo.map((items) => {
               return (
                 <div className="border-2 border-gray-400 p-14 text-center flex flex-col gap-9 justify-between items-center rounded-xl ">

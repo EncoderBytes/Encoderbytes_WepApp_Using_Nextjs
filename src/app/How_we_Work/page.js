@@ -23,7 +23,7 @@ const How_we_work = () => {
             HOW DO WE WORK?
           </div>
           <div className="flex  m-auto py-3">
-            <p className="flex w-5/6 md:w-3/6 m-auto justify-center items-center text-center text-xl ">
+            <p className="flex w-5/6 md:w-3/6 m-auto justify-center items-center text-center text-md ">
               We follow the state of the art software development process ,
               initiating from requirement gathering from user till completion
               and deployment. Each phase during development of a software is
@@ -32,7 +32,7 @@ const How_we_work = () => {
           </div>
           <a
             href="/"
-            className="text-black font-bold text-center md:text-left mt-20 text-xl"
+            className="text-black font-bold text-center md:text-left mt-20 text-md"
           >
             Home - <span className="text-custom-blue ">How We Work</span>
           </a>
@@ -181,7 +181,7 @@ const How_we_work = () => {
                   alt="Logo"
                   className="object-cover w-full h-full"
                 />
-                <div className="font-bold md:text-xl text-center md:text-left mt-16 text-gray-500">
+                <div className="font-bold md:text-md text-center md:text-left mt-16 text-gray-500">
                   <span className="border-b-2 border-custom-blue">
                     {item.underlinetitile}
                   </span>
@@ -255,7 +255,7 @@ const How_we_work = () => {
           <span>PROJECT COMMMUNICATION</span>
           <span className="text-white"> STRUCTURE.</span>
         </div>
-        <div className="text-white w-4/6 text-center m-auto mt-2 text-xl">
+        <div className="text-white w-4/6 text-center m-auto mt-2 text-md">
           To make sure that our progress is going to meet the deadline we
           discuss and communicate on a daily basis between our team to look over
           the progress and performance of our team to ensure timely delivery of
@@ -263,7 +263,7 @@ const How_we_work = () => {
           uptodate project management tools like Google meet,Trello,Skype, slack
           and Microsoft 360.
         </div>
-        <div className="flex flex-col md:flex-row w-5/6 m-auto gap-10 mt-10 text-white  text-xl ">
+        <div className="flex flex-col md:flex-row w-5/6 m-auto gap-10 mt-10 text-white  text-md ">
           <div className="w-full py-16  border-0 md:border-r-2 border-white flex flex-col justify-center items-center">
             <span className="text-10 font-bold">DAILY SCRUM STANDUP</span>
             <p className="text-sm">monday - friday</p>

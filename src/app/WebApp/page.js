@@ -148,7 +148,7 @@ const WebAPP = () => {
           <div className=" grid grid-cols-2 md:grid-cols-6 gap-5 w-5/6 mt-10">
             {Webapps.map((items) => {
               return (
-                <div className=" bg-gray-200 rounded-md border-black p-10 gap-5 text-center flex flex-col justify-center items-center">
+                <div className=" bg-gray-200 rounded-md border-black p-4 gap-5 text-center flex flex-col justify-center items-center">
                   <img src={items.image} />
                   <span>{items.name}</span>
                 </div>
@@ -245,7 +245,7 @@ const WebAPP = () => {
             development company in Pakistan we cover every technology to choose
             the right platform for you that perfectly serves your requirements.
           </p>
-          <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 mt-20 pb-16">
+          <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 mt-20 pb-16 w-5/6">
             {Webeappslogo.map((items) => {
               return (
                 <div className="border-2 border-gray-400 p-14 text-center flex flex-col gap-12 justify-between items-center rounded-xl ">
@@ -279,7 +279,7 @@ const WebAPP = () => {
               <span className="border-b-4 border-white"> v i d s </span>
               <span className="">s a v e</span>
             </div>
-            <div className=" text-3xl font-bold text-white">
+            <div className=" text-xl font-bold text-white">
               SOCIAL MEDIA VIDEO DOWNLOADER
             </div>
             <p className="text-sm md:text-xl font-medium">
@@ -300,7 +300,7 @@ const WebAPP = () => {
               <span className="border-b-4 border-white"> s t a t s </span>
               <span className="">s v e</span>
             </div>
-            <div className=" text-4xl font-bold text-white">
+            <div className=" text-xl font-bold text-white">
               STATUS DOWNLOADER
             </div>
             <p className="text-sm md:text-xl font-medium ">
@@ -337,7 +337,7 @@ const WebAPP = () => {
               <span className="border-b-4 border-white"> v i d s </span>
               <span className="">s a v e</span>
             </div>
-            <div className=" text-3xl font-bold text-white">
+            <div className=" text-xl font-bold text-white">
               SOCIAL MEDIA VIDEO DOWNLOADER
             </div>
             <p className="text-md font-medium md:text-xl">

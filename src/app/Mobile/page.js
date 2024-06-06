@@ -155,7 +155,7 @@ const MobileApp = () => {
       </div>
       {/* section 5 */}
       <div id="mobilesection5"></div>
-      <div className="relative bg-gray-200  mt-20" style={{ height: "2140px" }}>
+      <div className="relative bg-gray-200  mt-20" style={{ height: "2400px" }}>
         <div className="relative " style={{ width: "100vw" }}>
           <img
             className="w-full"
@@ -250,7 +250,7 @@ const MobileApp = () => {
             . For developing a mobile application we use the latest methodology
             and uptodate technologies as mentioned:
           </p>
-          <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 mt-20">
+          <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 mt-20  w-5/6">
             {Mobileappslogo.map((items) => {
               return (
                 <div className="border-2 border-gray-300 px-16 py-10 text-center flex flex-col gap-12 justify-between items-center rounded-lg ">
