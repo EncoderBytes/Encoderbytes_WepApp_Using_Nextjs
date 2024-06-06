@@ -296,6 +296,7 @@ const page = () => {
                   {team.LinkedIn && (
                     <a href={team.LinkedIn} class="px-2 py-1">
                       <svg
+                        // this is svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         class="w-6 h-6 fill-current hover:text-blue-600 text-gray-500"
