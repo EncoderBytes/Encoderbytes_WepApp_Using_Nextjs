@@ -3,6 +3,7 @@ import Top from "../Utils/Top";
 import Link from "next/link";
 import { Howwework } from "../components/Howwework";
 import Contactform from "../Utils/Contactform";
+import Image from "next/image";
 const How_we_work = () => {
   return (
     <div className=" bg-white">
@@ -117,10 +118,12 @@ const How_we_work = () => {
 
         {/* iamge */}
         <div className="bg-yellow w-full md:w-[100%] h-auto md:h-full relative mt-5">
-          <img
+          <Image
             src="/backgrounds/img1.png"
             alt="Logo"
             className="object-cover w-full h-full"
+            width={400}
+            height={400}
           />
           <div className="font-bold md:text-2xl text-center md:text-left mt-16 text-gray-700">
             <span className="border-b-2 border-custom-blue">d i s c u</span>
@@ -171,15 +174,20 @@ const How_we_work = () => {
       {Howwework.map((item) => {
         return (
           <>
-            <section className="  flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-20 md:gap-x-8 mb-32 ">
+            <section
+              key={item.image}
+              className="  flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-20 md:gap-x-8 mb-32 "
+            >
               <div className="relative w-full md:w-[50%] h-auto"></div>
 
               {/* iamge */}
               <div className="bg-yellow w-full md:w-[100%] h-auto md:h-full relative mt-5">
-                <img
+                <Image
                   src={item.image}
                   alt="Logo"
                   className="object-cover w-full h-full"
+                  width={400}
+                  height={400}
                 />
                 <div className="font-bold md:text-md text-center md:text-left mt-16 text-gray-500">
                   <span className="border-b-2 border-custom-blue">

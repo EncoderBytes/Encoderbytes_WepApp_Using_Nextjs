@@ -56,10 +56,12 @@ const page = () => {
         </div>
         {/* iamge */}
         <div className="mt-8 bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
-          <img
+          <Image
             src="/backgrounds/Rectangle-30.png"
             alt="Logo"
             className="object-cover w-full h-full"
+            width={400}
+            height={400}
           />
         </div>
       </div>
@@ -69,6 +71,7 @@ const page = () => {
           <p className="font-bold md:text-4xl text-center md:text-left mt-10">
             CAREERS AT <span className="text-custom-blue">ENCODERBYTES.</span>
           </p>
+
           <div class="gap-4 md:gap-0 mt-20 ">
             <div className="flex flex-col md:flex-row">
               <div class="w-full md:w-3/4">
@@ -130,9 +133,7 @@ const page = () => {
                 </div>
               </div>
             </div>
-            <div className="flex justify-start font-bold w-full md:w-3/6 text-sm mt-10 border-b-4 border-dotted border-custom-blue">
-              {/* Content */}
-            </div>
+            <div className="flex justify-start font-bold w-full md:w-3/6 text-sm mt-10 border-b-4 border-dotted border-custom-blue"></div>
 
             <div className="flex flex-col md:pl-5 mt-20 ">
               <span className="text-custom-blue text-2xl font-bold">
@@ -146,8 +147,7 @@ const page = () => {
             </div>
           </div>
 
-          <div className="flex justify-center font-bold  text-custom-blue h-1 bg-black px-96 my-4 mt-20"></div>
-          {/*  */}
+          <div className="flex justify-center font-bold  text-custom-blue h-1 bg-black w-full my-4 mt-20"></div>
 
           <div class="gap-4 md:gap-0 mt-20  ">
             <div className="flex flex-col md:flex-row">
@@ -210,9 +210,7 @@ const page = () => {
                 </div>
               </div>
             </div>
-            <div className="flex justify-start font-bold w-full md:w-3/6 text-sm mt-10 border-b-4 border-dotted border-custom-blue">
-              {/* Content */}
-            </div>
+            <div className="flex justify-start font-bold w-full md:w-3/6 text-sm mt-10 border-b-4 border-dotted border-custom-blue"></div>
 
             <div className="flex   flex-col md:pl-5 mt-20">
               <span className="text-custom-blue text-2xl font-bold">
@@ -226,7 +224,7 @@ const page = () => {
             </div>
           </div>
 
-          <div className="flex justify-center font-bold  text-custom-blue h-1 bg-black px-96 my-4 mt-20 "></div>
+          <div className="flex justify-center font-bold  text-custom-blue h-1 bg-black w-full my-4 mt-20 "></div>
         </div>
       </div>
       <ApplyContactForm />

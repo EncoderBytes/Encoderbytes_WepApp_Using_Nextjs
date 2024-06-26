@@ -11,7 +11,7 @@ const page = () => {
     <div className=" bg-white">
       <Top />
       <div
-        className="max-w-full h-auto flex justify-center items-center mt-12"
+        className="max-w-full h-auto flex justify-center items-center"
         style={{
           backgroundImage:
             "linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/backgrounds/banner-Facebook-Cover-copy.png')",
@@ -69,12 +69,13 @@ const page = () => {
             economic and social benefits for the people.
           </p>
         </div>
-        {/* iamge */}
         <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
-          <img
+          <Image
             src="/backgrounds/unsplash1.png"
             alt="Logo"
             className="object-cover w-full h-full"
+            width={400}
+            height={400}
           />
         </div>
       </div>
@@ -105,8 +106,6 @@ const page = () => {
               </div>
             </div>
           </div>
-
-          {/* second cart */}
           <div className="flex flex-col justify-center mx-auto cardContent bg-white rounded-md">
             <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto">
               <div className="card c1 shadow text-dark rounded-lg">
@@ -116,15 +115,14 @@ const page = () => {
                     <p className="text-wrap card-text box-content mt-3 text-md text-custom-blue">
                       Our team consists of Super programmers. World Class
                       business analysts. Creative designers and problem solvers.
-                      There's hardly a software app development challenge that
-                      our team cannot tackle.
+                      There&apos;s hardly a software app development challenge
+                      that our team cannot tackle.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          {/* 3rd cart */}
           <div className="flex flex-col justify-center mx-auto cardContent bg-white rounded-md">
             <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto">
               <div className="card c1 shadow text-dark rounded-lg">
@@ -152,13 +150,11 @@ const page = () => {
             <span className="text-custom-blue">US?</span>
           </div>
           <p className="w-5/6 mt-11 text-center text-md ">
-            {/* <p className="flex mx-64 sm:w-4/6 mt-11 text-center border-2 border-black"> */}
             To ensure your business growth with timely delivery of your software
             with multiple revision, we are best fit for you
           </p>
         </div>
       </div>
-      {/* carts */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 pb-32 w-5/6 m-auto ">
         {AboutCarts.map((cart) => {
           return (
@@ -172,7 +168,6 @@ const page = () => {
                 </span>
                 <Image src={cart.image1} alt="Logo" width={70} height={60} />
               </div>
-              {/* <div className=""> */}
               <div className="text-2xl md:text-2xl font-bold mt-10">
                 <span className="">{cart.text1} </span>
                 <span className="text-custom-blue">{cart.text2}</span>
@@ -180,7 +175,6 @@ const page = () => {
               <p className="flex justify-center mt-6 text-gray-400 text-md">
                 {cart.description}
               </p>
-              {/* </div> */}
             </div>
           );
         })}
@@ -215,7 +209,7 @@ const page = () => {
           <Link href="#form">
             <div className="">
               <button className="hover:text-custom-blue hover:bg-transparent px-5 my-2 py-4  font-bold rounded-md border-2 bg-custom-blue text-white border-custom-blue">
-                LET'S &nbsp; DISCUSS
+                LET&apos;S &nbsp; DISCUSS
               </button>
             </div>
           </Link>
@@ -252,23 +246,25 @@ const page = () => {
         </div>
       </div>
       {/* section 6th team */}
+
       <div className="w-full min-h-full flex justify-center items-center mt-14">
         <div className="flex justify-center items-center flex-col mt-4">
           <div className="text-md md:text-4xl font-bold">
             MEET OUR
             <span className="text-custom-blue"> TEAM.</span>
           </div>
-          <p className="mx-64 mt-5 text-center w-4/6 text-md">
+          <p className=" mt-5 text-center w-4/6 text-md">
             Our team consists of Super programmers. World Class business
-            analysts. Creative designers and problem solvers. There's hardly a
-            software app development challenge that our team cannot tackle.
+            analysts. Creative designers and problem solvers. There&apos;s
+            hardly a software app development challenge that our team cannot
+            tackle.
           </p>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-4  mt-12  pb-20 w-5/6 m-auto">
         {Teammembers.map((team) => (
-          <div class="px-20 mt-4 md:py-1 md:px-3">
+          <div key={team.image} class="px-20 mt-4 md:py-1 md:px-3">
             <div class="cardtext1 border-2 border-gray-300 rounded-xl shadow-md text-center h-[400px]  py-10 hover:border-2 hover:border-custom-blue ">
               <div class="row">
                 <div class="col-md-12 flex justify-center rounded-full">
@@ -296,7 +292,6 @@ const page = () => {
                   {team.LinkedIn && (
                     <a href={team.LinkedIn} class="px-2 py-1">
                       <svg
-                        // this is svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         class="w-6 h-6 fill-current hover:text-blue-600 text-gray-500"

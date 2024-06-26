@@ -1,13 +1,14 @@
 // Header.js
 "use client";
 import { useState, useEffect } from "react";
-// import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProjectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
+  const [tabOpened, setTabOpened] = useState("Home");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,51 +32,84 @@ const Header = () => {
   const toggleProjectsDropdown = () => {
     setProjectsDropdownOpen(!isProjectsDropdownOpen);
   };
+  const closeProjectsDropdown = () => {
+    setProjectsDropdownOpen(false);
+  };
 
   return (
     <div>
       <nav
-        className={`bg-gray-800 fixed md:top-0 left-0 w-full z-50 h-20 transition-all duration-300  ${
-          isSticky ? "py-2" : "p-2 lg:mt-9 mt-0"
+        className={`bg-gray-800 fixed top-0 md:top-0 left-0 w-full  z-50 h-20 transition-all duration-300 opacity-90 ${
+          isSticky ? "py-2 top-0" : "p-2 lg:mt-9 mt-0 "
         }`}
       >
         <div className="flex justify-between items-center w-5/6 m-auto py-2">
           {/* Left Side: Logo */}
           <div className="flex justify-center items-center">
-            <img src="/logos/logo.png" alt="Logo" className="w-25 h-auto" />
+            <Image
+              src="/logos/logo.png"
+              alt="Logo"
+              className="w-25 h-auto"
+              width={200}
+              height={200}
+            />
           </div>
 
           {/* Center: Navigation Links */}
-          <div className="hidden md:flex flex-grow justify-center text-xl gap-3">
+          <div className="hidden md:flex flex-grow justify-center text-md gap-3">
             <Link
+              onClick={() => {
+                setTabOpened("Home");
+                setProjectsDropdownOpen(!isProjectsDropdownOpen);
+              }}
               href="/"
-              className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
+              // className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
+              className={`mr-4 hover:border-b hover:border-custom-blue ${
+                tabOpened === "Home" ? "text-blue-700" : "text-white"
+              }`}
             >
-              Home
+              HOME
             </Link>
             <Link
+              onClick={() => {
+                setTabOpened("About");
+                setProjectsDropdownOpen(!isProjectsDropdownOpen);
+              }}
               href="/About"
-              className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
+              className={`mr-4 hover:border-b hover:border-custom-blue ${
+                tabOpened === "About" ? "text-blue-700" : "text-white"
+              }`}
+              // className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
             >
-              About
+              ABOUT
             </Link>
             <Link
+              onClick={() => {
+                setTabOpened("Projects");
+                setProjectsDropdownOpen(!isProjectsDropdownOpen);
+              }}
               href="/Projects"
-              className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
+              // className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
+              className={`mr-4 hover:border-b hover:border-custom-blue ${
+                tabOpened === "Projects" ? "text-blue-700" : "text-white"
+              }`}
             >
-              Projects
+              PROJECTS
             </Link>
             <div className="relative">
               <button
                 onClick={toggleProjectsDropdown}
                 className="text-white mr-4 relative"
               >
-                Services
+                SERVICES
                 <span className="ml-1">&#9662;</span>
               </button>
 
               {isProjectsDropdownOpen && (
-                <div className="absolute left-0 mt-5 border rounded-md shadow-lg z-10 bg-custom-blue">
+                <div
+                  className="absolute left-0 mt-5 border rounded-md shadow-lg z-10 bg-custom-blue"
+                  onClick={closeProjectsDropdown}
+                >
                   <div
                     className="p-2 mt-1 fixed left-0 w-full pb-6 h-[400px]"
                     style={{ backgroundColor: "rgba(0,0,0,0.8)" }}
@@ -167,7 +201,7 @@ const Header = () => {
                                 href="/WebApp/#section4"
                                 className="hover:text-custom-blue hover:border-b-2 hover:border-custom-blue"
                               >
-                                WHAT'S IMPORTANT
+                                WHAT&apos;S IMPORTANT
                               </Link>
                             </li>
                             <li>
@@ -263,22 +297,41 @@ const Header = () => {
               )}
             </div>
             <Link
-              href="#"
-              className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
+              href="/Blog"
+              onClick={() => {
+                setTabOpened("Blog");
+                setProjectsDropdownOpen(!isProjectsDropdownOpen);
+              }}
+              className={`mr-4 hover:border-b hover:border-custom-blue ${
+                tabOpened === "Blog" ? "text-blue-700" : "text-white"
+              }`}
             >
-              Blog
+              BLOG
             </Link>
             <Link
               href="/How_we_Work"
-              className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
+              onClick={() => {
+                setTabOpened("How_we_Work");
+                setProjectsDropdownOpen(!isProjectsDropdownOpen);
+              }}
+              className={`mr-4 hover:border-b hover:border-custom-blue ${
+                tabOpened === "How_we_Work" ? "text-blue-700" : "text-white"
+              }`}
             >
-              How We Work
+              HOW WE WORK
             </Link>
             <Link
               href="/Career"
-              className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
+              // className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
+              onClick={() => {
+                setTabOpened("Career");
+                setProjectsDropdownOpen(!isProjectsDropdownOpen);
+              }}
+              className={`mr-4 hover:border-b hover:border-custom-blue ${
+                tabOpened === "Career" ? "text-blue-700" : "text-white"
+              }`}
             >
-              Career
+              CAREER
             </Link>
           </div>
 
@@ -323,36 +376,48 @@ const Header = () => {
           <Link
             href="/"
             className="block text-white py-2 px-4 hover:bg-gray-700 hover:border-b hover:border-custom-blue"
+            onClick={() => {
+              setMobileMenuOpen(!isMobileMenuOpen);
+            }}
           >
-            Home
+            HOME
           </Link>
           <Link
             href="/About"
             className="block text-white py-2 px-4 hover:bg-gray-700 hover:border-b hover:border-custom-blue"
+            onClick={() => {
+              setMobileMenuOpen(!isMobileMenuOpen);
+            }}
           >
-            About
+            ABOUT
           </Link>
           <Link
             href="/Projects"
             className="block text-white py-2 px-4 hover:bg-gray-700 hover:border-b hover:border-custom-blue"
+            onClick={() => {
+              setMobileMenuOpen(!isMobileMenuOpen);
+            }}
           >
-            Projects
+            PROJECTS
           </Link>
           <div className="relative">
             <button
               onClick={toggleProjectsDropdown}
               className="text-white mr-4 relative"
             >
-              Services
+              SERVICES
               <span className="ml-1">&#9662;</span>
             </button>
 
             {isProjectsDropdownOpen && (
-              <div className="absolute left-0 mt-5 w-full border rounded-md shadow-lg z-10 bg-custom-blue">
-                <div
-                  className="p-2 mt-1 w-full pb-6"
-                  style={{ backgroundColor: "rgba(0,0,0,0.8)" }}
-                >
+              <div
+                className="absolute left-0 mt-5 w-full border rounded-md shadow-lg z-10 bg-custom-blue"
+                onClick={() => {
+                  closeProjectsDropdown();
+                  setMobileMenuOpen(!isMobileMenuOpen);
+                }}
+              >
+                <div className="p-2 mt-1 w-full pb-6 bg-black bg-opacity-80 md:max-h-none md:overflow-visible max-h-96 overflow-y-auto">
                   <div className="flex w-4/6 m-auto mt-10 text-2xl font-bold text-white">
                     <span className="border-b-2 border-custom-blue">
                       SERVICES WE
@@ -428,7 +493,7 @@ const Header = () => {
                               href="/WebApp/#section4"
                               className="hover:text-custom-blue hover:border-b-2 hover:border-custom-blue"
                             >
-                              WHAT'S IMPORTANT
+                              WHAT&apos;S IMPORTANT
                             </Link>
                           </li>
                           <li>
@@ -516,20 +581,29 @@ const Header = () => {
           <Link
             href="#"
             className="block text-white py-2 px-4 hover:bg-gray-700 hover:border-b hover:border-custom-blue"
+            onClick={() => {
+              setMobileMenuOpen(!isMobileMenuOpen);
+            }}
           >
-            Blog
+            BLOG
           </Link>
           <Link
             href="/How_we_Work"
             className="block text-white py-2 px-4 hover:bg-gray-700 hover:border-b hover:border-custom-blue"
+            onClick={() => {
+              setMobileMenuOpen(!isMobileMenuOpen);
+            }}
           >
-            How We Work
+            HOW WE WORK
           </Link>
           <Link
             href="/Career"
             className="block text-white py-2 px-4 hover:bg-gray-700 hover:border-b hover:border-custom-blue"
+            onClick={() => {
+              setMobileMenuOpen(!isMobileMenuOpen);
+            }}
           >
-            Career
+            CAREER
           </Link>
           <Link href="#form">
             <button className="bg-blue-500 hover:bg-custom-blue text-white font-semibold py-2 px-4 rounded-md shadow-md w-full text-left">

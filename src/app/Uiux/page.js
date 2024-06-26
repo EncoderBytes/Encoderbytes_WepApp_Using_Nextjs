@@ -72,10 +72,12 @@ const Ai = () => {
         </div>
         {/* iamge */}
         <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
-          <img
+          <Image
             src="/backgrounds/Rectangle29.png"
             alt="Logo"
             className="object-cover w-full h-full"
+            width={400}
+            height={400}
           />
         </div>
       </div>
@@ -294,8 +296,17 @@ const Ai = () => {
           <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 mt-20 pb-20 w-5/6">
             {Uiuxappslogo.map((items) => {
               return (
-                <div className="border-2 border-gray-400 p-14 text-center flex flex-col gap-9 justify-between items-center rounded-xl ">
-                  <img src={items.image} className="rounded-lg" />
+                <div
+                  key={items.image}
+                  className="border-2 border-gray-400 p-14 text-center flex flex-col gap-9 justify-between items-center rounded-xl "
+                >
+                  <Image
+                    src={items.image}
+                    className="rounded-lg"
+                    alt="image"
+                    width={200}
+                    height={200}
+                  />
                   <span className="font-bold">{items.name}</span>
                 </div>
               );

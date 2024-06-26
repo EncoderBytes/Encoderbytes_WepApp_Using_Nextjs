@@ -64,10 +64,12 @@ const Ai = () => {
         </div>
         {/* iamge */}
         <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
-          <img
+          <Image
             src="/backgrounds/Rectangle29.png"
             alt="Logo"
             className="object-cover w-full h-full"
+            width={400}
+            height={400}
           />
         </div>
       </div>
@@ -201,7 +203,7 @@ const Ai = () => {
               <p className="mt-6 text-xl text-gray-400">
                 To save your time and manage your software smoothly, we offer a
                 complete range of white label softwares including cloud hosting
-                and management for your SAAS platform. So you don't need to
+                and management for your SAAS platform. So you don&apos;t need to
                 invest in expensive server hardware or hosting skills.
               </p>
             </div>
@@ -259,7 +261,7 @@ const Ai = () => {
           <Link href="#form">
             <div className="">
               <button className="hover:text-custom-blue hover:bg-transparent px-5 my-2 py-4  font-bold rounded-md border-2 bg-custom-blue text-white border-custom-blue">
-                LET'S &nbsp; DISCUSS
+                LET&apos;S &nbsp; DISCUSS
               </button>
             </div>
           </Link>
@@ -284,8 +286,17 @@ const Ai = () => {
           <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 mt-20 pb-20 w-5/6">
             {Aiappslogo.map((items) => {
               return (
-                <div className="border-2 border-gray-400 p-8 text-center flex flex-col gap-20  justify-between items-center rounded-lg ">
-                  <img src={items.image} className="rounded-lg" />
+                <div
+                  key={items.image}
+                  className="border-2 border-gray-400 p-8 text-center flex flex-col gap-20  justify-between items-center rounded-lg "
+                >
+                  <Image
+                    src={items.image}
+                    className="rounded-lg"
+                    alt="image"
+                    width={200}
+                    height={200}
+                  />
                   <span className="font-bold text-xl">{items.name}</span>
                 </div>
               );
@@ -309,10 +320,12 @@ const Ai = () => {
           style={{ backgroundColor: "rgb(164,189,247)" }}
         >
           <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
-            <img
+            <Image
               src="/backgrounds/app2.png"
               alt="Logo"
               className="object-cover w-full h-full"
+              width={400}
+              height={400}
             />
           </div>
           <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
@@ -358,19 +371,23 @@ const Ai = () => {
 
           {/* iamge */}
           <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
-            <img
+            <Image
               src="/backgrounds/app3.png"
               alt="Logo"
               className="object-cover w-full h-full"
+              width={400}
+              height={400}
             />
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-20 gap-y-8 md:gap-x-8 bg-blue-300 md:w-5/6 m-auto p-14 rounded-xl">
           <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
-            <img
+            <Image
               src="/backgrounds/app1.png"
               alt="Logo"
               className="object-cover w-full h-full"
+              width={400}
+              height={400}
             />
           </div>
           <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
