@@ -1,9 +1,30 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Top from "../Utils/Top";
 import Image from "next/image";
-import { projects } from "../components/carts";
+// import { projects } from "../components/carts";
 import Contactform from "../Utils/Contactform";
+import { ProjectsCount } from "../AdminDashboard/components/ShowApidatas/ShowUserAPiDatas";
+
 const page = () => {
+  const [Projects, setProjects] = useState([]);
+  // const [category, setCategory] = useState("All");
+  const [getitem, setgetitem] = useState(null);
+  useEffect(() => {
+    getProjects();
+  }, []);
+  const getProjects = async () => {
+    try {
+      const { admins } = await ProjectsCount();
+      setProjects(admins);
+    } catch (error) {
+      console.log(`Failed to fetch team: ${error}`);
+    }
+  };
+
+  const handleButtonClick = (buttonValue) => {
+    setgetitem(buttonValue);
+  };
   return (
     <div className="bg-white">
       <Top />
@@ -38,25 +59,55 @@ const page = () => {
 
       {/* <div className=""> */}
 
-      <div className="mt-32 md:mt-32 w-full  bg-gray-200 p-5 md:w-4/6 md:m-auto rounded-md font-bold h-auto ">
+      <div className="mt-32 md:mt-32 w-full bg-gray-200 p-5 md:w-4/6 md:m-auto rounded-md font-bold h-auto ">
         {" "}
         <ul className="flex gap-2 md:gap-5 justify-center h-auto  ">
-          <li className="hover:text-custom-blue text-gray-400 cursor-pointer text-sm md:text-md">
+          <li
+            className="hover:text-custom-blue text-gray-400 cursor-pointer text-sm md:text-md"
+            onClick={() => {
+              handleButtonClick("All");
+            }}
+          >
             ALL
           </li>
-          <li className="hover:text-custom-blue cursor-pointer text-gray-400 text-sm md:text-md">
+          <li
+            className="hover:text-custom-blue cursor-pointer text-gray-400 text-sm md:text-md"
+            onClick={() => {
+              handleButtonClick("mobileapplication");
+            }}
+          >
             MOBILE APP
           </li>
-          <li className="hover:text-custom-blue cursor-pointer text-sm text-gray-400 md:text-md">
+          <li
+            className="hover:text-custom-blue cursor-pointer text-sm text-gray-400 md:text-md"
+            onClick={() => {
+              handleButtonClick("webapplication");
+            }}
+          >
             WEB APP
           </li>
-          <li className="hover:text-custom-blue cursor-pointer text-sm md:text-md text-gray-400">
+          <li
+            className="hover:text-custom-blue cursor-pointer text-sm md:text-md text-gray-400"
+            onClick={() => {
+              handleButtonClick("artificialintelligence");
+            }}
+          >
             ARTIFICIAL INTELLIGENCE
           </li>
-          <li className="hover:text-custom-blue cursor-pointer text-sm md:text-md text-gray-400">
+          <li
+            className="hover:text-custom-blue cursor-pointer text-sm md:text-md text-gray-400"
+            onClick={() => {
+              handleButtonClick("blockchain");
+            }}
+          >
             BLOCK CHIAN
           </li>
-          <li className="hover:text-custom-blue cursor-pointer text-sm md:text-md text-gray-400">
+          <li
+            className="hover:text-custom-blue cursor-pointer text-sm md:text-md text-gray-400"
+            onClick={() => {
+              handleButtonClick("uiux");
+            }}
+          >
             UI/UX DESIGNING
           </li>
         </ul>
@@ -65,50 +116,109 @@ const page = () => {
 
       {/* cards */}
       <div className="grid grid-cols-1 sm:w-5/6 md:grid-cols-2 justify-center  gap-10 mt-28 w-4/6 m-auto">
-        {projects.map((project) => (
-          <div
-            key={project.id}
-            className=" rounded-xl overflow-hidden shadow-lg w-6/6 p-5 bg-blue-100"
-          >
-            <Image
-              className="w-full"
-              src={project.image}
-              alt="Image"
-              width={200}
-              height={200}
-            />
-            <div className="px-6 py-4">
-              <div className="font-semibold text-sm text-gray-600 mb-4">
-                <span className="text-2xl font-black border-b-4 border-custom-blue">
-                  {project.text1}
-                </span>
-                <span className="text-2xl font-black">
-                  {"  " + project.text2}
-                </span>
+        {Projects.map((project) => {
+          let searchproject = project.ProjectCategory.trim().replace(
+            /\s+/g,
+            ""
+          );
+          let LowerCase = searchproject.toLowerCase();
+          console.log(LowerCase, getitem);
+          if (LowerCase === getitem) {
+            return (
+              <div
+                key={project.id}
+                className=" rounded-xl overflow-hidden shadow-lg w-6/6 p-5 bg-blue-100"
+              >
+                <Image
+                  className="w-full"
+                  src={`/uploads/${project.Image}`}
+                  alt="Image"
+                  width={200}
+                  height={200}
+                />
+                <div className="px-6 py-4">
+                  <div className="font-semibold text-sm text-gray-600 mb-4">
+                    <span className="text-2xl font-black border-b-4 border-custom-blue">
+                      {project.ProjectCategory.split(" ")[0]}
+                    </span>
+                    <span className="text-2xl font-black pl-2">
+                      {project.ProjectCategory.split(" ")[1]}
+                    </span>
+                  </div>
+                  <div className="font-bold text-md mb-2">
+                    <span className="text-2xl font-bold ">
+                      {project.ProjectName.split(" ")[0]}
+                    </span>
+                    <span className="text-2xl font-bold  text-custom-blue pl-2">
+                      {project.ProjectName.split(" ")[1]}
+                    </span>
+                  </div>
+                  <p className="text-md text-gray-400 mt-5 w-11/12">
+                    {project.ProjectDescription}
+                  </p>
+                  <div className="mt-10">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <button className="bg-custom-blue hover:bg-transparent hover:border-2 hover:border-custom-blue hover:text-custom-blue text-white font-bold p-3 rounded">
+                        READ CASE STUDY
+                      </button>
+                    </a>
+                  </div>
+                </div>
               </div>
-              <div className="font-bold text-md mb-2">
-                <span className="text-2xl font-bold ">{project.title1}</span>
-                <span className="text-2xl font-bold  text-custom-blue">
-                  {"  " + project.title2}
-                </span>
+            );
+          } else if (!getitem || getitem === "All") {
+            return (
+              <div
+                key={project.id}
+                className=" rounded-xl overflow-hidden shadow-lg w-6/6 p-5 bg-blue-100"
+              >
+                <Image
+                  className="w-full"
+                  src={`/uploads/${project.Image}`}
+                  alt="Image"
+                  width={200}
+                  height={200}
+                />
+                <div className="px-6 py-4">
+                  <div className="font-semibold text-sm text-gray-600 mb-4">
+                    <span className="text-2xl font-black border-b-4 border-custom-blue">
+                      {project.ProjectCategory.split(" ")[0]}
+                    </span>
+                    <span className="text-2xl font-black pl-2">
+                      {project.ProjectCategory.split(" ")[1]}
+                    </span>
+                  </div>
+                  <div className="font-bold text-md mb-2">
+                    <span className="text-2xl font-bold ">
+                      {project.ProjectName.split(" ")[0]}
+                    </span>
+                    <span className="text-2xl font-bold  text-custom-blue pl-2">
+                      {project.ProjectName.split(" ")[1]}
+                    </span>
+                  </div>
+                  <p className="text-md text-gray-400 mt-5 w-11/12">
+                    {project.ProjectDescription}
+                  </p>
+                  <div className="mt-10">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <button className="bg-custom-blue hover:bg-transparent hover:border-2 hover:border-custom-blue hover:text-custom-blue text-white font-bold p-3 rounded">
+                        READ CASE STUDY
+                      </button>
+                    </a>
+                  </div>
+                </div>
               </div>
-              <p className="text-md text-gray-400 mt-5 w-11/12">
-                {project.description}
-              </p>
-              <div className="mt-10">
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <button className="bg-custom-blue hover:bg-transparent hover:border-2 hover:border-custom-blue hover:text-custom-blue text-white font-bold p-3 rounded">
-                    READ CASE STUDY
-                  </button>
-                </a>
-              </div>
-            </div>
-          </div>
-        ))}
+            );
+          }
+        })}
       </div>
       <Contactform />
     </div>

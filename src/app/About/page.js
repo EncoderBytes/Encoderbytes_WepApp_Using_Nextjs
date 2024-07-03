@@ -1,12 +1,27 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Top from "../Utils/Top";
-import { AboutCarts, Teammembers } from "../components/carts";
+import { AboutCarts } from "../components/carts";
 import Contactform from "../Utils/Contactform";
 import Link from "next/link";
 import { FaGithubSquare } from "react-icons/fa";
+import { TeamCount } from "../AdminDashboard/components/ShowApidatas/ShowUserAPiDatas";
 
 const page = () => {
+  const [employees, setemployees] = useState([]);
+
+  useEffect(() => {
+    getTeam();
+  }, []);
+  const getTeam = async () => {
+    try {
+      const { admins } = await TeamCount();
+      setemployees(admins);
+    } catch (error) {
+      console.log(`Failed to fetch team: ${error}`);
+    }
+  };
   return (
     <div className=" bg-white">
       <Top />
@@ -263,13 +278,13 @@ const page = () => {
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-4  mt-12  pb-20 w-5/6 m-auto">
-        {Teammembers.map((team) => (
+        {employees.map((team) => (
           <div key={team.image} class="px-20 mt-4 md:py-1 md:px-3">
             <div class="cardtext1 border-2 border-gray-300 rounded-xl shadow-md text-center h-[400px]  py-10 hover:border-2 hover:border-custom-blue ">
               <div class="row">
                 <div class="col-md-12 flex justify-center rounded-full">
                   <Image
-                    src={team.image}
+                    src={`/uploads/${team.image}`}
                     className="img-fluid  rounded-full  filter grayscale hover:filter-none transition duration-300"
                     alt="Logo"
                     width={170}
@@ -281,10 +296,13 @@ const page = () => {
 
               <h1 class="py-3 px-4 mt-2">
                 <span class="font-bold text-custom-blue text-xl">
-                  {team.name}
+                  {team.username}
                 </span>
                 <p class="text-xs card-text box-content text-gray-400">
-                  {team.status}
+                  {team.email}
+                </p>
+                <p class="text-xs card-text box-content text-gray-400">
+                  {team.designation}
                 </p>
               </h1>
               <div class="social-icons mt-10 pb-10 ">

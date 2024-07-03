@@ -1,5 +1,5 @@
 const { connect } = require("@/app/config/db");
-const { default: Project } = require("@/app/models/ProjectModel");
+const { default: BlogModel } = require("@/app/models/BlogModel");
 const { NextResponse } = require("next/server");
 import { unlink, writeFile } from "fs/promises";
 import path from "path";
@@ -13,14 +13,14 @@ export const config = {
 // Delete team member
 export async function DELETE(request, context) {
   try {
-    const id = context.params.projectID;
+    const id = context.params.blogID;
     console.log(id);
 
     // Connect to the database
     await connect();
 
     // Find the user by ID
-    const Find_Project = await Project.findById(id);
+    const Find_Project = await BlogModel.findById(id);
 
     // Check if the user exists
     if (!Find_Project) {
@@ -29,15 +29,15 @@ export async function DELETE(request, context) {
 
     // Get the image file path
     // const filePath = `./public/uploads/${file.name}`;
-    const imagePath = path.join("./public/uploads/", Find_Project.Image);
+    const imagePath = path.join("./public/uploads/", Find_Project.image);
     console.log(imagePath);
     // return;
 
     // Delete the user from the database
-    const _deletedProject = await Project.findByIdAndDelete(id);
-
+    const _deletedblog = await BlogModel.findByIdAndDelete(id);
+    console.log(_deletedblog);
     // Check if the user was found and deleted
-    if (!_deletedProject) {
+    if (!_deletedblog) {
       return NextResponse.json({
         message: "Project not found",
         status: 404,
@@ -67,9 +67,9 @@ export async function DELETE(request, context) {
 export async function GET(request, context) {
   try {
     await connect();
-    const id = context.params.projectID;
+    const id = context.params.blogID;
     console.log(id);
-    const Find_project = await Project.findById(id);
+    const Find_project = await BlogModel.findById(id);
     if (!Find_project) {
       return NextResponse.json({ result: "No Request Availible" });
     } else {
@@ -85,11 +85,11 @@ export async function GET(request, context) {
 export async function PUT(request, context) {
   try {
     await connect();
-    const id = context.params.projectID;
+    const id = context.params.blogID;
     console.log(id);
     const data = await request.formData();
 
-    const file = data.get("Image");
+    const file = data.get("image");
     let filename = null;
     let buffer = null;
 
@@ -109,30 +109,30 @@ export async function PUT(request, context) {
       formDataObject[key] = value;
     }
 
-    const { ProjectName, ProjectCategory, ProjectDescription } = formDataObject;
-    console.log(ProjectName, ProjectCategory, ProjectDescription);
+    const { blogtitle, author, datetime, description } = formDataObject;
+    console.log(blogtitle, author, datetime, description);
 
     // Check if the user exists
-    const project = await Project.findById(id);
-    if (!project) {
+    const blog = await BlogModel.findById(id);
+    if (!blog) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     // Update the user details
-    project.ProjectName = ProjectName || project.ProjectName;
-    project.ProjectCategory = ProjectCategory || project.ProjectCategory;
-    project.ProjectDescription =
-      ProjectDescription || project.ProjectDescription;
+    blog.blogtitle = blogtitle || blog.blogtitle;
+    blog.author = author || blog.author;
+    blog.datetime = datetime || blog.datetime;
+    blog.description = description || blog.description;
 
     if (filename) {
-      project.Image = filename;
+      blog.image = filename;
     }
 
-    await project.save();
+    await blog.save();
 
     return NextResponse.json({
-      message: "team member record updated successfully",
-      project,
+      message: "Record updated successfully",
+      blog,
     });
   } catch (error) {
     console.error("Error Updating User:", error);

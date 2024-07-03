@@ -33,6 +33,8 @@ const AddNewMemModal = ({ isclose }) => {
     UserName: "",
     Email: "",
     Designation: "",
+    LinkedIn: "",
+    Github: "",
     file: null,
   });
 
@@ -58,6 +60,8 @@ const AddNewMemModal = ({ isclose }) => {
       formDataToSend.append("username", formData.UserName);
       formDataToSend.append("email", formData.Email);
       formDataToSend.append("designation", formData.Designation);
+      formDataToSend.append("LinkedIn", formData.LinkedIn);
+      formDataToSend.append("Github", formData.Github);
       if (formData.file) {
         formDataToSend.append("image", formData.file);
       }
@@ -69,6 +73,7 @@ const AddNewMemModal = ({ isclose }) => {
           response.data.message || "Failed to create team member"
         );
       } else {
+        getteams();
         isclose(); // Close the popup window
         toast.success("Team member created successfully!");
       }
@@ -131,6 +136,9 @@ const AddNewMemModal = ({ isclose }) => {
               value={formData.Email}
               onChange={handleInputChange}
             />
+            <p className="text-sm text-red-500 font-bold">
+              Email must be unique
+            </p>
           </div>
           <div>
             <label htmlFor="Designation" className="text-gray-950">
@@ -156,6 +164,34 @@ const AddNewMemModal = ({ isclose }) => {
                 class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
               />
             </label>
+          </div>
+          <div>
+            <label htmlFor="LinkedIn" className="text-gray-950">
+              LinkedIn Link:
+            </label>
+            <br />
+            <input
+              type="text"
+              id="LinkedIn"
+              name="LinkedIn"
+              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+              value={formData.LinkedIn}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="Github" className="text-gray-950">
+              Github Link:
+            </label>
+            <br />
+            <input
+              type="text"
+              id="Github"
+              name="Github"
+              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+              value={formData.Github}
+              onChange={handleInputChange}
+            />
           </div>
         </section>
 

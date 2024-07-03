@@ -24,6 +24,14 @@ const teamSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  LinkedIn: {
+    type: String,
+    trim: true,
+  },
+  Github: {
+    type: String,
+    trim: true,
+  },
 });
 
 // Create a model from the schema

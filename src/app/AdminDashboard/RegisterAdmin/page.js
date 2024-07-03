@@ -87,7 +87,7 @@ const AdminTable = () => {
               Add New Admin
             </button>
           </div>
-          <div className="overflow-x-auto h-[300px]">
+          <div className="overflow-x-auto h-[500px]">
             <input
               type="text"
               placeholder="Search by username"
@@ -177,17 +177,21 @@ const AdminTable = () => {
               </tbody>
             </table>
           </div>
-          {showModal && <Modal isclose={() => setShowModal(false)} />}
+          {showModal && (
+            <Modal isclose={() => setShowModal(false)} getadmins={getAdmin} />
+          )}
           {showUpdateModel && (
             <UpdateAdminModal
               isclose={() => setUpdateModel(false)}
               adminId={selectedAdminId}
+              getadmins={getAdmin}
             />
           )}
           {adminVerifyModel && (
             <VarifyModal
               isclose={() => setVerifyModel(false)}
               adminverifyId={selectedVerifyAdminId}
+              getadmins={getAdmin}
             />
           )}
         </div>

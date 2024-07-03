@@ -77,7 +77,7 @@ const ProjectTable = () => {
               Add New Project
             </button>
           </div>
-          <div className="overflow-x-auto h-[300px]">
+          <div className="overflow-x-auto h-[500px]">
             <input
               type="text"
               placeholder="Search by Project Name"
@@ -116,7 +116,7 @@ const ProjectTable = () => {
                         <td className="px-4 py-2">{pro.ProjectName}</td>
                         <td className="px-4 py-2">{pro.ProjectCategory}</td>
                         <td className="px-4 py-2">
-                          <div className="overflow-y-auto max-h-[4rem] leading-[1.2rem]">
+                          <div className="overflow-y-scroll no-scrollbar max-h-[4rem] leading-[1.2rem]">
                             {pro.ProjectDescription}
                           </div>
                         </td>
@@ -155,11 +155,17 @@ const ProjectTable = () => {
               </tbody>
             </table>
           </div>
-          {showmodal && <AddNewProModal isclose={() => setShowModal(false)} />}
+          {showmodal && (
+            <AddNewProModal
+              isclose={() => setShowModal(false)}
+              getallprojects={fetchProjects}
+            />
+          )}
           {showProjectModel && (
             <UpdateProjectModal
               isclose={() => setShowProjectModel(false)}
               proId={selectedProId}
+              getallprojects={fetchProjects}
             />
           )}
         </div>

@@ -1,10 +1,10 @@
-// export default Modal;
-import React, { useRef, useEffect, useState, useCallback } from "react";
+"use client";
 import axios from "axios";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Modal = ({ isclose, getadmins }) => {
+const AddNewBlogModal = ({ isclose, reload }) => {
   const modalRef = useRef();
 
   const handleClose = (e) => {
@@ -30,11 +30,11 @@ const Modal = ({ isclose, getadmins }) => {
   }, [handleKeyDown]);
 
   const [formData, setFormData] = useState({
-    UserName: "",
-    Email: "",
-    Password: "",
-    ConformPassword: "",
-    file: null,
+    blogtitle: "",
+    author: "",
+    datetime: "",
+    description: "",
+    image: null,
   });
 
   const handleInputChange = (e) => {
@@ -49,35 +49,44 @@ const Modal = ({ isclose, getadmins }) => {
     const file = e.target.files[0];
     setFormData((prevData) => ({
       ...prevData,
-      file: file || null,
+      image: file || null,
     }));
   };
 
   const sendMessage = async () => {
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append("username", formData.UserName);
-      formDataToSend.append("email", formData.Email);
-      formDataToSend.append("password", formData.Password);
-      formDataToSend.append("confirmpassword", formData.ConformPassword);
-      if (formData.file) {
-        formDataToSend.append("Image", formData.file);
+      formDataToSend.append("blogtitle", formData.blogtitle);
+      formDataToSend.append("author", formData.author);
+      formDataToSend.append("datetime", formData.datetime);
+      formDataToSend.append("description", formData.description);
+      if (formData.image) {
+        formDataToSend.append("image", formData.image);
       }
 
-      const response = await axios.post("/api/Users/singup", formDataToSend);
+      console.log(
+        formData.blogtitle,
+        formData.author,
+        formData.datetime,
+        formData.description,
+        formData.image
+      );
+
+      const response = await axios.post("/api/Blog", formDataToSend);
 
       if (!response.data.success) {
-        throw new Error(response.data.message || "Failed to create admin");
+        throw new Error(
+          response.data.message || "Failed to create team member"
+        );
       } else {
-        getadmins();
+        reload();
         isclose(); // Close the popup window
-        toast.success("Admin created successfully!");
+        toast.success("Project created successfully!");
       }
     } catch (error) {
       toast.error(error.message || "Failed to create admin");
     }
   };
-
   return (
     <div
       ref={modalRef}
@@ -101,86 +110,87 @@ const Modal = ({ isclose, getadmins }) => {
             />
           </svg>
         </button>
-        <h2 className="text-xl font-semibold text-gray-950">Add New Admin</h2>
+        <h2 className="text-xl font-semibold text-gray-950">Add New Blog</h2>
         <section className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="UserName" className="text-gray-950">
-              UserName :
+            <label htmlFor="blogtitle" className="text-gray-950">
+              Blog Title :
             </label>
             <br />
             <input
               type="text"
-              id="UserName"
-              name="UserName"
+              id="blogtitle"
+              name="blogtitle"
               className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
-              value={formData.UserName}
+              value={formData.blogtitle}
               onChange={handleInputChange}
             />
           </div>
           <div>
-            <label htmlFor="Email" className="text-gray-950">
-              Email :
+            <label htmlFor="author" className="text-gray-950">
+              Author Name :
             </label>
             <br />
             <input
-              type="email"
-              id="Email"
-              name="Email"
+              type="text"
+              id="author"
+              name="author"
               className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
-              value={formData.Email}
+              value={formData.author}
               onChange={handleInputChange}
             />
           </div>
           <div>
-            <label htmlFor="Password" className="text-gray-950">
-              Password :
+            <label htmlFor="datetime" className="text-gray-950">
+              Date And Time :
             </label>
             <br />
             <input
-              type="password"
-              id="Password"
-              name="Password"
+              type="date" // Use datetime-local for date and time input
+              id="date"
+              name="datetime"
               className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
-              value={formData.Password}
+              value={formData.datetime} // Assuming formData.datetime is correctly formatted
               onChange={handleInputChange}
             />
           </div>
-          <div>
-            <label htmlFor="ConformPassword" className="text-gray-950">
-              ConformPassword :
+
+          <div class="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black">
+            <label class="block">
+              <span className="text-gray-950">Upload file</span>
+              <input
+                onChange={handleFileChange}
+                name="image"
+                type="file"
+                class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              />
             </label>
-            <br />
-            <input
-              type="password"
-              id="ConformPassword"
-              name="ConformPassword"
-              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
-              value={formData.ConformPassword}
-              onChange={handleInputChange}
-            />
           </div>
         </section>
-        <div className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black">
-          <label className="block" htmlFor="file">
-            <span className="text-gray-950">Upload file</span>
-            <input
-              onChange={handleFileChange}
-              type="file"
-              id="file"
-              className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-            />
+        <div>
+          <label htmlFor="description" className="text-gray-950">
+            Discription :
           </label>
+          <br />
+          <textarea
+            type="text"
+            id="description"
+            name="description"
+            className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+            value={formData.description}
+            onChange={handleInputChange}
+          />
         </div>
 
         <button
           className="border-2 bg-white text-black p-2 rounded-md hover:shadow-md hover:shadow-cyan-400"
           onClick={sendMessage}
         >
-          Create Admin
+          Add New Blog
         </button>
       </div>
     </div>
   );
 };
 
-export default Modal;
+export default AddNewBlogModal;

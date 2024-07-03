@@ -47,7 +47,7 @@ const CandidateTable = () => {
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Candidates</h2>
           </div>
-          <div className="overflow-x-auto h-[300px] ">
+          <div className="overflow-x-auto h-[500px] ">
             <table className="min-w-full">
               <thead className="bg-gray-200">
                 <tr>

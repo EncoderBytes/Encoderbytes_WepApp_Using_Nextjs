@@ -60,7 +60,7 @@ const Header = () => {
             <Link
               onClick={() => {
                 setTabOpened("Home");
-                setProjectsDropdownOpen(!isProjectsDropdownOpen);
+                setProjectsDropdownOpen(false);
               }}
               href="/"
               // className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
@@ -73,7 +73,7 @@ const Header = () => {
             <Link
               onClick={() => {
                 setTabOpened("About");
-                setProjectsDropdownOpen(!isProjectsDropdownOpen);
+                setProjectsDropdownOpen(false);
               }}
               href="/About"
               className={`mr-4 hover:border-b hover:border-custom-blue ${
@@ -86,7 +86,7 @@ const Header = () => {
             <Link
               onClick={() => {
                 setTabOpened("Projects");
-                setProjectsDropdownOpen(!isProjectsDropdownOpen);
+                setProjectsDropdownOpen(false);
               }}
               href="/Projects"
               // className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
@@ -300,7 +300,7 @@ const Header = () => {
               href="/Blog"
               onClick={() => {
                 setTabOpened("Blog");
-                setProjectsDropdownOpen(!isProjectsDropdownOpen);
+                setProjectsDropdownOpen(false);
               }}
               className={`mr-4 hover:border-b hover:border-custom-blue ${
                 tabOpened === "Blog" ? "text-blue-700" : "text-white"
@@ -312,7 +312,7 @@ const Header = () => {
               href="/How_we_Work"
               onClick={() => {
                 setTabOpened("How_we_Work");
-                setProjectsDropdownOpen(!isProjectsDropdownOpen);
+                setProjectsDropdownOpen(false);
               }}
               className={`mr-4 hover:border-b hover:border-custom-blue ${
                 tabOpened === "How_we_Work" ? "text-blue-700" : "text-white"
@@ -325,7 +325,7 @@ const Header = () => {
               // className="text-white mr-4 hover:text-gray-300 hover:border-b hover:border-custom-blue"
               onClick={() => {
                 setTabOpened("Career");
-                setProjectsDropdownOpen(!isProjectsDropdownOpen);
+                setProjectsDropdownOpen(false);
               }}
               className={`mr-4 hover:border-b hover:border-custom-blue ${
                 tabOpened === "Career" ? "text-blue-700" : "text-white"

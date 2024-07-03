@@ -11,7 +11,7 @@ const vacancySchema = new mongoose.Schema({
   Requireds: {
     type: String,
     required: true,
-    trim: true,
+    // trim: true,
   },
   Experience: {
     type: String,

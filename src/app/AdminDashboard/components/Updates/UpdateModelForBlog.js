@@ -1,18 +1,14 @@
+"use client";
 import axios from "axios";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_URL_Blog } from "../ShowApidatas/apiUrls";
 
-const UpdateTeamModal = ({ isclose, teamId, getteams }) => {
-  console.log(teamId);
-  const [imagePreview, setImagePreview] = useState("");
-  const [formData, setFormData] = useState({
-    UserName: "",
-    Email: "",
-    Designation: "",
-    Image: "",
-  });
+const UpdateBlogModal = ({ isclose, reload, proId }) => {
+  console.log(proId);
   const modalRef = useRef();
+  const [imagePreview, setImagePreview] = useState("");
 
   const handleClose = (e) => {
     if (modalRef.current === e.target) {
@@ -36,36 +32,50 @@ const UpdateTeamModal = ({ isclose, teamId, getteams }) => {
     };
   }, [handleKeyDown]);
 
+  const [formData, setFormData] = useState({
+    blogtitle: "",
+    author: "",
+    datetime: "",
+    description: "",
+    image: null,
+  });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
 
   const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      Image: e.target.files[0],
-    });
+    const file = e.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      image: file || null,
+    }));
   };
-  const API_URL = "/api/Team";
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
   const showalladmins = () => {
     axios
-      .get(`${API_URL}/${teamId}`)
+      .get(`${API_URL_Blog}/${proId}`)
       .then((res) => {
-        const teamData = res.data.Result;
-        console.log(teamData);
+        const adminData = res.data.Result;
         setFormData({
-          UserName: teamData.username,
-          Email: teamData.email,
-          Designation: teamData.designation,
-          Image: teamData.image,
+          blogtitle: adminData.blogtitle,
+          author: adminData.author,
+          datetime: formatDate(adminData.datetime),
+          description: adminData.description,
+          image: adminData.image,
         });
-        setImagePreview(teamData.image);
+        setImagePreview(adminData.image);
       })
-
       .catch((error) => {
         console.log(`error : ${error}`);
       });
@@ -73,54 +83,56 @@ const UpdateTeamModal = ({ isclose, teamId, getteams }) => {
   useEffect(() => {
     showalladmins();
   }, []);
-
-  const UpdateTeam = async () => {
-    // Assuming formData is an object containing SenderEmail and SenderMessage properties
-    const formDataToSend = new FormData();
-    formDataToSend.append("username", formData.UserName);
-    formDataToSend.append("email", formData.Email);
-    formDataToSend.append("designation", formData.Designation);
-    if (formData.Image) {
-      formDataToSend.append(
-        "image",
-        formData.Image ? formData.Image : imagePreview
-      );
-    }
-
-    console.log(
-      formData.UserName,
-      formData.Email,
-      formData.Designation,
-      formData.Image
-    );
+  const sendMessage = async () => {
     try {
-      const response = await axios.put(`${API_URL}/${teamId}`, formDataToSend, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const formDataToSend = new FormData();
+      formDataToSend.append("blogtitle", formData.blogtitle);
+      formDataToSend.append("author", formData.author);
+      formDataToSend.append("datetime", formData.datetime);
+      formDataToSend.append("description", formData.description);
+      if (formData.image) {
+        formDataToSend.append(
+          "image",
+          formData.image ? formData.image : imagePreview
+        );
+      }
+
+      console.log(
+        formData.blogtitle,
+        formData.author,
+        formData.datetime,
+        formData.description,
+        formData.image
+      );
+
+      const response = await axios.put(
+        `${API_URL_Blog}/${proId}`,
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (response.status !== 200) {
         throw new Error("Network response was not ok");
       }
-
-      toast.success("Team member updated successfully");
+      toast.success("blog updated successfully");
       isclose();
-      getteams();
+      reload();
       setFormData({
-        UserName: "",
-        Email: "",
-        Designation: "",
-        Image: "",
+        blogtitle: "",
+        author: "",
+        datetime: "",
+        description: "",
+        image: "",
       });
     } catch (error) {
-      console.error("Error updating admin:", error);
-      toast.error("Error updating admin");
+      console.error("Error updating project:", error);
+      toast.error("Error updating project");
     }
-
-    // Here you can add your logic to send the message, e.g., API call
   };
-
   return (
     <div
       ref={modalRef}
@@ -144,69 +156,81 @@ const UpdateTeamModal = ({ isclose, teamId, getteams }) => {
             />
           </svg>
         </button>
-        <h2 className="text-xl font-semibold text-gray-950">
-          Update Team Record
-        </h2>
+        <h2 className="text-xl font-semibold text-gray-950">Update Blog</h2>
         <section className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="UserName" className="text-gray-950">
-              UserName :
+            <label htmlFor="blogtitle" className="text-gray-950">
+              Blog Title :
             </label>
             <br />
             <input
               type="text"
-              id="UserName"
-              name="UserName"
+              id="blogtitle"
+              name="blogtitle"
               className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
-              value={formData.UserName}
+              value={formData.blogtitle}
               onChange={handleInputChange}
             />
           </div>
           <div>
-            <label htmlFor="Email" className="text-gray-950">
-              Email :
-            </label>
-            <br />
-            <input
-              type="email"
-              id="Email"
-              name="Email"
-              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
-              value={formData.Email}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="Designation" className="text-gray-950">
-              Designation :
+            <label htmlFor="author" className="text-gray-950">
+              Author Name :
             </label>
             <br />
             <input
               type="text"
-              id="Designation"
-              name="Designation"
+              id="author"
+              name="author"
               className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
-              value={formData.Designation}
+              value={formData.author}
               onChange={handleInputChange}
             />
           </div>
-        </section>
-        <section className="w-5/6 m-auto flex pb-6 rounded-full">
-          <div class="mt-1 px-3 py-1.5 w-full rounded-full border-gray-400 border focus:outline-none focus:border-indigo-500 text-black">
+          <div>
+            <label htmlFor="datetime" className="text-gray-950">
+              Date And Time :
+            </label>
+            <br />
+            <input
+              type="date" // Use datetime-local for date and time input
+              id="date"
+              name="datetime"
+              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+              value={formData.datetime} // Assuming formData.datetime is correctly formatted
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="description" className="text-gray-950">
+              Discription :
+            </label>
+            <br />
+            <textarea
+              type="text"
+              id="description"
+              name="description"
+              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+              value={formData.description}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div class="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black">
             <label class="block">
               <span className="text-gray-950">Upload file</span>
               <input
                 onChange={handleFileChange}
+                name="image"
                 type="file"
                 class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
               />
             </label>
           </div>
-          <div className="w-[200px] h-24 mb-4">
+          <div className="w-[100px] h-20 mb-4">
             {imagePreview ? (
               <img
                 src={"/uploads/" + imagePreview}
-                alt={`Profile Picture of ${imagePreview}`}
+                alt={`Profile Picture of ${formData.author}`}
                 className="profile-picture"
               />
             ) : (
@@ -221,15 +245,16 @@ const UpdateTeamModal = ({ isclose, teamId, getteams }) => {
             )}
           </div>
         </section>
+
         <button
           className="border-2 bg-white text-black p-2 rounded-md hover:shadow-md hover:shadow-cyan-400"
-          onClick={UpdateTeam}
+          onClick={sendMessage}
         >
-          Update Member
+          Update Blog
         </button>
       </div>
     </div>
   );
 };
 
-export default UpdateTeamModal;
+export default UpdateBlogModal;

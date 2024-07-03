@@ -1,12 +1,13 @@
 const { connect } = require("@/app/config/db");
-const { default: Team } = require("@/app/models/TeamModel");
+const { default: BlogModel } = require("@/app/models/BlogModel");
+const { writeFile } = require("fs/promises");
 const { NextResponse } = require("next/server");
-import { writeFile } from "fs/promises";
 export const config = {
   api: {
     bodyParser: false,
   },
 };
+
 // post team
 export async function POST(Request) {
   try {
@@ -20,8 +21,7 @@ export async function POST(Request) {
     const byteData = await file.arrayBuffer();
     const buffer = Buffer.from(byteData);
 
-    // const filePath = `./public/uploads/${file.name}`;
-
+    // const filePath = `./uploads/${file.name}`;
     const filePath = `./public/uploads/${file.name}`;
 
     await writeFile(filePath, buffer);
@@ -32,35 +32,34 @@ export async function POST(Request) {
       // Assign each field to the formDataObject
       formDataObject[key] = value;
     }
-    const { username, email, designation, LinkedIn, Github } = formDataObject;
+    const { blogtitle, author, datetime, description } = formDataObject;
 
-    console.log(username, email, designation, LinkedIn, Github);
+    console.log(blogtitle, author, datetime, description);
 
-    const existingUser = await Team.findOne({ email });
+    const existingBlogName = await BlogModel.findOne({ blogtitle });
 
-    if (existingUser) {
+    if (existingBlogName) {
       return NextResponse.json({
-        error: "User already exists",
+        error: "Blog already exists",
         status: 400,
       });
     }
 
-    const Post_Team = new Team({
-      username,
-      email,
-      designation,
-      LinkedIn,
-      Github,
+    const Post_Blog = new BlogModel({
+      blogtitle,
+      author,
+      datetime,
+      description,
       image: filename,
     });
 
-    const Save_Team = await Post_Team.save();
-    console.log(Save_Team);
-    if (!Save_Team) {
-      return NextResponse.json({ message: "Team Member Not added" });
+    const Save_Blog = await Post_Blog.save();
+    console.log(Save_Blog);
+    if (!Save_Blog) {
+      return NextResponse.json({ message: "Blog Not added" });
     } else {
       return NextResponse.json({
-        message: "Team Member created successfully",
+        message: "Blog created successfully",
         success: true,
         status: 200,
       });
@@ -75,13 +74,13 @@ export async function POST(Request) {
 export async function GET() {
   try {
     await connect();
-    const All_Team = await Team.find();
-    const teamCount = await Team.countDocuments();
-
-    if (!All_Team || teamCount.length === 0) {
-      return NextResponse.json({ result: All_Team });
+    const All_Blog = await BlogModel.find();
+    const BlogCount = await BlogModel.countDocuments();
+    if (!All_Blog || All_Blog.length === 0) {
+      // return NextResponse.json({ Result: "No Project Availible" });
+      return NextResponse.json({ Result: All_Blog });
     } else {
-      return NextResponse.json({ Result: All_Team, count: teamCount });
+      return NextResponse.json({ Result: All_Blog, count: BlogCount });
     }
   } catch (error) {
     console.error(error);

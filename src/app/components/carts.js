@@ -367,3 +367,108 @@ export const MobileAp = [
       "Post-sales support can prove to be a key phase of the mobile app development process. Sometimes, your users may run into an error or have difficulty figuring out how the app works. That’s where we come in to help them out! Additionally, due to continuous updates to mobile technologies, your app needs to be maintained periodically in order to stay up and running flawlessly.",
   },
 ];
+
+export const blogs = [
+  {
+    id: 1,
+    domain: "Coding",
+    subDomain: "Web Designing",
+    blogVideoPlayImg: "/backgrounds/benntogether.jpg",
+    BlogImg: "/backgrounds/benntogether.jpg",
+    alt: "Blog 1",
+    title: "Integer Maecenas Eget Viverra",
+    authorImg: "/backgrounds/benntogether.jpg",
+    authName: "Joanna Wellick",
+    blogDate: "June 28, 2018",
+    shareLink: "https:google.com",
+    shareIcon: "/backgrounds/benntogether.jpg",
+    shares: "1K shares",
+    data: "Aenean eleifend ante maecenas pulvinar montes lorem et pede dis dolor pretium donec dictum. Vici consequat justo enim. Venenatis eget adipiscing luctus lorem.",
+    viewPostLink: "/backgrounds/benntogether.jpg",
+  },
+  {
+    id: 2,
+    domain: "Coding",
+    subDomain: "Web Designing",
+    blogVideoPlayImg: "/backgrounds/benntogether.jpg",
+    BlogImg: "/backgrounds/benntogether.jpg",
+    alt: "Blog 2",
+    title: "Integer Maecenas Eget Viverra",
+    authorImg: "/backgrounds/benntogether.jpg",
+    authName: "Joanna Wellick",
+    blogDate: "June 28, 2018",
+    shareLink: "https:google.com",
+    shareIcon: "/backgrounds/benntogether.jpg",
+    shares: "1K shares",
+    data: "Aenean eleifend ante maecenas pulvinar montes lorem et pede dis dolor pretium donec dictum. Vici consequat justo enim. Venenatis eget adipiscing luctus lorem.",
+    viewPostLink: "/backgrounds/benntogether.jpg",
+  },
+  {
+    id: 2,
+    domain: "Coding",
+    subDomain: "Web Designing",
+    blogVideoPlayImg: "/backgrounds/benntogether.jpg",
+    BlogImg: "/backgrounds/benntogether.jpg",
+    alt: "Blog 2",
+    title: "Integer Maecenas Eget Viverra",
+    authorImg: "/backgrounds/benntogether.jpg",
+    authName: "Joanna Wellick",
+    blogDate: "June 28, 2018",
+    shareLink: "https:google.com",
+    shareIcon: "/backgrounds/benntogether.jpg",
+    shares: "1K shares",
+    data: "Aenean eleifend ante maecenas pulvinar montes lorem et pede dis dolor pretium donec dictum. Vici consequat justo enim. Venenatis eget adipiscing luctus lorem.",
+    viewPostLink: "/backgrounds/benntogether.jpg",
+  },
+];
+
+export const staticBlogs = [
+  {
+    id: 1,
+    img: "/backgrounds/benntogether.jpg",
+    title: "Lorem ipsum dolor sit amet consectetur.",
+    blogdate: "21 March 2021",
+  },
+  {
+    id: 2,
+    img: "/backgrounds/benntogether.jpg",
+    title: "Lorem ipsum dolor sit amet consectetur.",
+    blogdate: "21 March 2021",
+  },
+  {
+    id: 3,
+    img: "./staticBlog.svg",
+    title: "Lorem ipsum dolor sit amet consectetur.",
+    blogdate: "21 March 2021",
+  },
+];
+
+export const faqs = [
+  {
+    id: 1,
+    num: "01",
+    icon: "hi",
+    question: "Lorem ipsum dolor sit amet consectetur. Sagittis id.",
+    ans: "Lorem ipsum dolor sit amet consectetur. In augue ipsum tellus ultrices. Ac pharetra ultrices consectetur consequat tellus massa. Nec aliquam cras sagittis duis sed euismod arcu hac. Ornare amet ligula ornare lacus aliquam aenean. Eu lacus imperdiet urna amet congue adipiscing. Faucibus magna nisl ullamcorper in facilisis consequat aliquam.Id placerat dui habitasse quisque nisl tincidunt facilisi mi id.Dictum elit velit.",
+  },
+  {
+    id: 2,
+    num: "02",
+    icon: "ji",
+    question: "Lorem ipsum dolor sit amet consectetur. Sagittis id.",
+    ans: "Lorem ipsum dolor sit amet consectetur. In augue ipsum tellus ultrices. Ac pharetra ultrices consectetur consequat tellus massa. Nec aliquam cras sagittis duis sed euismod arcu hac. Ornare amet ligula ornare lacus aliquam aenean. Eu lacus imperdiet urna amet congue adipiscing. Faucibus magna nisl ullamcorper in facilisis consequat aliquam.Id placerat dui habitasse quisque nisl tincidunt facilisi mi id.Dictum elit velit.",
+  },
+  {
+    id: 3,
+    num: "03",
+    icon: "hi",
+    question: "Lorem ipsum dolor sit amet consectetur. Sagittis id.",
+    ans: "Lorem ipsum dolor sit amet consectetur. In augue ipsum tellus ultrices. Ac pharetra ultrices consectetur consequat tellus massa. Nec aliquam cras sagittis duis sed euismod arcu hac. Ornare amet ligula ornare lacus aliquam aenean. Eu lacus imperdiet urna amet congue adipiscing. Faucibus magna nisl ullamcorper in facilisis consequat aliquam.Id placerat dui habitasse quisque nisl tincidunt facilisi mi id.Dictum elit velit.",
+  },
+  {
+    id: 4,
+    num: "04",
+    question: "Lorem ipsum dolor sit amet consectetur. Sagittis id.",
+    ans: "Lorem ipsum dolor sit amet consectetur. In augue ipsum tellus ultrices. Ac pharetra ultrices consectetur consequat tellus massa. Nec aliquam cras sagittis duis sed euismod arcu hac. Ornare amet ligula ornare lacus aliquam aenean. Eu lacus imperdiet urna amet congue adipiscing. Faucibus magna nisl ullamcorper in facilisis consequat aliquam.Id placerat dui habitasse quisque nisl tincidunt facilisi mi id.Dictum elit velit.",
+  },
+];

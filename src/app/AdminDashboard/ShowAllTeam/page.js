@@ -76,7 +76,7 @@ const ShowAllTeam = () => {
               Add New Member
             </button>
           </div>
-          <div className="overflow-x-auto h-[300px]">
+          <div className="overflow-x-auto h-[500px]">
             <input
               type="text"
               placeholder="Search by username"
@@ -92,6 +92,8 @@ const ShowAllTeam = () => {
                   <th className="px-4 py-2">UserName</th>
                   <th className="px-4 py-2">Email</th>
                   <th className="px-4 py-2">Designation</th>
+                  <th className="px-4 py-2">LinkedIn</th>
+                  <th className="px-4 py-2">Github</th>
                   <th className="px-4 py-2">Edit</th>
                   <th className="px-4 py-2">Delete</th>
                 </tr>
@@ -115,6 +117,34 @@ const ShowAllTeam = () => {
                         <td className="px-4 py-2">{team.username}</td>
                         <td className="px-4 py-2">{team.email}</td>
                         <td className="px-4 py-2">{team.designation}</td>
+                        <td className="px-4 py-2">
+                          {team.LinkedIn ? (
+                            <a
+                              href={team.LinkedIn}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:underline"
+                            >
+                              LinkedIn
+                            </a>
+                          ) : (
+                            "No Link"
+                          )}
+                        </td>
+                        <td className="px-4 py-2">
+                          {team.Github ? (
+                            <a
+                              href={team.Github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:underline"
+                            >
+                              GitHub
+                            </a>
+                          ) : (
+                            "No Link"
+                          )}
+                        </td>
                         <td className="px-4 py-2 text-center">
                           <button
                             className="text-green-500 px-2 py-1 rounded hover:underline"
@@ -148,11 +178,17 @@ const ShowAllTeam = () => {
               </tbody>
             </table>
           </div>
-          {showmodal && <AddNewMemModal isclose={() => setshowmodal(false)} />}
+          {showmodal && (
+            <AddNewMemModal
+              isclose={() => setshowmodal(false)}
+              getteams={getTeam}
+            />
+          )}
           {showUpdateModel && (
             <UpdateAdminModal
               isclose={() => setUpdateModel(false)}
               teamId={selectedTeamId}
+              getteams={getTeam}
             />
           )}
         </div>

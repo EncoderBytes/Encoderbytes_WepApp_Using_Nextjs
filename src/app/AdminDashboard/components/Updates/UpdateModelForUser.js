@@ -5,7 +5,7 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const UpdateAdminModal = ({ isclose, adminId }) => {
+const UpdateAdminModal = ({ isclose, adminId, getadmins }) => {
   console.log(adminId);
   const [imagePreview, setImagePreview] = useState("");
   const router = useRouter();
@@ -123,6 +123,7 @@ const UpdateAdminModal = ({ isclose, adminId }) => {
       }
 
       toast.success("Admin updated successfully");
+      getadmins();
       isclose();
       setFormData({
         UserName: "",

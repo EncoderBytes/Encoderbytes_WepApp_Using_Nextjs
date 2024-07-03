@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const AddVacancyModal = ({ isclose }) => {
+const AddVacancyModal = ({ isclose, getVacancies }) => {
   const [formData, setFormData] = useState({
     VacancyName: "",
     VacancyDiscription: "",
@@ -57,6 +57,7 @@ const AddVacancyModal = ({ isclose }) => {
       if (!response.data.success) {
         throw new Error(response.data.message || "Failed to create vacancy");
       } else {
+        getVacancies();
         isclose(); // Close the popup window
         toast.success("Vacancy created successfully!");
       }

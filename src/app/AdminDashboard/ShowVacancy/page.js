@@ -11,50 +11,7 @@ import { isAuthenticated } from "@/app/helper/verifytoken";
 import { useRouter } from "next/navigation";
 import { VacancyCount } from "../components/ShowApidatas/ShowUserAPiDatas";
 import { API_URL_Vacancy_Delete } from "../components/ShowApidatas/apiUrls";
-// const VacancyTable = () => {
-//   const router = useRouter();
-//   const [showmodal, setshowmodal] = useState(false);
-//   const [showUpdateVacancymodal, setUpdateVacancymodal] = useState(false);
-//   const [showAllVacancy, setshowAllVacancy] = useState([]);
-//   const [selectedVacancyId, setSelectedVacancyId] = useState("");
-//   useEffect(() => {
-//     // Check if user is authenticated
-//     if (!isAuthenticated()) {
-//       router.push("/AdminDashboard/Login"); // Redirect to login page if not authenticated
-//       return;
-//     }
-//     getVacancy();
-//   }, []);
 
-//   const getVacancy = () => {
-//     // showalladmins();
-//     VacancyCount()
-//       .then(({ admins }) => {
-//         setshowAllVacancy(admins);
-//       })
-//       .catch((error) => {
-//         console.log(`Failed to fetch team: ${error}`);
-//       });
-//   };
-
-//   // Function to delete an item
-//   const handleDelete = async (id) => {
-//     try {
-//       console.log("hi", id);
-//       await axios.delete(`${API_URL_Vacancy_Delete}/${id}`);
-//       getVacancy();
-//       toast.success("Delete Vacancy Successfully");
-//     } catch (error) {
-//       console.error("Error deleting item:", error);
-//     }
-//   };
-
-//   // handle edit
-//   const handleEdit = (id) => {
-//     console.log(id);
-//     setSelectedVacancyId(id);
-//     setUpdateVacancymodal(true);
-//   };
 const VacancyTable = () => {
   const router = useRouter();
   const [showmodal, setshowmodal] = useState(false);
@@ -137,7 +94,7 @@ const VacancyTable = () => {
                       <td className="px-4 py-2">{vac.VacancyTitle}</td>
                       <td className="px-4 py-2">
                         <div
-                          className="overflow-y-auto"
+                          className="overflow-y-scroll no-scrollbar"
                           style={{
                             maxHeight: "4rem",
                             lineHeight: "1.2rem",
@@ -184,11 +141,17 @@ const VacancyTable = () => {
               </tbody>
             </table>
           </div>
-          {showmodal && <AddVacancyModal isclose={() => setshowmodal(false)} />}
+          {showmodal && (
+            <AddVacancyModal
+              isclose={() => setshowmodal(false)}
+              getVacancies={getVacancy}
+            />
+          )}
           {showUpdateVacancymodal && (
             <UpdateVacancyModal
               isclose={() => setUpdateVacancymodal(false)}
               vacId={selectedVacancyId}
+              getVacancies={getVacancy}
             />
           )}
         </div>

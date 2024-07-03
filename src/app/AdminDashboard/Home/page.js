@@ -66,6 +66,10 @@ const AdminHome = () => {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     values: [65, 59, 80, 81, 56, 55, 70], // Sample data values
   };
+  const data1 = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    values: [50, 65, 84, 65, 87, 46, 70], // Sample data values
+  };
 
   return (
     <>
@@ -116,17 +120,17 @@ const AdminHome = () => {
             ))}
           </section>
           <section className="grid grid-cols-2 min-w-full justify-evenly gap-4 mt-4">
-            <div className="w-full h-72 flex justify-center items-center bg-custom-blue rounded-xl">
-              <BarChart data={data} />
+            <div className="w-full h-72 flex justify-center items-center  rounded-xl">
+              <BarChart data={data} data1={data1} />
             </div>
-            <div className="w-full h-72 flex justify-center items-center bg-custom-blue rounded-xl">
+            <div className="w-full h-72 flex justify-center items-center  rounded-xl">
               <DonutChart data={data} />
             </div>
-            <div className="w-full h-64 p-4 bg-custom-blue rounded-xl">
+            <div className="w-full h-64 p-4  rounded-xl">
               <TableWithTitle />
             </div>
             <div className="w-full h-72 flex flex-col items-center gap-3 text-white text-center">
-              <div className="h-16 bg-custom-blue rounded-xl w-full flex px-3 items-center border-2 border-gray-600">
+              <div className="h-16  rounded-xl w-full flex px-3 items-center border-2 border-custom-blue">
                 <div className="flex items-center text-black">
                   <div className="mr-2">
                     <Image
@@ -140,6 +144,48 @@ const AdminHome = () => {
                   <div className="flex flex-col pl-5">
                     <span className="flex justify-start text-black">
                       Sultan Khan
+                    </span>
+                    <span className="text-xs text-gray-400 flex justify-start">
+                      Hi there
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="h-16  rounded-xl w-full flex px-3 items-center border-2 border-custom-blue">
+                <div className="flex items-center text-black">
+                  <div className="mr-2">
+                    <Image
+                      src="/team/Nouman.jpg"
+                      alt="image"
+                      width={90}
+                      height={90}
+                      className="rounded-full h-10 w-10"
+                    />
+                  </div>
+                  <div className="flex flex-col pl-5">
+                    <span className="flex justify-start text-black">
+                      Eng. Mueez
+                    </span>
+                    <span className="text-xs text-gray-400 flex justify-start">
+                      Hi there
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="h-16  rounded-xl w-full flex px-3 items-center border-2 border-custom-blue">
+                <div className="flex items-center text-black">
+                  <div className="mr-2">
+                    <Image
+                      src="/team/team9.jpg"
+                      alt="image"
+                      width={90}
+                      height={90}
+                      className="rounded-full h-10 w-10"
+                    />
+                  </div>
+                  <div className="flex flex-col pl-5">
+                    <span className="flex justify-start text-black">
+                      M. Ubaid Ullah
                     </span>
                     <span className="text-xs text-gray-400 flex justify-start">
                       Hi there

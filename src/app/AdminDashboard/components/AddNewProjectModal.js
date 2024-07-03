@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const AddNewProModal = ({ isclose }) => {
+const AddNewProModal = ({ isclose, getallprojects }) => {
   const modalRef = useRef();
 
   const handleClose = (e) => {
@@ -69,6 +69,7 @@ const AddNewProModal = ({ isclose }) => {
           response.data.message || "Failed to create team member"
         );
       } else {
+        getallprojects();
         isclose(); // Close the popup window
         toast.success("Project created successfully!");
       }

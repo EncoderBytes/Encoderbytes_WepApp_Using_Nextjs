@@ -53,7 +53,7 @@ const ContactTable = () => {
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Contacts</h2>
           </div>
-          <div className="overflow-x-auto h-[300px]">
+          <div className="overflow-x-auto h-[500px]">
             <table className="min-w-full">
               <thead className="bg-gray-200">
                 <tr>
@@ -75,7 +75,7 @@ const ContactTable = () => {
                       <td className="px-4 py-2">{get.phone}</td>
                       <td className="px-4 py-2">
                         <div
-                          className="overflow-y-auto"
+                          className="overflow-y-scroll no-scrollbar"
                           style={{
                             maxHeight: "4rem",
                             lineHeight: "1.2rem",

@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const UpdateVacancyModal = ({ isclose, vacId }) => {
+const UpdateVacancyModal = ({ isclose, vacId, getVacancies }) => {
   console.log(vacId);
   const [formData, setFormData] = useState({
     VacancyName: "",
@@ -82,6 +82,7 @@ const UpdateVacancyModal = ({ isclose, vacId }) => {
 
       toast.success("Vacancy updated successfully");
       isclose();
+      getVacancies();
       setFormData({
         VacancyName: "",
         VacancyDiscription: "",

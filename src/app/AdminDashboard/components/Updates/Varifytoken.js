@@ -4,8 +4,9 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 // import { Link } from "react-router-dom"; // Assuming you have React Router for the Link component
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_URL_Verify } from "../ShowApidatas/apiUrls";
 
-const VarifyModal = ({ isclose, adminverifyId }) => {
+const VarifyModal = ({ isclose, getadmins }) => {
   const [token, setToken] = useState("");
   const [verified, setVerified] = useState(false);
   const [error, setError] = useState(false);
@@ -42,8 +43,9 @@ const VarifyModal = ({ isclose, adminverifyId }) => {
     e.preventDefault();
     if (token.trim() !== "") {
       try {
-        await axios.post("/api/Users/verifyEmail", { token });
+        await axios.post(`${API_URL_Verify}`, { token });
         setVerified(true);
+        isclose();
       } catch (error) {
         setError(true);
         console.log(error.response.data);

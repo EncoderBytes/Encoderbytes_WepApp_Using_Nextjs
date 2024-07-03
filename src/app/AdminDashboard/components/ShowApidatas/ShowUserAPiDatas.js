@@ -8,6 +8,7 @@ import {
   API_URL_GetInTouch,
   API_URL_Request,
   API_URL_Projects,
+  API_URL_Blog,
 } from "./apiUrls";
 
 export const ShowAllAdmins = () => {
@@ -78,6 +79,19 @@ export const RequestCount = () => {
 export const ProjectsCount = () => {
   return axios
     .get(`${API_URL_Projects}`)
+    .then((res) => {
+      console.log(res.data.Result);
+      console.log(res.data.count);
+      return { admins: res.data.Result, count: res.data.count };
+    })
+    .catch((error) => {
+      console.log(`error : ${error}`);
+      throw error;
+    });
+};
+export const BlogsCount = () => {
+  return axios
+    .get(`${API_URL_Blog}`)
     .then((res) => {
       console.log(res.data.Result);
       console.log(res.data.count);

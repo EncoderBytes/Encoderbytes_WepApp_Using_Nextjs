@@ -2,8 +2,9 @@ import axios from "axios";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_URL_Projects } from "../ShowApidatas/apiUrls";
 
-const UpdateProjectModal = ({ isclose, proId }) => {
+const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
   console.log(proId);
   const [imagePreview, setImagePreview] = useState("");
   const [formData, setFormData] = useState({
@@ -51,10 +52,9 @@ const UpdateProjectModal = ({ isclose, proId }) => {
     });
   };
 
-  const API_URL = "/api/Project";
   const showalladmins = () => {
     axios
-      .get(`${API_URL}/${proId}`)
+      .get(`${API_URL_Projects}/${proId}`)
       .then((res) => {
         const adminData = res.data.Result;
         setFormData({
@@ -102,6 +102,7 @@ const UpdateProjectModal = ({ isclose, proId }) => {
 
       toast.success("project updated successfully");
       isclose();
+      getallprojects();
       setFormData({
         ProName: "",
         ProCategory: "",
