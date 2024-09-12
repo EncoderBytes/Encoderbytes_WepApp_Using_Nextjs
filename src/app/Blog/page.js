@@ -4,7 +4,7 @@ import Top from "../Utils/Top";
 import Image from "next/image";
 import { BlogsCount } from "../AdminDashboard/components/ShowApidatas/ShowUserAPiDatas";
 
-const page = () => {
+const Page = () => {
   const [blogs, setBlog] = useState([]);
   const [expandedBlogs, setExpandedBlogs] = useState({});
 
@@ -21,6 +21,8 @@ const page = () => {
   const getProjects = async () => {
     try {
       const { admins } = await BlogsCount();
+      console.log("data here");
+      console.log(admins);
       setBlog(admins);
     } catch (error) {
       console.log(`Failed to fetch blog: ${error}`);
@@ -69,13 +71,12 @@ const page = () => {
               style={{ width: "350px" }}
               key={blogData._id}
             >
-              <Image
-                src={`/uploads/${blogData.image}`}
-                alt={blogData.image}
-                width={468}
-                height={358}
+              <img
+                src={blogData.image} // Adjust the MIME type if needed
+                alt={blogData.blogtitle}
                 className="h-60"
               />
+
               <div className="mt-8">
                 <h2 className="text-3xl font-semibold mb-3">
                   {blogData.blogtitle}
@@ -132,4 +133,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

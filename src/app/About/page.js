@@ -8,7 +8,7 @@ import Link from "next/link";
 import { FaGithubSquare } from "react-icons/fa";
 import { TeamCount } from "../AdminDashboard/components/ShowApidatas/ShowUserAPiDatas";
 
-const page = () => {
+const Page = () => {
   const [employees, setemployees] = useState([]);
 
   useEffect(() => {
@@ -283,8 +283,8 @@ const page = () => {
             <div class="cardtext1 border-2 border-gray-300 rounded-xl shadow-md text-center h-[400px]  py-10 hover:border-2 hover:border-custom-blue ">
               <div class="row">
                 <div class="col-md-12 flex justify-center rounded-full">
-                  <Image
-                    src={`/uploads/${team.image}`}
+                  <img
+                    src={`${team.image}`}
                     className="img-fluid  rounded-full  filter grayscale hover:filter-none transition duration-300"
                     alt="Logo"
                     width={170}
@@ -435,4 +435,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

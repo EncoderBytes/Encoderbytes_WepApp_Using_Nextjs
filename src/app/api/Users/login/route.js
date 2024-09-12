@@ -1,13 +1,25 @@
 import jwt from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
-import User from "@/app/models/UserModel";
+import User from "@/app/models/UserModel.js";
 import { NextResponse } from "next/server";
+import { connect } from "@/app/config/db";
 
-export async function POST(Request) {
+export async function POST(request) {
   try {
-    const { email, password } = await Request.json();
+    await connect();
+    // Parse incoming request body
+    const { email, password } = await request.json();
     console.log(email, password);
-    // Validate the JSON structure or required fields here if needed
+
+    // Validate if email and password are provided
+    if (!email || !password) {
+      return NextResponse.json({
+        error: "Email and password are required",
+        status: 400,
+      });
+    }
+
+    console.log("Checking user with email:", email);
 
     // Find user by email
     const user = await User.findOne({ email });
@@ -19,11 +31,11 @@ export async function POST(Request) {
         status: 401,
       });
     }
-    console.log("User Exits");
+
+    console.log("User found:", user);
 
     // Validate password
     const isPasswordValid = await bcryptjs.compare(password, user.password);
-
     if (!isPasswordValid) {
       return NextResponse.json({
         error: "Invalid credentials",
@@ -31,30 +43,46 @@ export async function POST(Request) {
       });
     }
 
+    // Check if the user is verified (fixed typo here)
+    if (!user.isVerfied) {
+      return NextResponse.json({
+        error: "User is not verified",
+        status: 403, // Forbidden status for unverified users
+      });
+    }
+
     // Generate JWT token
     const token = jwt.sign(
       { userId: user._id, username: user.username, email: user.email },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1y", // Token expires in 1 hour
-      }
+      process.env.JWT_SECRET || "defaultSecret", // Use a fallback secret for testing
+      { expiresIn: "1h" } // Token expires in 1 hour
     );
+
+    console.log("JWT token generated:", token);
 
     const response = NextResponse.json({
       token,
       userId: user._id,
       username: user.username,
+      isVerified: user.isVerfied,
       email: user.email,
-      isVerfied: user.isVerfied,
       message: "Login successful",
       status: 200,
     });
+
+    // Set token as an HTTP-only cookie
     response.cookies.set("token", token, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Set secure only in production
     });
+
     return response;
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Internal server error", status: 500 });
+    console.error("Login error:", error.message);
+    console.error("Stack trace:", error.stack);
+    return NextResponse.json({
+      error: "Internal server error",
+      status: 500,
+    });
   }
 }

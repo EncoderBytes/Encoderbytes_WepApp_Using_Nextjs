@@ -41,15 +41,17 @@ const Header = () => {
 
   const handleLogout = useCallback(async () => {
     try {
-      await axios.get("/api/Users/logout");
+      await axios.get("/api/Users/logout", { timeout: 10000 });
     } catch (error) {
       console.error(`Error logging out: ${error.message}`);
     }
 
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     localStorage.removeItem("username");
     localStorage.removeItem("email");
+    // Cookies.remove("token");
 
     router.push("/AdminDashboard/Login");
     toast.success("Logged out successfully");
@@ -76,12 +78,10 @@ const Header = () => {
 
       <div className="flex items-center">
         <div className="relative">
-          <Image
-            src={"/uploads/" + imagePreview}
+          <img
+            src={imagePreview}
             alt="Profile"
             className="h-8 w-8 rounded-full cursor-pointer"
-            height={70}
-            width={70}
             onClick={toggleDropdown}
           />
           {/* Dropdown */}

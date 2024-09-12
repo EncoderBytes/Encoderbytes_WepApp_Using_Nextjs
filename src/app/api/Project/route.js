@@ -1,46 +1,66 @@
-const { connect } = require("@/app/config/db");
-const { default: Project } = require("@/app/models/ProjectModel");
-const { writeFile } = require("fs/promises");
-const { NextResponse } = require("next/server");
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// const { connect } = require("@/app/config/db");
+// const { default: Project } = require("@/app/models/ProjectModel");
+// const { writeFile } = require("fs/promises");
+// const { NextResponse } = require("next/server");
 
-// post team
+import { connect } from "@/app/config/db";
+import Project from "@/app/models/ProjectModel";
+import cloudinary from "cloudinary";
+import { NextResponse } from "next/server";
+import { Readable } from "stream";
+import { promisify } from "util";
+
+// Configure Cloudinary
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const pipeline = promisify(Readable.prototype.pipe);
+
 export async function POST(Request) {
   try {
     await connect();
     const data = await Request.formData();
-    console.log(data);
 
     const file = data.get("Image");
-    const filename = file.name;
-    console.log(filename);
-    const byteData = await file.arrayBuffer();
-    const buffer = Buffer.from(byteData);
+    let imageUrl = "";
+    let publicId = "";
 
-    // const filePath = `./uploads/${file.name}`;
-    const filePath = `./public/uploads/${file.name}`;
+    if (file) {
+      const byteData = await file.arrayBuffer();
+      const buffer = Buffer.from(byteData);
 
-    await writeFile(filePath, buffer);
-    const formDataObject = {};
+      // Upload to Cloudinary
+      const uploadResponse = await new Promise((resolve, reject) => {
+        cloudinary.v2.uploader
+          .upload_stream({ resource_type: "auto" }, (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          })
+          .end(buffer);
+      });
 
-    // Iterate over form data entries
-    for (const [key, value] of data.entries()) {
-      // Assign each field to the formDataObject
-      formDataObject[key] = value;
+      imageUrl = uploadResponse.secure_url;
+      publicId = uploadResponse.public_id;
+
+      console.log(`Uploaded image URL: ${imageUrl}`);
+      console.log(`Uploaded image URL: ${publicId}`);
+    } else {
+      // Use a default image if no file is uploaded
+      imageUrl =
+        "https://res.cloudinary.com/dpj2ewekx/image/upload/v1725603041/samples/smile.jpg"; // Replace with your default image URL
     }
-    const { ProjectName, ProjectCategory, ProjectDescription } = formDataObject;
 
-    console.log(ProjectName, ProjectCategory);
+    const { ProjectName, ProjectCategory, ProjectDescription } =
+      Object.fromEntries(data.entries());
 
     const existingProjectName = await Project.findOne({ ProjectName });
 
     if (existingProjectName) {
       return NextResponse.json({
-        error: "project already exists",
+        error: "Project already exists",
         status: 400,
       });
     }
@@ -49,16 +69,16 @@ export async function POST(Request) {
       ProjectName,
       ProjectCategory,
       ProjectDescription,
-      Image: filename,
+      Image: imageUrl, // Store the Cloudinary URL in MongoDB
+      publicId,
     });
 
     const Save_Project = await Post_Project.save();
-    console.log(Save_Project);
     if (!Save_Project) {
-      return NextResponse.json({ message: "Team Member Not added" });
+      return NextResponse.json({ message: "Project not added" });
     } else {
       return NextResponse.json({
-        message: "Team Member created successfully",
+        message: "Project created successfully",
         success: true,
         status: 200,
       });

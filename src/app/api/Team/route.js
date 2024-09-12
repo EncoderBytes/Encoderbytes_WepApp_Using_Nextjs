@@ -1,13 +1,15 @@
-const { connect } = require("@/app/config/db");
-const { default: Team } = require("@/app/models/TeamModel");
-const { NextResponse } = require("next/server");
-import { writeFile } from "fs/promises";
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-// post team
+import cloudinary from "cloudinary";
+import { NextResponse } from "next/server";
+import { connect } from "@/app/config/db";
+import Team from "@/app/models/TeamModel";
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 export async function POST(Request) {
   try {
     await connect();
@@ -15,21 +17,31 @@ export async function POST(Request) {
     console.log(data);
 
     const file = data.get("image");
-    const filename = file.name;
-    console.log(filename);
-    const byteData = await file.arrayBuffer();
-    const buffer = Buffer.from(byteData);
+    let filename = ""; // Default image
+    let publicId = "";
+    if (file) {
+      const byteData = await file.arrayBuffer();
+      const buffer = Buffer.from(byteData);
 
-    // const filePath = `./public/uploads/${file.name}`;
+      // Upload to Cloudinary
+      const uploadResponse = await new Promise((resolve, reject) => {
+        cloudinary.v2.uploader
+          .upload_stream({ resource_type: "auto" }, (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          })
+          .end(buffer);
+      });
 
-    const filePath = `./public/uploads/${file.name}`;
+      filename = uploadResponse.secure_url; // Use Cloudinary URL
+      console.log(`Uploaded image URL: ${filename}`);
+      publicId = uploadResponse.public_id; // Use Cloudinary URL
+      console.log(`Uploaded image ID: ${publicId}`);
+    }
 
-    await writeFile(filePath, buffer);
+    // Extract form data
     const formDataObject = {};
-
-    // Iterate over form data entries
     for (const [key, value] of data.entries()) {
-      // Assign each field to the formDataObject
       formDataObject[key] = value;
     }
     const { username, email, designation, LinkedIn, Github } = formDataObject;
@@ -52,10 +64,12 @@ export async function POST(Request) {
       LinkedIn,
       Github,
       image: filename,
+      publicId,
     });
 
     const Save_Team = await Post_Team.save();
     console.log(Save_Team);
+
     if (!Save_Team) {
       return NextResponse.json({ message: "Team Member Not added" });
     } else {
@@ -71,7 +85,6 @@ export async function POST(Request) {
   }
 }
 
-// get all team members
 export async function GET() {
   try {
     await connect();

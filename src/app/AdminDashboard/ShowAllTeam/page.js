@@ -41,6 +41,7 @@ const ShowAllTeam = () => {
     try {
       const { admins } = await TeamCount();
       setshowAllTeam(admins);
+      console.log(admins);
     } catch (error) {
       console.log(`Failed to fetch team: ${error}`);
     }
@@ -106,12 +107,10 @@ const ShowAllTeam = () => {
                       <tr key={team._id} className="border-2 border-b-gray-500">
                         <td className="px-4 py-2 text-center">{idx + 1}</td>
                         <td className="px-4 py-2">
-                          <Image
-                            src={`/uploads/${team.image}`}
-                            alt="User"
+                          <img
+                            src={team.image}
+                            alt={team.username}
                             className="h-16 w-16 object-cover"
-                            width={40}
-                            height={40}
                           />
                         </td>
                         <td className="px-4 py-2">{team.username}</td>

@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { url } from "./ShowApidatas/apiUrls";
 
 const AddNewProModal = ({ isclose, getallprojects }) => {
   const modalRef = useRef();
@@ -61,18 +62,21 @@ const AddNewProModal = ({ isclose, getallprojects }) => {
       if (formData.file) {
         formDataToSend.append("Image", formData.file);
       }
+      const data = {
+        ProjectName: formData.ProName,
+        ProjectCategory: formData.ProCategory,
+        ProjectDescription: formData.ProDiscription,
+        Image: formData.file,
+      };
+      console.log(data);
 
-      const response = await axios.post("/api/Project", formDataToSend);
+      const response = await axios.post(`${url}/api/Project`, formDataToSend);
 
-      if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to create team member"
-        );
-      } else {
-        getallprojects();
-        isclose(); // Close the popup window
-        toast.success("Project created successfully!");
-      }
+      console.log(response.data);
+
+      getallprojects();
+      isclose(); // Close the popup window
+      toast.success("Project created successfully!");
     } catch (error) {
       toast.error(error.message || "Failed to create admin");
     }

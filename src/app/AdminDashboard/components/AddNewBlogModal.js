@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { url } from "./ShowApidatas/apiUrls";
 
 const AddNewBlogModal = ({ isclose, reload }) => {
   const modalRef = useRef();
@@ -64,29 +65,33 @@ const AddNewBlogModal = ({ isclose, reload }) => {
         formDataToSend.append("image", formData.image);
       }
 
-      console.log(
-        formData.blogtitle,
-        formData.author,
-        formData.datetime,
-        formData.description,
-        formData.image
-      );
+      console.log("Sending the following data:");
+      console.log({
+        blogtitle: formData.blogtitle,
+        author: formData.author,
+        datetime: formData.datetime,
+        description: formData.description,
+        image: formData.image,
+      });
 
-      const response = await axios.post("/api/Blog", formDataToSend);
+      const response = await axios.post(`${url}/api/Blog`, formDataToSend);
+
+      console.log("Response from server:", response.data);
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to create team member"
-        );
+        throw new Error(response.data.message || "Failed to create blog");
       } else {
         reload();
         isclose(); // Close the popup window
-        toast.success("Project created successfully!");
+        toast.success("Blog created successfully!");
+        console.log("Blog created successfully!");
       }
     } catch (error) {
-      toast.error(error.message || "Failed to create admin");
+      toast.error(error.message || "Failed to create blog");
+      console.error("Error creating blog:", error);
     }
   };
+
   return (
     <div
       ref={modalRef}

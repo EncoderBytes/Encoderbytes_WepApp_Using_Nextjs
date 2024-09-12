@@ -2,8 +2,9 @@ import axios from "axios";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { url } from "./ShowApidatas/apiUrls";
 
-const AddNewMemModal = ({ isclose }) => {
+const AddNewMemModal = ({ isclose, getteams }) => {
   const modalRef = useRef();
 
   const handleClose = (e) => {
@@ -66,8 +67,18 @@ const AddNewMemModal = ({ isclose }) => {
         formDataToSend.append("image", formData.file);
       }
 
-      const response = await axios.post("/api/Team", formDataToSend);
+      console.log("Sending the following data:");
+      console.log({
+        UserName: formData.UserName,
+        Email: formData.Email,
+        Designation: formData.Designation,
+        LinkedIn: formData.LinkedIn,
+        Github: formData.Github,
+        image: formData.file,
+      });
+      const response = await axios.post(`${url}/api/Team`, formDataToSend);
 
+      console.log(response.data);
       if (!response.data.success) {
         throw new Error(
           response.data.message || "Failed to create team member"
@@ -79,6 +90,7 @@ const AddNewMemModal = ({ isclose }) => {
       }
     } catch (error) {
       toast.error(error.message || "Failed to create admin");
+      console.log(error);
     }
   };
   //

@@ -1,15 +1,16 @@
 import bcrypt from "bcrypt";
 import User from "@/app/models/UserModel";
-import { connect } from "@/app/config/db.js";
+import { connect } from "@/app/config/db";
 import { NextResponse } from "next/server";
 import { sendEmail } from "@/app/helper/mailer";
-import { writeFile } from "fs/promises";
+import cloudinary from "cloudinary";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// Configure Cloudinary
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function POST(Request) {
   try {
@@ -18,19 +19,35 @@ export async function POST(Request) {
     console.log(data);
 
     const file = data.get("Image");
-    const filename = file.name;
-    console.log(filename);
-    const byteData = await file.arrayBuffer();
-    const buffer = Buffer.from(byteData);
+    let imageUrl = "";
+    let publicId = "";
 
-    const filePath = `./public/uploads/${file.name}`;
+    if (file) {
+      const byteData = await file.arrayBuffer();
+      const buffer = Buffer.from(byteData);
 
-    await writeFile(filePath, buffer);
+      // Upload to Cloudinary
+      const uploadResponse = await new Promise((resolve, reject) => {
+        cloudinary.v2.uploader
+          .upload_stream({ resource_type: "auto" }, (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          })
+          .end(buffer);
+      });
+
+      imageUrl = uploadResponse.secure_url;
+      console.log(`Uploaded image URL: ${imageUrl}`);
+      publicId = uploadResponse.public_id; // Use Cloudinary URL
+      console.log(`Uploaded image ID: ${publicId}`);
+    } else {
+      // Use a default image if no file is uploaded
+      imageUrl =
+        "https://res.cloudinary.com/dpj2ewekx/image/upload/v1725603041/samples/smile.jpg"; // Replace with your default image URL
+    }
+
     const formDataObject = {};
-
-    // Iterate over form data entries
     for (const [key, value] of data.entries()) {
-      // Assign each field to the formDataObject
       formDataObject[key] = value;
     }
     const { username, email, password, confirmpassword } = formDataObject;
@@ -47,7 +64,6 @@ export async function POST(Request) {
     }
 
     const salt = await bcrypt.genSalt(10);
-    console.log(salt, password);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const Post_Message = new User({
@@ -55,21 +71,20 @@ export async function POST(Request) {
       email,
       password: hashedPassword,
       confirmpassword,
-      Image: filename,
+      Image: imageUrl,
+      publicId,
     });
 
     const Save_User = await Post_Message.save();
     console.log(Save_User);
+
     await sendEmail({ email, emailType: "VERIFY", userId: Save_User._id });
-    if (!Save_User) {
-      return NextResponse.json({ message: "Message Not added" });
-    } else {
-      return NextResponse.json({
-        message: "User created successfully",
-        success: true,
-        status: 200,
-      });
-    }
+
+    return NextResponse.json({
+      message: "User created successfully",
+      success: true,
+      status: 200,
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: error.message, status: 500 });

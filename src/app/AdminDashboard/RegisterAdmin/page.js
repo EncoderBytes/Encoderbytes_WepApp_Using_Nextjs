@@ -62,9 +62,32 @@ const AdminTable = () => {
     }
   };
 
-  const handleVerify = (id) => {
-    setSelectedVerifyAdminId(id);
-    setVerifyModel(true);
+  // const handleVerify = (id) => {
+  //   setSelectedVerifyAdminId(id);
+  //   setVerifyModel(true);
+  // };
+  // const [isVerified, setIsVerified] = useState(false);
+  const handleVerify = async (adminId, currentStatus) => {
+    try {
+      const newStatus = !currentStatus; // Toggle the current isVerified status
+      console.log(newStatus);
+      const response = await axios.put(`/api/Users/verify/${adminId}`, {
+        isVerfied: newStatus, // Send the toggled status
+      });
+
+      if (response.status === 200) {
+        console.log("Verification status updated successfully:", response.data);
+        // setIsVerified(newStatus); // Update the local state to reflect the new status
+      } else {
+        console.error(
+          "Failed to update verification status:",
+          response.data.error
+        );
+      }
+      getAdmin();
+    } catch (error) {
+      console.error("Error updating verification status:", error);
+    }
   };
 
   const handleEdit = (id) => {
@@ -102,7 +125,8 @@ const AdminTable = () => {
                   <th className="px-4 py-2">User</th>
                   <th className="px-4 py-2">UserName</th>
                   <th className="px-4 py-2">Email</th>
-                  <th className="px-4 py-2">IsAdminVerified</th>
+                  <th className="px-4 py-2">Password</th>
+                  {/* <th className="px-4 py-2">IsAdminVerified</th> */}
                   <th className="px-4 py-2">VerifyAdmin</th>
                   <th className="px-4 py-2">Edit</th>
                   <th className="px-4 py-2">Delete</th>
@@ -119,31 +143,38 @@ const AdminTable = () => {
                       >
                         <td className="px-4 py-2 text-center">{index + 1}</td>
                         <td className="px-4 py-2">
-                          <Image
-                            src={`/uploads/${admin.Image}`}
-                            alt="admin"
+                          <img
+                            src={admin.Image}
+                            alt={admin.username}
                             className="h-16 w-16 object-cover"
-                            width={20}
-                            height={40}
                           />
                         </td>
                         <td className="px-4 py-2">{admin.username}</td>
                         <td className="px-4 py-2">{admin.email}</td>
-                        <td className="px-4 py-2">
+                        <td className="px-4 py-2">{admin.confirmpassword}</td>
+                        {/* <td className="px-4 py-2">
                           {admin.isVerfied === true ? (
                             <FaCheck />
                           ) : (
                             <span>&#x2717;</span>
                           )}
-                        </td>
+                        </td> */}
                         <td className="px-4 py-2 text-center">
                           <button
                             className="text-yellow-500 px-2 py-1 rounded hover:underline"
-                            onClick={() => handleVerify(admin._id)}
+                            onClick={() =>
+                              handleVerify(admin._id, admin.isVerfied)
+                            }
                           >
-                            Verify Admin
+                            {/* Verify Admin */}
+                            {admin.isVerfied ? (
+                              <FaCheck />
+                            ) : (
+                              <span>&#x2717;</span>
+                            )}{" "}
                           </button>
                         </td>
+
                         <td className="px-4 py-2 text-center">
                           <button
                             className="text-green-500 px-2 py-1 rounded hover:underline"

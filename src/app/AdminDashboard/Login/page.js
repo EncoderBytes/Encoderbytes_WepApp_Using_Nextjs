@@ -19,24 +19,35 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setloading(true); // Assuming `setLoading` is a state setter
+
     try {
-      setloading(true);
-      const response = await axios.post("/api/Users/login", userlogin);
-      console.log("login successfully", response.data);
-      const isVerfied = response.data.isVerfied;
-      if (isVerfied === true) {
+      // Use relative path for the API route
+      const response = await axios.post("/api/Users/login", {
+        email: userlogin.email, // Access email from state
+        password: userlogin.password, // Access password from state
+      });
+
+      console.log("Login successful", response.data);
+
+      // Check if the user is verified
+      const isVerifiedtoken = response.data.token;
+      const isVerifiedUserID = response.data.userId;
+      if (isVerifiedtoken && isVerifiedUserID) {
+        // Store token and userId in localStorage
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userId", response.data.userId);
-        // localStorage.setItem("isVerfied", response.data.userId);
-        // localStorage.setItem("username", response.data.username);
-        // localStorage.setItem("email", response.data.email);
-        toast.success("Login successfully");
+
+        toast.success("Login successful");
+
+        // Use a relative path for navigation
         router.push("/AdminDashboard/Home");
       } else {
-        toast.warning("You Are Not Verify For Login😢");
+        toast.warning("You are not verified for login 😢");
         router.push("/AdminDashboard/Login");
       }
     } catch (error) {
+      console.error("Login error:", error); // Better error logging
       toast.error("Something went wrong");
     } finally {
       setloading(false);
