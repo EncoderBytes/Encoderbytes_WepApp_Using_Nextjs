@@ -40,6 +40,7 @@ const ShowAllTeam = () => {
   const getTeam = async () => {
     try {
       const { admins } = await TeamCount();
+      console.log("admins", admins)
       setshowAllTeam(admins);
       console.log(admins);
     } catch (error) {
@@ -100,8 +101,7 @@ const ShowAllTeam = () => {
                 </tr>
               </thead>
               <tbody>
-                {showAllTeam.length > 0 ? (
-                  /* showAllTeam.map((team, idx) => ( */
+                {/* {showAllTeam.length > 0 ? (
                   (searchTerm !== "" ? filteredTeam : showAllTeam).map(
                     (team, idx) => (
                       <tr key={team._id} className="border-2 border-b-gray-500">
@@ -173,7 +173,80 @@ const ShowAllTeam = () => {
                       )}
                     </td>
                   </tr>
+                )} */}
+
+                {showAllTeam && showAllTeam.length > 0 ? (
+                  (searchTerm !== "" ? filteredTeam : showAllTeam).map((team, idx) => (
+                    <tr key={team._id} className="border-2 border-b-gray-500">
+                      <td className="px-4 py-2 text-center">{idx + 1}</td>
+                      <td className="px-4 py-2">
+                        <img
+                          src={team.image}
+                          alt={team.username}
+                          className="h-16 w-16 object-cover"
+                        />
+                      </td>
+                      <td className="px-4 py-2">{team.username}</td>
+                      <td className="px-4 py-2">{team.email}</td>
+                      <td className="px-4 py-2">{team.designation}</td>
+                      <td className="px-4 py-2">
+                        {team.LinkedIn ? (
+                          <a
+                            href={team.LinkedIn}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                          >
+                            LinkedIn
+                          </a>
+                        ) : (
+                          "No Link"
+                        )}
+                      </td>
+                      <td className="px-4 py-2">
+                        {team.Github ? (
+                          <a
+                            href={team.Github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                          >
+                            GitHub
+                          </a>
+                        ) : (
+                          "No Link"
+                        )}
+                      </td>
+                      <td className="px-4 py-2 text-center">
+                        <button
+                          className="text-green-500 px-2 py-1 rounded hover:underline"
+                          onClick={() => handleEdit(team._id)}
+                        >
+                          Edit
+                        </button>
+                      </td>
+                      <td className="px-4 py-2 text-center">
+                        <button
+                          className="text-red-500 hover:underline"
+                          onClick={() => handleDelete(team._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="9" className="text-center py-4">
+                      {showAllTeam ? (
+                        <p>Loading...</p>
+                      ) : (
+                        <p>No User Found</p>
+                      )}
+                    </td>
+                  </tr>
                 )}
+
               </tbody>
             </table>
           </div>
