@@ -64,7 +64,7 @@ const CandidateTable = () => {
               <tbody>
                 {/* Example Row */}
 
-                {showAllReq.map((item, idx) => (
+                {/* {showAllReq.map((item, idx) => (
                   <tr key={item._id} className="border-2 border-b-gray-500">
                     <td className="px-4 py-2">{idx + 1}</td>
                     <td className="px-4 py-2">{item.username}</td>
@@ -91,7 +91,41 @@ const CandidateTable = () => {
                       </button>
                     </td>
                   </tr>
-                ))}
+                ))} */}
+                {!showAllReq ? (
+                  <tr>
+                    <td colSpan="8" className="text-center py-4">
+                      No data found
+                    </td>
+                  </tr>
+                ) : (
+                  showAllReq.map((item, idx) => (
+                    <tr key={item._id} className="border-2 border-b-gray-500">
+                      <td className="px-4 py-2">{idx + 1}</td>
+                      <td className="px-4 py-2">{item.username}</td>
+                      <td className="px-4 py-2">{item.email}</td>
+                      <td className="px-4 py-2">{item.phone}</td>
+                      <td className="px-4 py-2">{item.experience}</td>
+                      <td className="px-4 py-2">{item.expected_salary}</td>
+                      <td className="px-4 py-2 text-center">
+                        <button
+                          className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+                          onClick={() => window.open(`/pdf/${item.file_cv}`, "_blank")}
+                        >
+                          Show CV
+                        </button>
+                      </td>
+                      <td className="px-4 py-2 text-center">
+                        <button
+                          className="text-red-500 hover:underline"
+                          onClick={() => handleDelete(item._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
 
                 {/* end */}
               </tbody>
