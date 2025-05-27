@@ -212,6 +212,8 @@ export async function GET(request, context) {
 
     const [rows] = await connection.query("SELECT * FROM users WHERE id = ?", [id]);
 
+    // console.log("Fetched User:", rows[0]);
+
     if (rows.length === 0) {
       return NextResponse.json({ result: "No User Available" });
     } else {
@@ -308,7 +310,7 @@ export async function PUT(request, context) {
         username = ?,
         email = ?,
         password = ?,
-        Image = ?,
+        image = ?,
         publicId = ?
       WHERE id = ?
     `;
@@ -317,7 +319,7 @@ export async function PUT(request, context) {
       username || existingUser.username,
       email || existingUser.email,
       hashedPassword,
-      filename || existingUser.Image,
+      filename || existingUser.image,
       newImagePublicId || existingUser.publicId,
       id,
     ]);

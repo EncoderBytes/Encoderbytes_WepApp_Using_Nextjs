@@ -23,8 +23,8 @@ const Header = () => {
     axios
       .get(`/api/Users/${userId}`)
       .then((res) => {
-        const adminData = res.data.Result;
-        setImagePreview(adminData.Image);
+        const adminData = res.data.result;
+        setImagePreview(adminData.image);
       })
       .catch((error) => {
         console.error(`Error fetching user data: ${error}`);
@@ -78,12 +78,35 @@ const Header = () => {
 
       <div className="flex items-center">
         <div className="relative">
-          <img
+          {/* <img
             src={imagePreview}
             alt="Profile"
             className="h-8 w-8 rounded-full cursor-pointer"
             onClick={toggleDropdown}
-          />
+          /> */}
+          {imagePreview ? (
+            <img
+              src={imagePreview}
+              alt="Profile Preview"
+              className="h-8 w-8 rounded-full cursor-pointer" width={200}
+              height={200}
+              onClick={toggleDropdown}
+
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-200 rounded-full flex items-center justify-center">
+              <img
+                src="https://static.vecteezy.com/system/resources/previews/048/216/761/non_2x/modern-male-avatar-with-black-hair-and-hoodie-illustration-free-png.png"
+                alt="Profile Preview"
+                className="h-8 w-8 rounded-full cursor-pointer"
+                onClick={toggleDropdown}
+
+                width={200}
+                height={200}
+              />
+            </div>
+          )}
+
           {/* Dropdown */}
           {typeof window !== "undefined" && isDropdownOpen && (
             <div className="absolute right-0 mt-2 flex flex-col justify-center items-center bg-white rounded shadow-lg z-10 text-black">
