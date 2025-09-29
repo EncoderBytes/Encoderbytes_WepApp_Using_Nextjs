@@ -1,6 +1,7 @@
 // apiUrls.js
 
-export const url = "https://encodder.netlify.app";
+// export const url = "https://encodder.netlify.app";
+export const url = "http://localhost:3000";
 export const API_URL_USER = `${url}/api/Users`;
 export const API_URL_Verify = `${url}/api/Users/verifyEmail`;
 export const API_URL_TEAM = `${url}/api/Team`;

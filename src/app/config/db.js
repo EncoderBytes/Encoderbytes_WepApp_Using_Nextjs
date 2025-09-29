@@ -1,43 +1,44 @@
+
+
 // import mongoose from "mongoose";
 
-// const connection = process.env.DB_HOST;
+// export async function connect() {
+//   try {
+//     mongoose.connect(process.env.MONGO_URI);
+//     const connection = mongoose.connection;
 
-// // Exporting the promise returned by mongoose.connect
-// const dbconnect = mongoose.connect(connection);
+//     connection.on("connected", () => {
+//       console.log("MongoDB connected successfully");
+//     });
 
-// // Adding event listeners to handle connection events
-// mongoose.connection.on("connected", () => {
-//   console.log("Database connected successfully");
-// });
+//     connection.on("error", (err) => {
+//       console.log(
+//         "MongoDB connection error. Please make sure MongoDB is running. " + err
+//       );
+//       process.exit();
+//     });
+//   } catch (error) {
+//     console.log("Something goes wrong!");
+//     console.log(error);
+//   }
+// }
 
-// mongoose.connection.on("error", (err) => {
-//   console.error("Database connection error:", err);
-// });
 
-// mongoose.connection.on("disconnected", () => {
-//   console.log("Database disconnected");
-// });
-// export default dbconnect;
-
-import mongoose from "mongoose";
+import mysql from 'mysql2/promise';
 
 export async function connect() {
   try {
-    mongoose.connect(process.env.MONGO_URI);
-    const connection = mongoose.connection;
-
-    connection.on("connected", () => {
-      console.log("MongoDB connected successfully");
+    const connection = await mysql.createConnection({
+      host: 'localhost',
+      user: 'root',           
+      password: '',           
+      database: 'encoderbytes',
+      port: 3306              
     });
 
-    connection.on("error", (err) => {
-      console.log(
-        "MongoDB connection error. Please make sure MongoDB is running. " + err
-      );
-      process.exit();
-    });
+    console.log('MySQL connected successfully');
+    return connection;
   } catch (error) {
-    console.log("Something goes wrong!");
-    console.log(error);
+    console.error('MySQL connection failed:', error.message);
   }
 }
