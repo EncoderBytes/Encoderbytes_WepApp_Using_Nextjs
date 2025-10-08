@@ -46,51 +46,51 @@ const logoname = "/development-icons/";
 export const Mobileappslogo = [
   {
     image: `/development-icons/flutter.png`,
-    name: "flutter",
+    name: "Flutter",
   },
   {
     image: `${logoname}apple-ios.png`,
-    name: ` ios`,
+    name: `Ios`,
   },
   {
     image: `${logoname}android.png`,
-    name: ` android`,
+    name: ` Android`,
   },
   {
     image: `${logoname}firebase-icon.png`,
-    name: ` firebase`,
+    name: ` Firebase`,
   },
   {
     image: `${logoname}reactjs.png`,
-    name: ` R native`,
+    name: ` React Native`,
   },
   {
     image: `${logoname}sqlite.png`,
-    name: ` sqlite`,
+    name: ` SQLite`,
   },
   {
     image: `${logoname}leveldb.png`,
-    name: ` leveldb`,
+    name: ` levelDB`,
   },
   {
     image: `${logoname}xamarin.png`,
-    name: ` xamarin`,
+    name: ` Xamarin`,
   },
   {
     image: `${logoname}junit.png`,
-    name: ` junit`,
+    name: ` JUnit`,
   },
   {
     image: `${logoname}java.png`,
-    name: ` java`,
+    name: ` Java`,
   },
   {
     image: `${logoname}Group67.png`,
-    name: ` swift`,
+    name: ` Swift`,
   },
   {
     image: `${logoname}kotlin.png`,
-    name: ` kotlin`,
+    name: ` Kotlin`,
   },
 ];
 
@@ -151,52 +151,70 @@ export const WebSecapps = [
 
 export const Webeappslogo = [
   {
-    image: `${logoname}angular.png`,
-    name: "angular",
-  },
-  {
-    image: `${logoname}vue.png`,
-    name: `vue`,
-  },
-  {
     image: `${logoname}html.png`,
-    name: `html`,
+    name: `HTML`,
   },
   {
     image: `${logoname}css.png`,
-    name: `css`,
-  },
-  {
-    image: `${logoname}reactjs.png`,
-    name: `reactjs`,
-  },
-  {
-    image: `${logoname}mysql.png`,
-    name: `mysql`,
-  },
-  {
-    image: `${logoname}wordpress.png`,
-    name: `wordpress`,
-  },
-  {
-    image: `${logoname}php.png`,
-    name: `php`,
+    name: `CSS`,
   },
   {
     image: `${logoname}bs.png`,
-    name: `bootstrap`,
+    name: `Bootstrap`,
   },
   {
     image: `${logoname}js.png`,
-    name: `javascript`,
+    name: `Javascript`,
   },
   {
-    image: `${logoname}.net.png`,
+    image: `${logoname}reactjs.png`,
+    name: `React.js`,
+  },
+  {
+    image: `${logoname}next.png `,
+    name: `Next.js`,
+  },
+  {
+    image: `${logoname}angular.png`,
+    name: "Angular",
+  },
+  {
+    image: `${logoname}vue.png`,
+    name: `Vue`,
+  },
+  {
+    image: `${logoname}mongo.jpg`,
+    name: `MongoDB`,
+  },
+  {
+    image: `${logoname}mysql.png`,
+    name: `MySQL`,
+  },
+  {
+    image: `${logoname}wordpress.png`,
+    name: `Wordpress`,
+  },
+  {
+    image: `${logoname}node.png`,
+    name: `Node js`,
+  },
+  {
+    image: `${logoname}php.png`,
+    name: `PHP`,
+  },
+
+  {
+    image: `${logoname}net.png  `,
     name: `.net`,
   },
   {
     image: `${logoname}aws.png`,
-    name: `aws`,
+    name: `AWS`,
+  },
+
+  {
+    image: `${logoname}vercel.png `,
+    name: `Vercel`,
   },
 ];
 
@@ -205,27 +223,27 @@ export const Webeappslogo = [
 export const Aiappslogo = [
   {
     image: `${logoname}python.png`,
-    name: "python",
+    name: "Python",
   },
   {
     image: `${logoname}R.png`,
-    name: `r-language`,
+    name: `R-language`,
   },
   {
     image: `${logoname}java.png`,
-    name: `java`,
+    name: `Java`,
   },
   {
     image: `${logoname}kubernetes.png`,
-    name: `kubernetes`,
+    name: `Kubernetes`,
   },
   {
     image: `${logoname}azure.png`,
-    name: `Azure`,
+    name: `Azure ML`,
   },
   {
     image: `${logoname}apache-spark.png`,
-    name: `apache spark`,
+    name: `Apache Spark`,
   },
 ];
 
@@ -234,27 +252,27 @@ export const Aiappslogo = [
 export const Uiuxappslogo = [
   {
     image: `${logoname}figma.png`,
-    name: "figma",
+    name: "Figma",
   },
   {
     image: `${logoname}sketch.png`,
-    name: `sketch`,
+    name: `Sketch`,
   },
   {
     image: `${logoname}invision.png`,
-    name: `invision`,
+    name: `Invision`,
   },
   {
     image: `${logoname}xd.png`,
-    name: `adobe xd`,
+    name: `Adobe Xd`,
   },
   {
     image: `${logoname}photoshop.png`,
-    name: `photoshop`,
+    name: `Photoshop`,
   },
   {
     image: `${logoname}illustrator.png`,
-    name: `illustrator`,
+    name: `Illustrator`,
   },
 ];
 

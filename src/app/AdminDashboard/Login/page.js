@@ -14,6 +14,8 @@ const Login = () => {
   const [buttonDisable, setbuttondisable] = useState(true);
   // for loading
   const [loading, setloading] = useState(false);
+  // for show/hide password
+  const [showPassword, setShowPassword] = useState(false); // <-- Add this line
   // navigation
   const router = useRouter();
 
@@ -28,7 +30,8 @@ const Login = () => {
         password: userlogin.password, // Access password from state
       });
 
-      console.log("Login successful", response.data);
+      // console.log("respo",response.data)
+      // console.log("Login successful", response.data);
 
       // Check if the user is verified
       const isVerifiedtoken = response.data.token;
@@ -87,7 +90,7 @@ const Login = () => {
             }
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 relative">
           <label
             htmlFor="password"
             className="block text-gray-700 font-bold mb-2"
@@ -95,16 +98,25 @@ const Login = () => {
             Password
           </label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"} // <-- Use showPassword
             id="password"
             name="password"
             placeholder="Enter your password"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500 pr-10"
             value={userlogin.password}
             onChange={(e) =>
               setuserlogin({ ...userlogin, password: e.target.value })
             }
           />
+          <button
+            type="button"
+            className="absolute right-3 top-12 -translate-y-1/2 text-xl text-black bg-transparent border-none cursor-pointer"
+            onClick={() => setShowPassword((prev) => !prev)}
+            tabIndex={-1}
+            style={{ padding: 0 }}
+          >
+            {showPassword ? "🙈" : "👁️"}
+          </button>
         </div>
         <button
           type="submit"

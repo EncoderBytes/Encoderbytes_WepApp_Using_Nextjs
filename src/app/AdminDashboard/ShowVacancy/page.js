@@ -2,8 +2,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Siderbar";
-import AddVacancyModal from "../components/AddVacancyModal";
-import UpdateVacancyModal from "../components/Updates/UpdateModelForVacancy";
+import dynamic from "next/dynamic";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,28 +12,35 @@ import { VacancyCount } from "../components/ShowApidatas/ShowUserAPiDatas";
 import { API_URL_Vacancy_Delete } from "../components/ShowApidatas/apiUrls";
 
 const VacancyTable = () => {
+  const AddVacancyModal = dynamic(() => import("../components/AddVacancyModal"), { ssr: false });
+  const UpdateVacancyModal = dynamic(() => import("../components/Updates/UpdateModelForVacancy"), { ssr: false });
   const router = useRouter();
   const [showmodal, setshowmodal] = useState(false);
   const [showUpdateVacancymodal, setUpdateVacancymodal] = useState(false);
   const [showAllVacancy, setshowAllVacancy] = useState([]);
+  const [vacancyLoading, setVacancyLoading] = useState(false);
+  const [vacancyError, setVacancyError] = useState(null);
   const [selectedVacancyId, setSelectedVacancyId] = useState("");
 
   // Use useCallback for memoized data fetching
   const getVacancy = useCallback(async () => {
     try {
-      // Check if user is authenticated (moved inside for potential early exit)
       if (!isAuthenticated()) {
-        router.push("/AdminDashboard/Login"); // Redirect if not authenticated
+        router.push("/AdminDashboard/Login");
         return;
       }
-
+      setVacancyLoading(true);
+      setVacancyError(null);
       const response = await VacancyCount();
       const admins = response.admins;
       setshowAllVacancy(admins);
+      setVacancyLoading(false);
     } catch (error) {
+      setVacancyError("Failed to fetch vacancies.");
+      setVacancyLoading(false);
       console.error(`Failed to fetch vacancies: ${error}`);
     }
-  }, [router, isAuthenticated]);
+  }, [router]);
 
   useEffect(() => {
     getVacancy();
@@ -63,7 +69,7 @@ const VacancyTable = () => {
       <Header className="min-w-full" />
       <div className="flex gap-4">
         <Sidebar />
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 mt-10 md:mt-0">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Vacancies</h2>
             <button
@@ -87,7 +93,19 @@ const VacancyTable = () => {
               </thead>
               <tbody>
                 {/* Example Row */}
-                {showAllVacancy.length > 0 ? (
+                {vacancyLoading ? (
+                  <tr>
+                    <td colSpan="6" className="text-center py-4">
+                      <p>Loading vacancies...</p>
+                    </td>
+                  </tr>
+                ) : vacancyError ? (
+                  <tr>
+                    <td colSpan="6" className="text-center py-4">
+                      <p>{vacancyError}</p>
+                    </td>
+                  </tr>
+                ) : showAllVacancy.length > 0 ? (
                   showAllVacancy.map((vac, idx) => (
                     <tr key={vac._id} className="border-2 border-b-gray-500">
                       <td className="px-4 py-2">{idx + 1}</td>
@@ -110,7 +128,7 @@ const VacancyTable = () => {
                       <td className=" px-4 py-2 text-center">
                         <button
                           className=" text-green-500 px-2 py-1 rounded hover:underline"
-                          onClick={() => handleEdit(vac._id)}
+                          onClick={() => handleEdit(vac.id)}
                         >
                           Edit
                         </button>
@@ -118,7 +136,7 @@ const VacancyTable = () => {
                       <td className=" px-4 py-2 text-center">
                         <button
                           className="text-red-500 hover:underline"
-                          onClick={() => handleDelete(vac._id)}
+                          onClick={() => handleDelete(vac.id)}
                         >
                           Delete
                         </button>
@@ -127,12 +145,8 @@ const VacancyTable = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="8" className="text-center py-4">
-                      {showAllVacancy.length !== 0 ? (
-                        <p>No Vacancy available.</p>
-                      ) : (
-                        <p>Please wait while loading...</p>
-                      )}
+                    <td colSpan="6" className="text-center py-4">
+                      <p>No Vacancy available.</p>
                     </td>
                   </tr>
                 )}

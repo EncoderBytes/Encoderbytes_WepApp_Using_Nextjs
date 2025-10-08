@@ -3,6 +3,7 @@ export const Cartobj = [
     no: "01",
     image1: "/icons/analysis.png",
     image2: "/Text-headings/discussion-analysis.png",
+    heading:"DISCUSSION & ANALYSIS",
     description:
       "Together with our developers and analysts, we begin by discussing and analysing our client’s needs, sketching the outline of the desired software, identifying gaps and proposing solutions along the way.",
   },
@@ -10,6 +11,7 @@ export const Cartobj = [
     no: "02",
     image1: "/icons/prototype.png",
     image2: "/Text-headings/prototyping.png",
+    heading:"PROTOTYPING",
     description:
       "We help our clients and their end-users visualise the look-and-feel and interaction of the finished product before it is actually built using state-of-the-art design and prototyping tools.",
   },
@@ -17,6 +19,7 @@ export const Cartobj = [
     no: "03",
     image1: "/icons/specification.png",
     image2: "/Text-headings/software-specifications.png",
+    heading:"SOFTWARE SPECIFICATIONS",
     description:
       "We write a software specifications document (software blueprint) that ensures that our clients get exactly what they expected and agreed to - in terms of functionality and the product’s UI and UX design.",
   },
@@ -24,6 +27,7 @@ export const Cartobj = [
     no: "04",
     image1: "/icons/developapprch.png",
     image2: "/Text-headings/development-approache.png",
+    heading:"DEVELOPMENT APPROACH",
     description:
       "We use agile development style alongside the traditional approaches to ensure reliability of delivery schedule and quality of the end product.",
   },
@@ -31,6 +35,7 @@ export const Cartobj = [
     no: "05",
     image1: "/icons/rapiddevapp.png",
     image2: "/Text-headings/rapid-application-develop.png",
+    heading:"RAPID APPLICATION DEVELOPMENT",
     description:
       "Our developers make use of cutting-edge tools and development frameworks to ensure quality code construction in the shortest time possible.",
   },
@@ -38,6 +43,7 @@ export const Cartobj = [
     no: "06",
     image1: "/icons/startup.png",
     image2: "/Text-headings/launch-support.png",
+    heading:"LAUNCH & SUPPORT",
     description:
       "Our team is exceptionally skilled in planning the deployment and maintenance of large, complex, and high-visibility software systems and mobile apps.",
   },

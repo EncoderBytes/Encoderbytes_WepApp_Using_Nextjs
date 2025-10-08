@@ -222,6 +222,8 @@ const ApplyContactForm = () => {
 
         await axios.post(API_URL_Request, formDataToSend);
         toast.success("Application submitted successfully!");
+        
+        // Clear all form fields
         setFormData({
           username: "",
           email: "",
@@ -230,6 +232,16 @@ const ApplyContactForm = () => {
           expected_salary: "",
           file_cv: null,
         });
+        
+        // Clear any validation errors
+        setErrors({});
+        
+        // Reset file input manually
+        const fileInput = document.querySelector('input[type="file"]');
+        if (fileInput) {
+          fileInput.value = "";
+        }
+        
       } catch (error) {
         console.error("Error submitting application:", error);
         toast.error("Error submitting application");
@@ -239,85 +251,93 @@ const ApplyContactForm = () => {
 
   return (
     <div
-      className="flex flex-col md:flex-row items-center justify-center"
+      className="flex flex-col md:flex-row items-center justify-center md:px-12"
       id="Apply"
     >
-      <div className="flex flex-col bg-black md:flex-row md:w-5/6 items-center justify-center mt-10 md:mt-20 rounded-md py-20 mb-28">
+      <div className="flex flex-col bg-black md:flex-row  md:w-6/6 items-center justify-center mt-10 md:mt-20 rounded-md py-16 mb-28">
         <div className="w-4/5 md:w-2/5">
-          <div className="flex flex-col justify-center items-start text-start m-6 md:m-16">
-            <span className="text-2xl md:text-3xl text-custom-blue font-bold">
+          <div className="flex flex-col justify-center items-start text-start md:m-16">
+            <span className="text-custom-blue text-5xl  font-bebas tracking-custom">
               DO YOU WANT
             </span>
-            <span className="text-2xl md:text-3xl text-white md:mb-4 font-bold">
+            <span className=" text-white md:mb-4  text-5xl  font-bebas tracking-custom">
               TO JOIN OUR TEAM?
             </span>
-            <div className="text-sm md:text-md text-white w-full md:w-4/6">
+            <div className="text-white w-full leading-tight">
               Send us your CV to explore more professional opportunities and
-              build a strong career
+              build a strong career.
             </div>
           </div>
         </div>
 
         <div className="w-4/5 md:w-3/5">
           <form onSubmit={handleSubmit}>
-            <div className="w-full py-6 px-4 md:px-10">
+            <div className="w-full py-6 md:px-10">
               <input
                 type="text"
                 name="username"
                 placeholder="Username"
                 value={formData.username}
                 onChange={handleInputChange}
-                className="w-full border-b mb-4 px-2 md:px-4 py-2 focus:outline-none bg-transparent text-white"
+                className="w-full border-b mb-2 px-2 md:px-4 py-2 focus:outline-none bg-transparent text-white"
               />
               {errors.username && (
-                <p className="text-red-500">{errors.username}</p>
+                <p className="text-red-500 text-xs">{errors.username}</p>
               )}
               <div className="flex items-center justify-center text-center mb-3 gap-3 py-7">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full border-b px-2 md:px-4 py-2 focus:outline-none bg-transparent text-white"
-                />
-                {errors.email && <p className="text-red-500">{errors.email}</p>}
+                <div className="w-full">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full border-b px-2 md:px-4 py-2 mb-2 focus:outline-none bg-transparent text-white"
+                  />
+                  {errors.email && <p className="text-red-500  text-start text-xs">{errors.email}</p>}
+                </div>
 
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="w-full border-b px-2 md:px-4 py-2 focus:outline-none bg-transparent text-white"
-                />
-                {errors.phone && <p className="text-red-500">{errors.phone}</p>}
+                <div className="w-full">
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full border-b px-2 md:px-4 py-2  mb-2 focus:outline-none bg-transparent text-white"
+                  />
+                  {errors.phone && <p className="text-red-500 text-start text-xs">{errors.phone}</p>}
+                </div>
               </div>
 
               <div className="flex items-center justify-center text-center mb-3 gap-3">
-                <input
-                  type="text"
-                  name="experience"
-                  placeholder="Experience"
-                  value={formData.experience}
-                  onChange={handleInputChange}
-                  className="w-full border-b px-2 md:px-4 focus:outline-none bg-transparent text-white"
-                />
-                {errors.experience && (
-                  <p className="text-red-500">{errors.experience}</p>
-                )}
+                <div className="w-full">
+                  <input
+                    type="text"
+                    name="experience"
+                    placeholder="Experience"
+                    value={formData.experience}
+                    onChange={handleInputChange}
+                    className="w-full border-b px-2 mb-2 md:px-4 focus:outline-none bg-transparent text-white"
+                  />
+                  {errors.experience && (
+                    <p className="text-red-500 text-start text-xs">{errors.experience}</p>
+                  )}
+                </div>
 
-                <input
-                  type="text"
-                  name="expected_salary"
-                  placeholder="Expected Salary"
-                  value={formData.expected_salary}
-                  onChange={handleInputChange}
-                  className="w-full border-b px-2 md:px-4 focus:outline-none bg-transparent text-white"
-                />
-                {errors.expected_salary && (
-                  <p className="text-red-500">{errors.expected_salary}</p>
-                )}
+                <div className="w-full">
+                  <input
+                    type="text"
+                    name="expected_salary"
+                    placeholder="Expected Salary"
+                    value={formData.expected_salary}
+                    onChange={handleInputChange}
+                    className="w-full border-b mb-2 px-2 md:px-4 focus:outline-none bg-transparent text-white"
+                  />
+                  {errors.expected_salary && (
+                    <p className="text-red-500 text-start text-xs">{errors.expected_salary}</p>
+                  )}
+                </div>
               </div>
 
               <input
@@ -325,15 +345,15 @@ const ApplyContactForm = () => {
                 name="file_cv"
                 accept=".pdf"
                 onChange={handleInputChange}
-                className="w-full border-4 border-dotted rounded-md mb-4 px-2 md:px-4 py-6 focus:outline-none bg-transparent mt-10 text-white"
+                className="w-full border-[2px] border-dashed rounded-md mb-2 px-2 md:px-4 py-10 focus:outline-none bg-transparent mt-10 text-white"
               />
               {errors.file_cv && (
-                <p className="text-red-500">{errors.file_cv}</p>
+                <p className="text-red-500 text-start text-xs">{errors.file_cv}</p>
               )}
 
               <button
                 type="submit"
-                className="w-full bg-custom-blue text-white font-bold py-2 px-4 rounded"
+                className="w-full bg-custom-blue text-white font-bold py-2 px-4 mt-10 rounded"
               >
                 Submit
               </button>

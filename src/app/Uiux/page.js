@@ -1,114 +1,208 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Top from "../Utils/Top";
 import Image from "next/image";
-import { Mobileapps } from "../components/Mobileapps";
-import {
-  Mobileappslogo,
-  Aiappslogo,
-  Uiuxappslogo,
-} from "../components/Mobileapps";
-import { MobileAp } from "../components/carts";
+import { Uiuxappslogo } from "../components/Mobileapps";
 import Contactform from "../Utils/Contactform";
-const Ai = () => {
+import Link from "next/link";
+import { ProjectsCount } from "../AdminDashboard/components/ShowApidatas/ShowUserAPiDatas";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+const Uiux = () => {
+  const [Projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const getProjects = async () => {
+    try {
+      setLoading(true);
+      const { admins } = await ProjectsCount();
+      
+      // Get all UI/UX projects
+      const uiuxProjects = admins.filter(
+        (p) => p.ProjectCategory === "UIUX"
+      );
+      setProjects(uiuxProjects);
+    } catch (error) {
+      console.log(`Failed to fetch projects: ${error}`);
+      setProjects([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    getProjects();
+  }, []);
+
   return (
-    <div className=" bg-white">
+    <div className="bg-white">
       <Top />
       <div
-        className="max-w-full h-auto flex justify-center items-center mt-12"
+        className="max-w-full h-[350px] flex justify-center items-center mt-20"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/backgrounds/banner-Facebook-Cover-copy.png')",
-          backgroundSize: "100% 100vh", // Set background size to full width and full height of the viewport
+            "linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/backgrounds/banner_Facebook Cover copy.png')",
+          backgroundSize: "100% 100%",
           backgroundBlendMode: "overlay",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="flex flex-col justify-center items-center py-32">
-          <div className="text-custom-blue text-2xl md:text-4xl font-bold flex justify-center items-center">
-            USER EXPERIENCE DESIGING
+        <div className="flex flex-col justify-center items-center py-24">
+          <div className="text-custom-blue text-2xl md:text-4xl  flex justify-center items-center font-bebas tracking-custom">
+            USER EXPERIENCE DESIGNING
           </div>
-          <div className="flex  m-auto py-3">
-            <p className="flex   m-auto justify-center items-center text-center text-md">
-              We design clean and asthetic user experiences for businesses.
+          <div className="flex m-auto py-3">
+            <p className="flex m-auto justify-center items-center text-center">
+              We design clean and aesthetic user experiences for businesses.
             </p>
           </div>
           <a
             href="/"
-            className="text-black font-bold text-center md:text-left mt-24 text-md"
+            className="text-paraClr font-semibold text-center md:text-left mt-20 text-xs"
           >
-            Home - Services - <span className="text-custom-blue">UI / UX</span>
+            Home - Services -&nbsp;{" "}
+            <span className="text-custom-blue">&nbsp;UI / UX</span>
           </a>
         </div>
       </div>
+
       {/* section 2 */}
       <div id="section2"></div>
-      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-20 md:gap-x-8 mb-32">
+      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-12 mt-20 md:mt-32 md:gap-x-8 mb-32">
         <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
-          <div className="text-md font-bold text-gray-500">
-            <span className="border-b-4 border-custom-blue">u s e r </span>
+          <div className="font-bold text-paraClr text-lg">
+            <span className="border-b-4 border-custom-blue">U s e r </span>
             <span className="">
-              {" "}
               &nbsp;e x p e r i e n c e &nbsp;d e s i g n i n g.
             </span>
           </div>
-          <div className="text-3xl font-black">
-            <span className="">IMPOROVE YOUR </span>
+          <div className="text-4xl font-bebas tracking-custom">
+            <span className="text-paraClr">IMPROVE YOUR </span>
             <span className="text-custom-blue">USER EXPERIENCE?</span>
           </div>
-          <p className="text-sm md:text-md">
-            Grabbing the market by your brands depends on the sophisticated
-            aesthetic UI/UX designs of your product. One of the leading
-            expertise of Encoderbytes is the strong UI/UX designing background
-            with a skilled workforce. Our UI/UX designs are focused on efficient
-            solutions to user problems. We apply design thinking to product
-            design, therefore we categorize the UX process to 5 key phases :
-            Product definition, Research, Analysis, Design and validation. Our
-            systematic approach results in an unconventional UI and UX design –
-            a user friendly solution.
-          </p>
-          <button className=" text-white text-md p-5 font-bold  mt-4 rounded-md bg-custom-blue mb-6 hover:bg-white hover:border-2 hover:border-custom-blue hover:text-custom-blue">
-            LET`S DISCUSS
-          </button>
+
+          {/* {loading ? (
+            <Skeleton width={100} height={30} />
+          ) : latestProject[0] ? (
+            <h1 className="text-paraClr text-4xl font-bebas underline">
+              {latestProject[0].ProjectName}
+            </h1>
+          ) : null} */}
+
+          {/* {loading ? (
+            <Skeleton count={5} width={400} />
+          ) : latestProject[0] ? (
+            <p className="text-sm md:text-base text-paraClr leading-tight line-clamp-6">
+              {latestProject[0].ProjectDescription}
+            </p>
+          ) : (
+            <p className="text-sm md:text-base text-paraClr leading-tight">
+              Grabbing the market by your brands depends on the sophisticated
+              aesthetic UI/UX designs of your product. One of the leading
+              expertise of Encoderbytes is the strong UI/UX designing background
+              with a skilled workforce. Our UI/UX designs are focused on
+              efficient solutions to user problems. We apply design thinking to
+              product design, therefore we categorize the UX process to 5 key
+              phases : Product definition, Research, Analysis, Design and
+              validation. Our systematic approach results in an unconventional
+              UI and UX design – a user friendly solution.
+            </p>
+          )} */}
+          <p className="text-sm md:text-base text-paraClr leading-tight">
+              Grabbing the market by your brands depends on the sophisticated
+              aesthetic UI/UX designs of your product. One of the leading
+              expertise of Encoderbytes is the strong UI/UX designing background
+              with a skilled workforce. Our UI/UX designs are focused on
+              efficient solutions to user problems. We apply design thinking to
+              product design, therefore we categorize the UX process to 5 key
+              phases : Product definition, Research, Analysis, Design and
+              validation. Our systematic approach results in an unconventional
+              UI and UX design – a user friendly solution.
+            </p>
+
+          {/* {latestProject[0] ? (
+            <a
+              href={`/Case_Study?project=${
+                latestProject[0]?.id || latestProject[0]?._id || ""
+              }`}
+              rel="noopener noreferrer"
+            >
+              <button className="text-custom-blue font-semibold transition-all w-[157px] h-11 border-2 border-custom-blue rounded-md hover:text-white hover:bg-custom-blue flex items-center justify-center gap-3">
+                Read Details
+              </button>
+            </a>
+          ) : (
+            <Link
+              href="#form"
+              className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-white hover:border-2 hover:border-custom-blue hover:text-custom-blue flex items-center justify-center"
+            >
+              Let’s Discuss
+            </Link>
+          )} */}
+
+          <Link
+              href="#form"
+              className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-white hover:border-2 hover:border-custom-blue hover:text-custom-blue flex items-center justify-center"
+            >
+              Let’s Discuss
+            </Link>
+
+
         </div>
         {/* iamge */}
         <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
+          {/* {loading ? (
+            <Skeleton width={400} height={300} />
+          ) : latestProject[0] ? (
+            <Image
+              src={latestProject[0].Image}
+              alt={latestProject[0].ProjectName}
+              className="object-cover w-full h-full rounded-lg"
+              width={400}
+              height={400}
+            />
+          ) : (
+            <Image
+              src="/backgrounds/Rectangle29.png"
+              alt="Logo"
+              className="object-cover w-full h-full"
+              width={400}
+              height={400}
+            />
+          )} */}
+
           <Image
-            src="/backgrounds/Rectangle29.png"
-            alt="Logo"
-            className="object-cover w-full h-full"
-            width={400}
-            height={400}
-          />
+              src="/backgrounds/Rectangle29.png"
+              alt="Logo"
+              className="object-cover w-full h-full"
+              width={400}
+              height={400}
+            />
         </div>
       </div>
+
       {/* section 3 */}
       <div id="section3"></div>
-      <div className="bg-white p-14 md:px-20">
+      <div className="bg-white mx-4 md:mx-0 lg:px-0 pb-16">
         <div className="flex justify-center items-center flex-col mt-4">
-          <div className="text-custom-blue text-1xl md:text-4xl font-bold flex justify-center items-center gap-2">
-            <span className="text-black">MOBILE APP</span>
-            <span className="text-custom-blue"> DEVELOPMENT SERVICES</span>
+          <div className="text-4xl text-center font-bebas tracking-custom">
+            <span className="">USER EXPERIENCE </span>
+            <span className="text-custom-blue">DESIGNING PROCESS</span>
           </div>
-          <div className="text-center w-4/6 mt-4 text-md">
-            Do you know what makes a good mobile app different from a poor one?
-            It’s the UI/UX design! A well-designed user interface can raise your
-            conversion rate by 200 percent. Our mobile solutions balance
-            function and aesthetics to help your business maximize ROI, enhance
-            user experiences, and improve customer-company relationships.
-          </div>
+          <p className="md:w-3/5 mt-3 text-center text-paraClr leading-tight">
+            We follow a complete user experience designing process from start
+            like user research to designing high fiedelity designs. Each phase
+            involves users of the product to get better result.
+          </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 mt-16 mx-16">
-          {/* 1 CARD */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-16 md:mx-16">
           <div className="rounded-xl bg-custom-blue p-8">
-            <div className="flex justify-between">
-              {/* <div className=""> */}
-              <span className="text-white text-2xl font-bold border-b-4 border-dotted border-gray-400">
+            <div className="flex justify-between font-bebas items-center tracking-custom">
+              <span className="text-xl md:text-4xl text-white border-[#ffffff4e] border-b-4 border-dashed w-4/6 pb-3">
                 STRATEGY WORKSHOP
               </span>
-              <span className="text-6xl font-bold text-slate-400">0 1</span>
+              <span className="text-6xl text-white opacity-20">01</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-md">
+              <p className="leading-tight">
                 Our AI development services help you by avoiding biases and
                 human error and also helps you by saving your money and time
                 through automating and optimizing everyday processes and daily
@@ -116,17 +210,16 @@ const Ai = () => {
               </p>
             </div>
           </div>
-          {/* 2 CARD */}
+
           <div className="rounded-xl bg-custom-blue p-8">
-            <div className="flex justify-between">
-              {/* <div className=""> */}
-              <span className="text-white text-2xl font-bold border-b-4 border-dotted border-gray-400">
+            <div className="flex justify-between font-bebas items-center tracking-custom">
+              <span className="text-xl md:text-4xl text-white border-[#ffffff4e] border-b-4 border-dashed w-4/6 pb-3">
                 DEFINING USER PERSONA
               </span>
-              <span className="text-6xl font-bold text-slate-400">0 2</span>
+              <span className="text-6xl text-white opacity-20">02</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-md">
+              <p className="leading-tight">
                 As a leading UX and UI design Company, it is an utmost crucial
                 responsibility for us to understand your requirements in a
                 better way,for that reason we create user personas to explain
@@ -135,17 +228,16 @@ const Ai = () => {
               </p>
             </div>
           </div>
-          {/* 3 CARD */}
+
           <div className="rounded-xl bg-custom-blue p-8">
-            <div className="flex justify-between">
-              {/* <div className=""> */}
-              <span className="text-white text-2xl font-bold border-b-4 border-dotted border-gray-400">
+            <div className="flex justify-between font-bebas items-center tracking-custom">
+              <span className="text-xl md:text-4xl text-white border-[#ffffff4e] border-b-4 border-dashed w-4/6 pb-3">
                 EMPATHY MAPPING
               </span>
-              <span className="text-6xl font-bold text-slate-400">0 3</span>
+              <span className="text-6xl text-white opacity-20">03</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-md">
+              <p className="leading-tight">
                 The benefits of doing empathy mapping are manifold. We believe
                 it removes bias from our designs and aligns the team on a
                 single, shared understanding of the user’s empathy like what
@@ -156,17 +248,16 @@ const Ai = () => {
               </p>
             </div>
           </div>
-          {/* 4 CARD */}
+
           <div className="rounded-xl bg-custom-blue p-8">
-            <div className="flex justify-between">
-              {/* <div className=""> */}
-              <span className="text-white text-2xl font-bold border-b-4 border-dotted w-4/6 border-gray-400">
+            <div className="flex justify-between font-bebas items-center tracking-custom">
+              <span className="text-xl md:text-4xl text-white border-[#ffffff4e] border-b-4 border-dashed w-4/6 pb-3">
                 ANALYZING COMPETITOR LANDSCAPE
               </span>
-              <span className="text-6xl font-bold text-slate-400">0 4</span>
+              <span className="text-6xl text-white opacity-20">04</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-md">
+              <p className="leading-tight">
                 To identify the defensive or offensive strategic context or to
                 know about the opportunities and threats you must be aware of
                 with whom you are competing.So that way we recognize potential
@@ -177,17 +268,16 @@ const Ai = () => {
               </p>
             </div>
           </div>
-          {/* 5 CARD */}
+
           <div className="rounded-xl bg-custom-blue p-8">
-            <div className="flex justify-between">
-              {/* <div className=""> */}
-              <span className="text-white text-2xl font-bold border-b-4 border-dotted w-4/6 border-gray-400">
+            <div className="flex justify-between font-bebas items-center tracking-custom">
+              <span className="text-xl md:text-4xl text-white border-[#ffffff4e] border-b-4 border-dashed w-4/6 pb-3">
                 MIND MAPPING AND CARD SORTING
               </span>
-              <span className="text-6xl font-bold text-slate-400">0 5</span>
+              <span className="text-6xl text-white opacity-20">05</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-md">
+              <p className="leading-tight">
                 In this step all the data we have collected on the wall we
                 represent by engaging the product owners,developer,manager and
                 designers.After that we group the collected data on the sticky
@@ -199,18 +289,17 @@ const Ai = () => {
               </p>
             </div>
           </div>
-          {/* 6 CARD */}
+
           <div className="rounded-xl bg-custom-blue p-5">
-            <div className="flex justify-between">
-              {/* <div className=""> */}
-              <span className="text-white text-2xl font-bold border-b-4 border-dotted w-4/6 border-gray-400">
-                ARCHITECTING INFORMATION
+            <div className="flex justify-between font-bebas items-center tracking-custom">
+              <span className="text-xl md:text-4xl text-white border-[#ffffff4e] border-b-4 border-dashed w-4/6 pb-3">
+                ARCHITECTURE INFORMATION
               </span>
-              <span className="text-6xl font-bold text-slate-400">0 6</span>
+              <span className="text-6xl text-white opacity-20">06</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-md">
-                Prevention from findability and usability disaster -directing to
+              <p className="leading-tight">
+                Prevention from finality and usability disaster -directing to
                 costly redesigns we take architectural information in creating a
                 plan.That is why in our UX and UI design services incorporate
                 information Architecture plays a huge role.it helps us to focus
@@ -220,17 +309,16 @@ const Ai = () => {
               </p>
             </div>
           </div>
-          {/* 7 CARD */}
+
           <div className="rounded-xl bg-custom-blue p-5">
-            <div className="flex justify-between">
-              {/* <div className=""> */}
-              <span className="text-white text-2xl font-bold border-b-4 border-dotted w-4/6 border-gray-400">
+            <div className="flex justify-between font-bebas items-center tracking-custom">
+              <span className="text-xl md:text-4xl text-white border-[#ffffff4e] border-b-4 border-dashed w-4/6 pb-3">
                 LOW FIDELITY SKETCHES
               </span>
-              <span className="text-6xl font-bold text-slate-400">0 7</span>
+              <span className="text-6xl text-white opacity-20">07</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-md">
+              <p className="leading-tight">
                 We have an equitable understanding of how to compose a screen,
                 after a detailed architectural information is out .For each user
                 requirement we start to create fast and cheap on-paper
@@ -241,17 +329,16 @@ const Ai = () => {
               </p>
             </div>
           </div>
-          {/* 8 CARD */}
+
           <div className="rounded-lg bg-custom-blue p-5">
-            <div className="flex justify-between">
-              {/* <div className=""> */}
-              <span className="text-white text-2xl font-bold border-b-4 border-dotted w-4/6 border-gray-400">
+            <div className="flex justify-between font-bebas items-center tracking-custom">
+              <span className="text-xl md:text-4xl text-white border-[#ffffff4e] border-b-4 border-dashed w-4/6 pb-3">
                 HIGH FIDELITY WIREFRAMING
               </span>
-              <span className="text-6xl font-bold text-slate-400">0 8</span>
+              <span className="text-6xl text-white opacity-20">08</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-md">
+              <p className="leading-tight">
                 To detailing out the screens in its exact shape and style we
                 further transform the paper prototype into high fidelity
                 wireframes. For our visual design expert the sole reference is
@@ -261,17 +348,16 @@ const Ai = () => {
               </p>
             </div>
           </div>
-          {/* 8 CARD */}
+
           <div className="rounded-lg bg-custom-blue p-5">
-            <div className="flex justify-between">
-              {/* <div className=""> */}
-              <span className="text-white text-2xl font-bold border-b-4 border-dotted w-4/6 border-gray-400">
+            <div className="flex justify-between font-bebas items-center tracking-custom">
+              <span className="text-xl md:text-4xl text-white border-[#ffffff4e] border-b-4 border-dashed w-4/6 pb-3">
                 DEFINING UI GUIDELINES
               </span>
-              <span className="text-6xl font-bold text-slate-400">0 9</span>
+              <span className="text-6xl text-white opacity-20">09</span>
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6 text-white">
-              <p className="mt-6 text-md">
+              <p className="leading-tight">
                 We carefully design your web and mobile applications by setting
                 up different components like color palette,typography,the
                 call-to-action buttons, notifications and alerts,icons and
@@ -283,31 +369,31 @@ const Ai = () => {
           </div>
         </div>
       </div>
+
       {/* section 4 */}
       <div id="section4"></div>
-
-      <div className="bg-red w-full bg-gray-200">
-        <div className="flex justify-center items-center  flex-col pt-20">
-          <div className="text-3xl font-bold text-center">
+      <div className="w-full bg-custom">
+        <div className="flex justify-center items-center flex-col pt-14">
+          <div className="text-[40px] text-center font-bebas tracking-custom">
             <span className="">TOOLS & </span>
             <span className="text-custom-blue">TECHNOLOGIES</span>
           </div>
 
-          <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 mt-20 pb-20 w-5/6">
+          <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 mt-10 pb-20 w-5/6">
             {Uiuxappslogo.map((items) => {
               return (
                 <div
                   key={items.image}
-                  className="border-2 border-gray-400 p-14 text-center flex flex-col gap-9 justify-between items-center rounded-xl "
+                  className="border-2 border-gray-300 text-center flex flex-col gap-4 w-47 h-47 justify-center items-center rounded-xl "
                 >
                   <Image
                     src={items.image}
                     className="rounded-lg"
                     alt="image"
-                    width={200}
-                    height={200}
+                    width={44}
+                    height={50}
                   />
-                  <span className="font-bold">{items.name}</span>
+                  <span>{items.name}</span>
                 </div>
               );
             })}
@@ -315,12 +401,139 @@ const Ai = () => {
         </div>
       </div>
 
-      {/* section 8 */}
+      {/* section 8: Dynamic UI/UX Projects */}
+      {/* <section className="bg-gray-100 pb-10 mt-20">
+        <div className="flex pt-20 justify-center items-center text-4xl font-bebas tracking-custom">
+          <span>UI/UX</span>
+          <span className="text-custom-blue">&nbsp;PROJECTS</span>
+        </div>
 
+        {loading ? (
+          Array.from({ length: 3 }).map((_, index) => (
+            <div
+              key={index}
+              className="flex flex-col md:flex-row justify-start items-center px-6 md:px-32 mt-20 md:mt-8 gap-y-8 md:gap-x-16 md:w-5/6 m-auto p-8 rounded-lg"
+              style={{ backgroundColor: "rgb(164, 189, 247)" }}
+            >
+              <div
+                className={`w-full md:w-[55%] h-auto md:h-full relative my-10 ${
+                  index % 2 === 1 ? "md:order-2" : ""
+                }`}
+              >
+                <Skeleton height={250} width={"100%"} borderRadius={12} />
+              </div>
+              <div
+                className={`flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[45%] ${
+                  index % 2 === 1 ? "md:order-1" : ""
+                }`}
+              >
+                <Skeleton width={150} height={25} />
+                <Skeleton width={250} height={25} />
+                <Skeleton width={300} count={3} />
+                <Skeleton width={150} height={40} borderRadius={6} />
+              </div>
+            </div>
+          ))
+        ) : Projects && Projects.length > 0 ? (
+          Projects.map((project, index) => (
+            <div
+              key={project.id || project._id || index}
+              className="flex flex-col md:flex-row justify-start items-center px-6 md:px-32 mt-20 md:mt-8 gap-y-8 md:gap-x-16 md:w-5/6 m-auto p-8 rounded-lg"
+              style={{ backgroundColor: "rgb(164, 189, 247)" }}
+            >
+              <div
+                className={`w-full h-auto md:h-full relative my-10 ${
+                  index % 2 === 1 ? "md:order-2" : ""
+                }`}
+              >
+                <div className="relative w-full h-[250px]">
+                  <Image
+                    src={project.Image || "/backgrounds/app2.png"}
+                    alt={project.ProjectName || "Project Image"}
+                    className="object-cover rounded-lg"
+                    width={400}
+                    height={250}
+                    onError={(e) => {
+                      e.target.src = "/backgrounds/app2.png";
+                    }}
+                  />
+                </div>
+              </div>
+              <div
+                className={`flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[45%] ${
+                  index % 2 === 1 ? "md:order-1" : ""
+                }`}
+              >
+                <div className="text-2xl font-bold text-paraClr">
+                  <span className="border-b-4 border-white">
+                    {project.ProjectCategory || "UI/UX"}
+                  </span>
+                </div>
+                <div className="text-4xl text-white font-bebas tracking-custom">
+                  {project.ProjectName || "Project Name"}
+                </div>
+                <p className="text-paraClr leading-tight line-clamp-3">
+                  {project.ProjectDescription ||
+                    "Project description not available."}
+                </p>
+                <div className="text-white rounded-md w-40 h-11 border-2 hover:bg-custom-blue border-white text-center justify-center cursor-pointer flex items-center font-bold">
+                  <a
+                    href={`/Case_Study?project=${
+                      project.id || project._id || ""
+                    }`}
+                    rel="noopener noreferrer"
+                  >
+                    <button>READ CASE STUDY</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div
+            className="flex flex-col md:flex-row justify-start items-center px-6 md:px-32 mt-20 md:mt-8 gap-y-8 md:gap-x-16 md:w-5/6 m-auto p-8 rounded-lg"
+            style={{ backgroundColor: "rgb(164, 189, 247)" }}
+          >
+            <div className="w-full md:w-[40%] h-auto md:h-full relative my-10">
+              <Image
+                src="/backgrounds/app2.png"
+                alt="Default Project"
+                className="object-cover w-full h-full"
+                width={350}
+                height={350}
+              />
+            </div>
+            <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
+              <div className="text-2xl font-bold text-paraClr">
+                <span className="border-b-4 border-white">UI/UX</span>
+              </div>
+              <div className="text-4xl text-white font-bebas tracking-custom">
+                NO PROJECTS AVAILABLE
+              </div>
+              <p className="text-paraClr leading-tight">
+                Currently, there are no UI/UX projects available to display.
+                Please check back later or contact us for more information.
+              </p>
+              <div className="text-white rounded-md w-40 h-11 border-2 hover:bg-custom-blue border-white text-center justify-center cursor-pointer flex items-center font-bold">
+                <button>COMING SOON</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="flex flex-col md:flex-row justify-center items-center  mt-10">
+          <Link
+            href="/Projects"
+            className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-gray-100 hover:border-2 hover:border-custom-blue hover:text-custom-blue flex items-center justify-center"
+          >
+            View Portfolio
+          </Link>
+        </div>
+      </section> */}
       {/* contact from */}
       <Contactform />
     </div>
   );
 };
 
-export default Ai;
+export default Uiux;

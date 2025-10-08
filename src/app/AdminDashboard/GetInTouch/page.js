@@ -13,23 +13,28 @@ import { API_URL_GetInTouch } from "../components/ShowApidatas/apiUrls";
 const ContactTable = () => {
   const router = useRouter();
   const [showAllGet, setShowAllGet] = useState([]);
+  const [contactsLoading, setContactsLoading] = useState(false);
+  const [contactsError, setContactsError] = useState(null);
 
   useEffect(() => {
     if (!isAuthenticated()) {
       router.push("/AdminDashboard/Login");
       return;
     }
+    setContactsLoading(true);
+    setContactsError(null);
     fetchData();
-  }, []);
+  }, [router]);
 
   const fetchData = async () => {
     try {
       const { admins } = await GetInCount();
       setShowAllGet(admins);
-      console.log(admins);
+      setContactsLoading(false);
     } catch (error) {
+      setContactsError("Failed to fetch contacts.");
+      setContactsLoading(false);
       console.error(`Failed to fetch data: ${error}`);
-      // Handle error: Redirect, toast error message, etc.
     }
   };
 
@@ -49,7 +54,7 @@ const ContactTable = () => {
       <Header className="min-w-full" />
       <div className="flex gap-4">
         <Sidebar />
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 mt-10 md:mt-0">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Contacts</h2>
           </div>
@@ -66,9 +71,21 @@ const ContactTable = () => {
                 </tr>
               </thead>
               <tbody>
-                {showAllGet.length > 0 ? (
+                {contactsLoading ? (
+                  <tr>
+                    <td colSpan="6" className="text-center py-4">
+                      <p>Loading contacts...</p>
+                    </td>
+                  </tr>
+                ) : contactsError ? (
+                  <tr>
+                    <td colSpan="6" className="text-center py-4">
+                      <p>{contactsError}</p>
+                    </td>
+                  </tr>
+                ) : showAllGet.length > 0 ? (
                   showAllGet.map((get, idx) => (
-                    <tr key={get._id} className="border-2 border-b-gray-500">
+                    <tr key={get.id} className="border-2 border-b-gray-500">
                       <td className="px-4 py-2">{idx + 1}</td>
                       <td className="px-4 py-2">{get.username}</td>
                       <td className="px-4 py-2">{get.email}</td>
@@ -88,7 +105,7 @@ const ContactTable = () => {
                       <td className="px-4 py-2 text-center">
                         <button
                           className="text-red-500 hover:underline"
-                          onClick={() => handleDelete(get._id)}
+                          onClick={() => handleDelete(get.id)}
                         >
                           Delete
                         </button>
@@ -98,11 +115,7 @@ const ContactTable = () => {
                 ) : (
                   <tr>
                     <td colSpan="6" className="text-center py-4">
-                      {showAllGet.length === 0 ? (
-                        <p>No contacts available.</p>
-                      ) : (
-                        <p>Loading...</p>
-                      )}
+                      <p>No contacts available.</p>
                     </td>
                   </tr>
                 )}

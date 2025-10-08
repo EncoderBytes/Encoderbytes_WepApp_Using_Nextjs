@@ -150,14 +150,9 @@ export async function PUT(request, context) {
   console.log("Vacancy ID:", id);
 
   try {
-    // Parse form data
-    const formData = await request.formData();
-    const formDataObject = {};
-    for (const [key, value] of formData.entries()) {
-      formDataObject[key] = value;
-    }
-    const { VacancyTitle, Requireds, Experience } = formDataObject;
-    console.log(VacancyTitle, Requireds, Experience);
+    // Parse JSON data instead of FormData
+    const { VacancyTitle, Requireds, Experience, totalVacancies } = await request.json();
+    console.log(VacancyTitle, Requireds, Experience, totalVacancies);
 
     // Connect to the database
     const db = await connect();
@@ -183,6 +178,10 @@ export async function PUT(request, context) {
     if (Experience) {
       updates.push("Experience = ?");
       values.push(Experience);
+    }
+    if(totalVacancies){
+      updates.push("totalVacancies = ?");
+      values.push(totalVacancies);
     }
 
     if (updates.length === 0) {

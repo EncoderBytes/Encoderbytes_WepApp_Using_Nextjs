@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { url } from "../ShowApidatas/apiUrls";
 
 const UpdateVacancyModal = ({ isclose, vacId, getVacancies }) => {
   console.log(vacId);
@@ -10,6 +11,7 @@ const UpdateVacancyModal = ({ isclose, vacId, getVacancies }) => {
     VacancyName: "",
     VacancyDiscription: "",
     Experience: "",
+    totalVacancies: ""
   });
   const modalRef = useRef();
 
@@ -43,7 +45,7 @@ const UpdateVacancyModal = ({ isclose, vacId, getVacancies }) => {
     });
   };
   const API_URL = "/api/Vacancies";
-  const showalladmins = () => {
+  const showalladmins = useCallback(() => {
     axios
       .get(`${API_URL}/${vacId}`)
       .then((res) => {
@@ -53,44 +55,38 @@ const UpdateVacancyModal = ({ isclose, vacId, getVacancies }) => {
           VacancyName: vacData.VacancyTitle,
           VacancyDiscription: vacData.Requireds,
           Experience: vacData.Experience,
+          totalVacancies: vacData.totalVacancies
         });
       })
       .catch((error) => {
         console.log(`error : ${error}`);
       });
-  };
+  }, [vacId]);
+  
   useEffect(() => {
     showalladmins();
-  }, []);
+  }, [showalladmins]);
 
   const sendMessage = async () => {
-    const formDataToSend = new FormData();
-    formDataToSend.append("VacancyTitle", formData.VacancyName);
-    formDataToSend.append("Requireds", formData.VacancyDiscription);
-    formDataToSend.append("Experience", formData.Experience);
-    console.log(
-      formData.VacancyName,
-      formData.VacancyDiscription,
-      formData.Experience
-    );
+    const _obj = {
+      VacancyTitle: formData.VacancyName,
+      Requireds: formData.VacancyDiscription,
+      Experience: formData.Experience,
+      totalVacancies: formData.totalVacancies
+    };
+
+    console.log(_obj);
+
     try {
-      const response = await axios.put(`${API_URL}/${vacId}`, formDataToSend);
+      const response = await axios.put(`${API_URL}/${vacId}`, _obj);
 
-      if (response.status !== 200) {
-        throw new Error("Network response was not ok");
-      }
-
-      toast.success("Vacancy updated successfully");
-      isclose();
+      console.log(response.data);
       getVacancies();
-      setFormData({
-        VacancyName: "",
-        VacancyDiscription: "",
-        Experience: "",
-      });
+      isclose(); // Close the popup window
+      toast.success("Vacancy updated successfully!");
     } catch (error) {
-      console.error("Error updating Vacancy:", error);
-      toast.error("Error updating Vacancy");
+      console.error("Error updating vacancy:", error);
+      toast.error("Error updating vacancy");
     }
   };
 
@@ -98,9 +94,9 @@ const UpdateVacancyModal = ({ isclose, vacId, getVacancies }) => {
     <div
       ref={modalRef}
       onClick={handleClose}
-      className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
+      className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center p-4"
     >
-      <div className="mt-10 flex flex-col gap-4 text-white bg-slate-400 rounded-md p-8 w-[600px]">
+      <div className="flex flex-col gap-4 text-white bg-slate-400 rounded-md p-8 w-[600px] max-h-[90vh] overflow-y-auto">
         <button className="self-end" onClick={isclose}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -147,9 +143,25 @@ const UpdateVacancyModal = ({ isclose, vacId, getVacancies }) => {
               onChange={handleInputChange}
             />
           </div>
+
+          <div>
+            <label htmlFor="totalVacancies" className="text-gray-950">
+              Total Vacancies :
+            </label>
+            <br/>
+            <input
+              type="number"
+              id="totalVacancies"
+              name="totalVacancies"
+              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+              value={formData.totalVacancies}
+              onChange={handleInputChange}
+            />
+          </div>
+
           <div className="col-span-2">
             <label htmlFor="VacancyDiscription" className="text-gray-950">
-              Description :
+              Job Requirements (one per line):
             </label>
             <br />
             <textarea
@@ -158,9 +170,31 @@ const UpdateVacancyModal = ({ isclose, vacId, getVacancies }) => {
               className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
               value={formData.VacancyDiscription}
               onChange={handleInputChange}
-              rows="4"
-              placeholder="Enter each bullet point on a new line"
+              rows="6"
+              placeholder="Enter each requirement on a new line:
+2 Years of experience working on cutting edge web development technologies
+Work with the latest technologies in JavaScript Stack
+Expected to have full stack knowledge & experience
+Should be strong with logic & algorithms"
             />
+            <p className="text-sm text-gray-700 mt-1">
+              Tip: Write each requirement on a separate line for better formatting
+            </p>
+            
+            {/* Preview Section */}
+            {formData.VacancyDiscription && (
+              <div className="mt-4 p-3 bg-gray-100 rounded-md">
+                <h4 className="text-gray-950 font-semibold mb-2">Preview:</h4>
+                <div className="text-gray-800">
+                  <strong className="text-blue-600">DESIRED SKILLS</strong>
+                  <ul className="list-disc pl-5 mt-2">
+                    {formData.VacancyDiscription.split('\n').filter(item => item.trim() !== '').map((requirement, index) => (
+                      <li key={index} className="mb-1">{requirement.trim()}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 

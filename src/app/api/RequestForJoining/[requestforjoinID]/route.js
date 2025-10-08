@@ -85,35 +85,15 @@ cloudinary.v2.config({
 // mysql method
 export async function DELETE(request, context) {
   try {
-    const db = await connect();  
+    const db = await connect();
     const id = context.params.requestforjoinID;
-    console.log(id);
+    console.log("Received ID for deletion:", id);
 
-    // 1. Get the record first to retrieve the publicId (for Cloudinary image)
-    const [rows] = await db.query("SELECT publicId FROM requestforjoining WHERE id = ?", [id]);
-
-    if (rows.length === 0) {
-      return NextResponse.json({ message: "Request not found", status: 404 });
-    }
-
-    const imagePublicId = rows[0].publicId;
-    console.log("Image Public ID:", imagePublicId);
-
-    // 2. Delete the record from database
     const [result] = await db.query("DELETE FROM requestforjoining WHERE id = ?", [id]);
+    console.log("Delete result:", result);
 
     if (result.affectedRows === 0) {
       return NextResponse.json({ message: "User not found", status: 404 });
-    }
-
-    // 3. Delete the image from Cloudinary if publicId exists
-    if (imagePublicId) {
-      try {
-        const cloudinaryResponse = await cloudinary.v2.uploader.destroy(imagePublicId);
-        console.log(`Cloudinary response: ${cloudinaryResponse.result}`);
-      } catch (error) {
-        console.error("Failed to delete image from Cloudinary:", error);
-      }
     }
 
     return NextResponse.json({
@@ -122,7 +102,7 @@ export async function DELETE(request, context) {
     });
   } catch (error) {
     console.error("Error deleting user:", error);
-    return NextResponse.json({ error: "Failed to delete user", status: 500 });
+    return NextResponse.json({ error: error.message, status: 500 });
   }
 }
 

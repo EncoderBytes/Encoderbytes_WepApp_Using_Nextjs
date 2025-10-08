@@ -23,21 +23,21 @@ const Page = () => {
     <div className="bg-white">
       <Top />
       <div
-        className="max-w-full h-auto flex justify-center items-center mt-14"
+        className="max-w-full h-[350px] flex justify-center items-center mt-20"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/backgrounds/banner-Facebook-Cover-copy.png')",
-          backgroundSize: "100% 100vh", // Set background size to full width and full height of the viewport
+            "linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/backgrounds/banner_Facebook Cover copy.png')",
+          backgroundSize: "100% 100%",
           backgroundBlendMode: "overlay",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="flex flex-col justify-center items-center py-36">
-          <div className="text-custom-blue text-2xl md:text-6xl font-bold flex justify-center items-center">
+        <div className="flex flex-col justify-center items-center py-24">
+          <div className="text-custom-blue text-2xl md:text-4xl  flex justify-center items-center font-bebas tracking-custom">
             CAREERS
           </div>
-          <div className="flex m-auto py-6">
-            <p className="flex w-5/6 md:w-3/6 m-auto justify-center items-center text-center text-md font-medium">
+          <div className="flex m-auto py-3">
+            <p className="flex m-auto justify-center items-center text-paraClr leading-tight text-center w-3/4">
               We are providing best jobs opportunities for people who want to
               grow their skills and career in different fields of the IT
               industry. Also we provide internship for fresh graduates.
@@ -45,34 +45,40 @@ const Page = () => {
           </div>
           <a
             href="/"
-            className="text-black font-bold mt-14 text-center md:text-left text-md"
+            className="text-paraClr font-semibold text-center md:text-left mt-20 text-xs"
           >
-            Home - <span className="text-custom-blue">Careers</span>
+            Home -&nbsp; <span className="text-custom-blue">&nbsp;Careers</span>
           </a>
         </div>
       </div>
       {/* section 2 */}
-      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-20 md:gap-x-8 mb-32">
+
+      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-12 mt-20 md:mt-32 md:gap-x-8 mb-32">
         <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
-          <div className="text-1xl font-bold text-2xl">
-            <span className="border-b-4 border-custom-blue">e n c o</span>
+          <div className="font-bold text-paraClr text-lg">
+            <span className="border-b-4 border-custom-blue">E n c o</span>
             <span className=""> d e r b y t e s .</span>
           </div>
-          <div className="text-3xl font-bold">
-            <span className="text-gray-800">CAREERS AT </span>
-            <span className="text-custom-blue"> ENCODERBYTES</span>
+          <div className="text-4xl font-bebas tracking-custom">
+            <span className="text-paraClr">CAREERS AT </span>
+            <span className="text-custom-blue">ENCODERBYTES</span>
           </div>
-          <p className="text-sm md:text-md">
+          <p className="text-sm md:text-base text-paraClr leading-tight">
             We strive to hire the absolute best people. As a services
-            organisation, we firmly believe that it is the single most important
+            organization, we firmly believe that it is the single most important
             reason for all the success the company has achieved to-date. And
             this is really the only way to move forward.
           </p>
+          <Link href='#Apply'
+            className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-white hover:border-2 hover:border-custom-blue hover:text-custom-blue flex items-center justify-center"
+          >
+            Let’s Discuss
+          </Link>
         </div>
         {/* iamge */}
-        <div className="mt-8 bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
+        <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
           <Image
-            src="/backgrounds/Rectangle-30.png"
+            src="/backgrounds/Rectangle29.png"
             alt="Logo"
             className="object-cover w-full h-full"
             width={400}
@@ -80,62 +86,62 @@ const Page = () => {
           />
         </div>
       </div>
+
       {/* section 3 */}
-      <div className="bg-gray-200 pb-36">
-        <div className="flex  flex-col justify-center items-center  w-5/6 m-auto">
-          <p className="font-bold md:text-4xl text-center md:text-left mt-10">
-            CAREERS AT <span className="text-custom-blue">ENCODERBYTES.</span>
+      <div className="bg-custom pb-36">
+        <div className="flex  flex-col justify-center items-center  w-6/6 m-auto">
+          <p className="text-3xl text-center md:text-left mt-10 uppercase font-bebas tracking-custom">
+            Currently Available <span className="text-custom-blue">positions</span>
           </p>
           {vacancy.map((vac) => {
             return (
               <>
-                <div class="gap-4 md:gap-0 mt-20 ">
+                <div class="gap-4 md:gap-0 mt-20 md:w-full px-4 md:px-12 ">
                   <div className="flex flex-col md:flex-row">
                     <div class="w-full md:w-3/4">
                       <div class="pl-2">
-                        <div class="text-3xl font-bold">{vac.VacancyTitle}</div>
-                        <div class="text-2xl font-bold text-custom-blue mt-4">
+                        <div class="text-4xl text-paraClr font-bebas">{vac.VacancyTitle}</div>
+                        <div class="font-bold text-custom-blue mb-2">
                           DESIRED SKILLS
                         </div>
-                        <div className="pl-4 mt-4 text-md text-gray-600">
-                          {vac.Requireds.split(". ").map((sentence, index) => (
-                            <li key={index}>{sentence.trim()}</li>
+                        <ul className="pl-4 mt-4 text-paraClr list-disc space-y-1">
+                          {vac.Requireds.split('\n').filter(item => item.trim() !== '').map((requirement, index) => (
+                            <li key={index} className="leading-relaxed">{requirement.trim()}</li>
                           ))}
-                        </div>
+                        </ul>
                       </div>
                     </div>
-                    <div class="w-full md:w-1/4 flex justify-center h-80 mt-5">
-                      <div class="flex flex-col gap-3 justify-center items-center border-2 rounded-xl bg-custom-blue px-12 text-white">
-                        <p className="font-medium">VACANCIES</p>
-                        <p>1</p>
-                        ---------------------
-                        <p className="font-medium">EXPERIENCE</p>
-                        <p className="font-bold text-3xl text-gray-800">
-                          {vac.Experience} year
+                    <div class="w-full md:w-1/4 flex justify-center mt-5 md:mt-0">
+                      <div class="flex flex-col justify-center items-center border-2 rounded-[10px] bg-custom-blue text-white h-[244px] w-64 md:w-[196px]">
+                        <p className="font-bold text-[12px] tracking-widest leading-3 mb-0">VACANCIES</p>
+                        <p className="font-bold text-2xl text-paraClr border-b border-white w-5/6 text-center pb-2 mt-2">{vac.totalVacancies}</p>
+                        <p className="font-bold text-[12px] tracking-widest  mt-4">EXPERIENCE</p>
+                        <p className="font-bold text-2xl text-paraClr">   
+                          {vac.Experience}
                         </p>
                         <Link href="#Apply">
-                          <button class="rounded-md bg-gray-600 px-5 py-3 hover:bg-custom-blue font-bold hover:border-white hover:border-2 mt-3">
+                          <button class="rounded-md bg-paraClr w-[134px] h-11 text-[#E5E5E5] hover:bg-custom-blue font-bold hover:border-white hover:border-2 mt-4">
                             APPLY NOW
                           </button>
                         </Link>
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-start font-bold w-full md:w-3/6 text-sm mt-10 border-b-4 border-dotted border-custom-blue"></div>
+                  <div className="flex justify-start font-bold w-full md:w-4/6 text-sm mt-10 border-b-2 border-dashed border-custom-blue"></div>
 
-                  <div className="flex flex-col md:pl-5 mt-20 ">
-                    <span className="text-custom-blue text-2xl font-bold">
+                  <div className="flex flex-col px-2 mt-5 ">
+                    <span className="text-custom-blue leading-loose font-bold">
                       WHAT WE OFFER
                     </span>
-                    <ul className="mt-8 text-md text-gray-600">
-                      <li> • Basic salary</li>
-                      <li> • Health allowance</li>
-                      <li> • Paid holidays</li>
+                    <ul className="mt-4 text-paraClr px- list-disc">
+                      <li> Basic salary</li>
+                      <li> Health allowance</li>
+                      <li> Paid holidays</li>
                     </ul>
                   </div>
                 </div>
 
-                <div className="flex justify-center font-bold  text-custom-blue h-1 bg-black w-full my-4 mt-20"></div>
+                <div className="flex justify-center  border-black border-b-[3px] w-11/12 my-4 mt-20"></div>
               </>
             );
           })}

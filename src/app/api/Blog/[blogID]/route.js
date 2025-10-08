@@ -187,7 +187,7 @@ cloudinary.v2.config({
 export async function GET(request, context) {
   try {
     const db = await connect();
-    const id = context.params.blogID;
+    const id = context.params.blogID; // <-- FIXED
     console.log("Fetching blog ID:", id);
 
     // Fetch the blog from MySQL by ID
