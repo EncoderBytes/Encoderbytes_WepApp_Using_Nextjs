@@ -170,9 +170,9 @@ const Uiux = () => {
           )} */}
 
           <Image
-              src="/backgrounds/Rectangle29.png"
+              src="/UIUX.png"
               alt="Logo"
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full rounded-lg"
               width={400}
               height={400}
             />

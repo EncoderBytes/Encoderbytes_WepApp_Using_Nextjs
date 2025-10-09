@@ -115,7 +115,7 @@ const Page = () => {
           ].map((item, index) => (
             <div
               key={index}
-              className="h-48 bg-white w-[360px] md:w-[416px] flex flex-col justify-center items-center rounded-lg"
+              className="h-48 bg-white w-[360px] md:w-[500px] md:h-[230px] flex flex-col justify-center items-center rounded-lg"
             >
               <h1 className="text-4xl font-bebas">{item.title}</h1>
               <p className="text-wrap card-text box-content mt-3 text-md text-custom-blue text-center text-sm px-5 leading-tight">
@@ -138,7 +138,7 @@ const Page = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10 mb-20 w-full px-4 md:px-12 m-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 mb-20 w-full px-4 md:px-12 m-auto">
         {AboutCarts.map((cart) => (
           <div className="rounded-xl bg-custom p-5 mb-4 md:mb-0 h-[240px]" key={cart.no}>
             <div className="flex justify-between">

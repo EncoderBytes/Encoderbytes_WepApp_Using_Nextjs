@@ -176,11 +176,11 @@ const MobileApp = () => {
             </Link>
           )} */}
         </div>
-        <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
+        <div className="bg-yellow w-full md:w-[50%] h-auto  md:h-full relative">
           <Image
-              src="/backgrounds/mobileapp.png"
+              src="/Mobile.png"
               alt="Mobile application development visual representation"
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full rounded-lg"
               width={400}
               height={400}
             />

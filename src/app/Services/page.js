@@ -142,9 +142,9 @@ const Services = () => {
           {/* iamge */}
           <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
             <Image
-              src="/backgrounds/Mask-group6.png"
+              src="/UIUX.png"
               alt="Logo"
-              className="object-cover"
+              className="object-cover rounded-lg"
               width={636}
               height={400}
             />
