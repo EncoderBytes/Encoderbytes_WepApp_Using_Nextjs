@@ -38,7 +38,7 @@ const page = () => {
       </div>
 
       {/* 2nd */}
-      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-32 md:gap-x-8 mb-32">
+      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-12 mt-20 md:mt-32 md:gap-x-8 mb-32">
         <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
           <div className="font-bold text-paraClr text-lg">
             <span className="border-b-4 border-custom-blue">e n c</span>
@@ -69,7 +69,7 @@ const page = () => {
         {/* iamge */}
         <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
           <Image
-            src="/backgrounds/Rectangle29.png"
+            src="/LifeatEb.png"
             alt="Logo"
             className="object-cover w-full h-full"
             width={400}
@@ -92,7 +92,7 @@ const page = () => {
           </p>
         </div>
 
-        <div className="w-5/6 m-auto flex items-center justify-center gap-4 py-14">
+        <div className="w-full md:px-12 px-4 m-auto flex items-center justify-center gap-4 py-14">
           <div className=" flex items-center justify-center flex-col gap-4">
             <Image
               src="/backgrounds/LifeatEb1.png"
@@ -185,7 +185,7 @@ const page = () => {
           </p>
         </div>
 
-        <div className="w-5/6 m-auto flex items-center justify-center gap-4 py-14">
+        <div className="w-full px-4 md:px-12 m-auto flex items-center justify-center gap-4 py-14">
           <div className=" flex items-center justify-center flex-col gap-4">
             <Image
               src="/backgrounds/LifeatEb1.png"
@@ -274,7 +274,7 @@ const page = () => {
           </p>
         </div>
 
-        <div className="w-5/6 m-auto flex items-center justify-center gap-4 py-14">
+        <div className="w-full px-4 md:px-12 m-auto flex items-center justify-center gap-4 py-14">
           <div className=" flex items-center justify-center flex-col gap-4">
             <Image
               src="/backgrounds/LifeatEb1.png"

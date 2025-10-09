@@ -60,7 +60,7 @@ const Contactform = () => {
   };
 
   return (
-    <div className="flex items-center justify-center m-auto px-4 md:px-12" id="form ">
+    <div className="flex items-center justify-center m-auto px-4 md:px-12" id="form">
       <div className="flex justify-center flex-col lg:flex-row md:flex-row sm:flex-col m-auto  my-20 bg-custom-color w-full rounded-md">
         <div className="flex flex-col md:flex-row items-center justify-center bg-paraClr rounded-lg">
           <div className="w-full md:w-3/5 px-12 text-white my-10">

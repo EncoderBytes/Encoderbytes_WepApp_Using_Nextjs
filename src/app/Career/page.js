@@ -78,7 +78,7 @@ const Page = () => {
         {/* iamge */}
         <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
           <Image
-            src="/backgrounds/Rectangle29.png"
+            src="/Career.png"
             alt="Logo"
             className="object-cover w-full h-full"
             width={400}
