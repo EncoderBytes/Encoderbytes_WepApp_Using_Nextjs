@@ -38,7 +38,7 @@ const page = () => {
       </div>
 
       {/* 2nd */}
-      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-32 md:gap-x-8 mb-32">
+      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-12 mt-20 md:mt-32 md:gap-x-8 mb-32">
         <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
           <div className="font-bold text-paraClr text-lg">
             <span className="border-b-4 border-custom-blue">e n c</span>
@@ -52,7 +52,7 @@ const page = () => {
             We are providing our services all over the world from 2019. We have worked with many startups & established businesses and helped them to improve their businesses.
           </p>
           <div className="flex items-center justify-center gap-3">
-            <Link href="/Services">
+            <Link href="/About">
               <button className="text-customFull transition-all w-36 h-11 font-semibold rounded-md bg-custom-blue hover:bg-white hover:border-2 hover:border-custom-blue hover:text-custom-blue">
                 About Us
               </button>
@@ -69,7 +69,7 @@ const page = () => {
         {/* iamge */}
         <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
           <Image
-            src="/backgrounds/Rectangle29.png"
+            src="/Industries.png"
             alt="Logo"
             className="object-cover w-full h-full"
             width={400}
@@ -80,30 +80,60 @@ const page = () => {
 
       <div className="bg-custom w-full py-20">
 
-        <div className="w-11/12 m-auto flex items-center justify-center gap-6 flex-wrap text-white font-bebas  tracking-custom">
+        <div className="w-full m-auto flex items-center px-4 justify-center gap-6 flex-wrap text-white font-bebas  tracking-custom">
 
-          <div className="bg-lightBlue w-[416px] h-[429px] rounded-[10px] flex items-center justify-center">
-            <h2 className="text-[40px]">healthcare</h2>
+          <div 
+            className="w-[380px] h-[400px] rounded-[10px] flex items-center justify-center relative bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "linear-gradient(rgba(29, 78, 216, 0.8), rgba(15, 23, 42, 0.9)), url('/HealthCare.png')"
+            }}
+          >
+            <h2 className="text-[40px] text-white z-10 font-bold">HEALTHCARE</h2>
           </div>
 
-          <div className="bg-lightBlue w-[416px] h-[429px] rounded-[10px] flex items-center justify-center">
-            <h2 className="text-[40px]">education</h2>
+          <div 
+            className="w-[380px] h-[400px] rounded-[10px] flex items-center justify-center relative bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "linear-gradient(rgba(29, 78, 216, 0.8), rgba(15, 23, 42, 0.9)), url('/Education.png')"
+            }}
+          >
+            <h2 className="text-[40px] text-white z-10 font-bold">EDUCATION</h2>
           </div>
 
-          <div className="bg-lightBlue w-[416px] h-[429px] rounded-[10px] flex items-center justify-center">
-            <h2 className="text-[40px]">travel</h2>
+          <div 
+            className="w-[380px] h-[400px] rounded-[10px] flex items-center justify-center relative bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "linear-gradient(rgba(29, 78, 216, 0.8), rgba(15, 23, 42, 0.9)), url('/Travel.png')"
+            }}
+          >
+            <h2 className="text-[40px] text-white z-10 font-bold">TRAVEL</h2>
           </div>
 
-          <div className="bg-lightBlue w-[416px] h-[429px] rounded-[10px] flex items-center justify-center">
-            <h2 className="text-[40px]">technology</h2>
+          <div 
+            className="w-[380px] h-[400px] rounded-[10px] flex items-center justify-center relative bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "linear-gradient(rgba(29, 78, 216, 0.8), rgba(15, 23, 42, 0.9)), url('/Technology.png')"
+            }}
+          >
+            <h2 className="text-[40px] text-white z-10 font-bold">TECHNOLOGY</h2>
           </div>
 
-          <div className="bg-lightBlue w-[416px] h-[429px] rounded-[10px] flex items-center justify-center">
-            <h2 className="text-[40px]">crypto</h2>
+          <div 
+            className="w-[380px] h-[400px] rounded-[10px] flex items-center justify-center relative bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "linear-gradient(rgba(29, 78, 216, 0.8), rgba(15, 23, 42, 0.9)), url('/Crypto.png')"
+            }}
+          >
+            <h2 className="text-[40px] text-white z-10 font-bold">CRYPTO</h2>
           </div>
 
-          <div className="bg-lightBlue w-[416px] h-[429px] rounded-[10px] flex items-center justify-center">
-            <h2 className="text-[40px]">e-commerce</h2>
+          <div 
+            className="w-[380px] h-[400px] rounded-[10px] flex items-center justify-center relative bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "linear-gradient(rgba(29, 78, 216, 0.8), rgba(15, 23, 42, 0.9)), url('/Ecommerce.png')"
+            }}
+          >
+            <h2 className="text-[40px] text-white z-10 font-bold">E-COMMERCE</h2>
           </div>
         </div>
       </div>

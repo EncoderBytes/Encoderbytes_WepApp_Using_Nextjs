@@ -770,7 +770,7 @@ export default function Home() {
           </div>
 
           <div className="mt-3 md:mt-0 mx-4 md:mx-8">
-            <Link href="/Projects">
+            <Link href="/Industries">
               <button className="text-custom-blue font-semibold transition-all w-[171px] h-11 border-2 border-custom-blue rounded-md hover:text-white hover:bg-custom-blue">
                 Explore All
               </button>
