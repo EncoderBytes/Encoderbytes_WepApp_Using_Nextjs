@@ -136,7 +136,7 @@ const filteredProjects = React.useMemo(() => {
       </div>
 
       {/* Cards Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 mt-16 w-11/12 md:w-5/6 m-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 mt-16 w-11/12 md:w-full md:px-12 m-auto">
         {/* Loading State */}
         {loading && (
           Array.from({ length: 4 }).map((_, idx) => (
@@ -155,6 +155,34 @@ const filteredProjects = React.useMemo(() => {
         {error && !loading && (
           <div className="col-span-full text-center text-red-500 font-bold py-8">
             {error}
+          </div>
+        )}
+
+        {/* No Projects Found Message */}
+        {!loading && !error && filteredProjects.length === 0 && getitem && getitem !== "All" && (
+          <div className="col-span-full text-center py-16">
+            <div className="flex flex-col items-center justify-center">
+              {/* <div className="text-6xl text-gray-300 mb-4">📁</div> */}
+              <h3 className="text-xl font-bold text-gray-600 mb-2">
+                No Projects Found
+              </h3>
+              <p className="text-gray-500 text-sm mb-4">
+                No projects available for the <span className="font-semibold text-custom-blue">
+                  {getitem === "mobileapplication" ? "Mobile Application" :
+                   getitem === "webapplication" ? "Web Application" :
+                   getitem === "artificialintelligence" ? "Artificial Intelligence" :
+                   getitem === "blockchain" ? "Blockchain" :
+                   getitem === "uiux" ? "UI/UX Designing" :
+                   getitem}
+                </span>.
+              </p>
+              <button
+                onClick={() => handleButtonClick("All")}
+                className="bg-custom-blue text-white px-6 py-2 rounded hover:bg-blue-700 transition text-sm"
+              >
+                View All Projects
+              </button>
+            </div>
           </div>
         )}
 
@@ -218,7 +246,7 @@ const filteredProjects = React.useMemo(() => {
           <div className="col-span-full text-center mt-4">
             <button
               onClick={() => setVisibleCount(prev => prev - 2)}
-              className="text-custom-blue underline text-sm hover:text-blue-700"
+              className="text-custom-blue text-sm px-6 py-2 rounded border-2 border-custom-blue hover:text-gray-700"
               disabled={loading}
             >
               Show Less

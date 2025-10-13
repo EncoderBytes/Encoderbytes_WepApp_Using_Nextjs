@@ -54,7 +54,7 @@ const Header = () => {
       className={`bg-lightBlack fixed top-0 md:top-0 left-0 w-full z-50 h-20 transition-all duration-300 opacity-90 ${isSticky ? "py-2 top-0" : "p-2 lg:mt-6 mt-0 "
         }`}
     >
-      <div className="flex justify-between items-center w-10/12 m-auto py-2">
+      <div className="flex justify-between items-center px-6 md:px-12 m-auto py-2">
 
         <div className="flex justify-center items-center">
           <Link href="/">

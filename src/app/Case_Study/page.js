@@ -95,7 +95,7 @@ const CaseStudyPage = ({searchParams}) => {
               alt="Logo"
               className="
               object-cover rounded-lg border-4 shadow-2xl 
-              w-80 h-65 mx-auto
+              w-100 h-65 mx-auto
               md:w-full md:h-full  md:mx-auto 
               lg:w-[1200px] lg:h-[600px]"/>
           ) : (
@@ -249,7 +249,7 @@ const CaseStudyPage = ({searchParams}) => {
 
 
 
-      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-16 lg:px-32 mt-20 md:mt-10 gap-y-10 md:gap-y-0 md:gap-x-16 mb-10 bg-[#f9a4a4] py-10 text-white">
+      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-12 mt-20 md:mt-10 gap-y-10 md:gap-y-0 md:gap-x-16 mb-10 bg-[#f9a4a4] py-10 text-white">
   {/* Text Section */}
   <div className="flex flex-col justify-center items-center md:items-start gap-y-3 text-center md:text-left w-full md:w-1/2">
     <div className="font-bold text-lg">
@@ -275,12 +275,12 @@ const CaseStudyPage = ({searchParams}) => {
   {/* Image Section */}
   <div className="w-full md:w-1/2 flex justify-center">
     {loading ? (
-      <Skeleton height={150} width={150} borderRadius={12} />
+      <Skeleton height={170} width={170} borderRadius={12} />
     ) : project ? (
       <img
         src={project.Image}
         alt="Logo"
-        className="object-cover rounded-lg border-4 shadow-2xl w-[280px] sm:w-[340px] md:w-[400px] lg:w-[500px] h-auto mx-auto"
+        className="object-cover rounded-lg border-4 shadow-2xl w-[400px] lg:w-[550px] h-auto mx-auto"
       />
     ) : (
       <img
@@ -317,7 +317,7 @@ const CaseStudyPage = ({searchParams}) => {
           <Image
             src="/backgrounds/process1.svg"
             alt="Logo"
-            className="object-cover"
+            className="object-cover hidden md:block"
             width={1197}
             height={174}
           />
