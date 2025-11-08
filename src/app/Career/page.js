@@ -69,7 +69,7 @@ const Page = () => {
             reason for all the success the company has achieved to-date. And
             this is really the only way to move forward.
           </p>
-          <Link href='#Apply'
+          <Link href='/#form'
             className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-white hover:border-2 hover:border-custom-blue hover:text-custom-blue flex items-center justify-center"
           >
             Let’s Discuss

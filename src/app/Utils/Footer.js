@@ -11,7 +11,23 @@ import { IoMdMail } from "react-icons/io";
 import { TbWorld } from "react-icons/tb";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 const Footer = () => {
+  const pathname = usePathname();
+
+  // Helper to determine if a link is active
+  const isActive = (hrefs) => {
+    if (typeof hrefs === 'string') hrefs = [hrefs];
+    return hrefs.some(href => {
+      if (href === '/') {
+        // For home route, check exact match only
+        return pathname === '/';
+      }
+      // For other routes, check exact match or if it starts with the href
+      return pathname === href || pathname.startsWith(href + '/');
+    });
+  };
   return (
     <>
       <footer className="bg-custom-blue  py-5">
@@ -31,7 +47,7 @@ const Footer = () => {
               quality software products and services across the globe.
             </p>
             <div className="flex gap-2 justify-center md:justify-start items-center mt-5">
-              <Link href="#">
+              <Link href="https://www.facebook.com/encoderbytes" target="_blank" >
                 <FaFacebookSquare color="white" size={22} />
               </Link>
               <Link
@@ -56,25 +72,25 @@ const Footer = () => {
             <div className="text-white text-2xl font-bold mt-5">Explore</div>
             <div className="text-white text-sm ml-4 mt-3">
               <ul className="list-disc">
-                <Link href="/" className="hover:text-gray-300">
+                <Link href="/" className={`hover:text-gray-300 ${isActive("/") ? "text-gray-300" : ""}`}>
                   <li>Home</li>
                 </Link>
-                <Link href="/About" className="hover:text-gray-300">
+                <Link href="/About" className={`hover:text-gray-300 ${isActive("/About") ? "text-gray-300" : ""}`}>
                   <li>About Us</li>
                 </Link>
-                <Link href="/Services" className="hover:text-gray-300">
+                <Link href="/Services" className={`hover:text-gray-300 ${isActive(["/Services", "/Mobile", "/WebApp", "/Ai", "/Uiux"]) ? "text-gray-300" : ""}`}>
                   <li>Services</li>
                 </Link>
-                <Link href="/How_we_Work" className="hover:text-gray-300">
+                <Link href="/How_we_Work" className={`hover:text-gray-300 ${isActive("/How_we_Work") ? "text-gray-300" : ""}`}>
                   <li>How Do We Work</li>
                 </Link>
-                <Link href="/Blog" className="hover:text-gray-300">
+                <Link href="/Blog" className={`hover:text-gray-300 ${isActive("/Blog") ? "text-gray-300" : ""}`}>
                   <li>Blog</li>
                 </Link>
-                <Link href="/Career" className="hover:text-gray-300">
+                <Link href="/Career" className={`hover:text-gray-300 ${isActive("/Career") ? "text-gray-300" : ""}`}>
                   <li>Career</li>
                 </Link>
-                <Link href="/Projects" className="hover:text-gray-300">
+                <Link href="/Projects" className={`hover:text-gray-300 ${isActive("/Projects") ? "text-gray-300" : ""}`}>
                   <li>Portfolio</li>
                 </Link>
               </ul>
@@ -89,7 +105,12 @@ const Footer = () => {
                   <span>
                     <FaPhoneAlt />
                   </span>{" "}
-                  <Link href="#" className="hover:text-gray-200">
+                  <Link 
+                    href="https://wa.me/923339921398" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-gray-200"
+                  >
                     <span>+92 333 9921398</span>
                   </Link>
                 </li>
@@ -110,8 +131,13 @@ const Footer = () => {
                   <span>
                     <TbWorld />
                   </span>{" "}
-                  <Link href="/" className="hover:text-gray-200">
-                    <span>www.encoderbytes.com</span>
+                  <Link 
+                    href="http://elab.encoderbytes.com/" 
+                    // target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-gray-200"
+                  >
+                    <span>elab.encoderbytes.com</span>
                   </Link>
                 </li>
               </ul>

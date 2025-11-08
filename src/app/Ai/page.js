@@ -555,7 +555,7 @@ const Ai = () => {
           </Link>
         </div>
       </section> */}
-      <section className="bg-gray-100 pb-10 mt-20 md:px-12">
+      <section className="bg-gray-100 pb-10 mt-20 md:px-12" id="aiprojects">
                     <div className="flex pt-20 justify-center items-center text-4xl font-bebas tracking-custom">
                       <span>ARTIFICIAL</span>
                       <span className="text-custom-blue">&nbsp; INTELLIGENCE</span>
@@ -687,7 +687,7 @@ const Ai = () => {
                     <div className="flex flex-col md:flex-row justify-center items-center mt-10">
                       <Link href="/Projects">
                         <button className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-gray-100 hover:border-2 hover:border-custom-blue hover:text-custom-blue">
-                          View Portfolio
+                          View All Projects
                         </button>
                       </Link>
                     </div>

@@ -37,33 +37,6 @@ const Page = () => {
     getBlogs();
   }, [getBlogs]);
 
-  // Helper for rendering blog details
-  const renderBlogDetails = useCallback((blog, idx) => (
-    <>
-      <h1 className="font-bold text-2xl">
-        <span>Title : </span>
-        {blog.blogtitle}
-      </h1>
-      <h1 className="font-bold text-xl">
-        <span>Author Name : </span>
-        {blog.author}
-      </h1>
-      <p className="bg-white text-gray-800 p-4 rounded-lg shadow-md text-base leading-relaxed">
-        {expandedBlogs[idx]
-          ? blog.description
-          : `${blog.description?.substring(0, 120)}...`}
-        {blog.description && blog.description.length > 120 && (
-          <button
-            className="text-custom-blue underline mt-2"
-            onClick={() => toggleBlogExpand(idx)}
-          >
-            {expandedBlogs[idx] ? "Show Less" : "Show More"}
-          </button>
-        )}
-      </p>
-    </>
-  ), [expandedBlogs, toggleBlogExpand]);
-
   return (
     <div className="bg-white pb-20">
       <Top />
@@ -98,7 +71,7 @@ const Page = () => {
       </div> */}
 
       <div
-        className="max-w-full h-[350px] flex justify-center items-center mt-20"
+        className="max-w-full h-[400px] flex justify-center items-center mt-20"
         style={{
           backgroundImage:
             "linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/backgrounds/banner_Facebook Cover copy.png')",
@@ -108,22 +81,20 @@ const Page = () => {
         }}
       >
         <div className="flex flex-col justify-center items-center py-24">
-          <div className="text-custom-blue text-2xl md:text-4xl flex justify-center items-center font-bebas tracking-custom">
+          <div className="text-custom-blue text-4xl md:text-6xl flex justify-center items-center font-bebas tracking-custom">
             BLOGS
           </div>
-          <div className="flex m-auto py-3">
-            <p className="flex m-auto justify-center items-center text-center w-3/4">
-              We are providing best jobs opportunities for people who want to
-              grow their skills and career in different fields of the IT
-              industry. Also we provide internship for fresh graduates.
+          <div className="flex m-auto py-6">
+            <p className="flex m-auto justify-center items-center text-center text-gray-700 w-3/4 md:w-2/3 text-sm md:text-base leading-relaxed">
+              Discover valuable insights, industry updates, and expert knowledge through our blogs. We share 
+              perspectives on technology, design, and development to keep you informed and inspired.
             </p>
           </div>
-          <a
-            href="/"
-            className="text-paraClr font-semibold text-center md:text-left mt-20 text-xs"
-          >
-            Home -<span className="text-custom-blue">&nbsp;Blogs</span>
-          </a>
+          <div className="text-gray-700 font-medium text-center md:text-left mt-8 text-sm">
+            <a href="/" className="hover:text-custom-blue transition-colors">Home</a>
+            <span className="mx-2">→</span>
+            <span className="text-custom-blue">Blogs</span>
+          </div>
         </div>
       </div>
 
@@ -199,63 +170,104 @@ const Page = () => {
       </div> */}
       
       {/* Blogs Section */}
-      {loading ? (
-        <>
-            <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 gap-y-8 md:gap-x-40">
-              <div>
-                <Skeleton width={300} height={280} className="rounded-lg"/>
+      <div className="container mx-auto px-6 lg:px-16 py-16">
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {[1, 2, 3, 4].map((item) => (
+              <div key={item} className="bg-white rounded-lg overflow-hidden">
+                <Skeleton height={250} className="rounded-lg"/>
+                <div className="p-6">
+                  <div className="flex items-center mb-4">
+                    <Skeleton circle width={40} height={40}/>
+                    <div className="ml-3">
+                      <Skeleton width={100} height={16}/>
+                      <Skeleton width={80} height={14}/>
+                    </div>
+                  </div>
+                  <Skeleton width="80%" height={24} className="mb-3"/>
+                  <Skeleton count={3} height={16}/>
+                  <Skeleton width={80} height={16} className="mt-4"/>
+                </div>
               </div>
-              <div>
-                <Skeleton width={150} height={25}/>
-                <Skeleton width={200} height={25}/>
-                <br/><br/>
-                <Skeleton width={300} height={25} count={3}/>
-              </div>
-            </div>
-            <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 gap-y-8 md:gap-x-40">
-              <div>
-                <Skeleton width={300} height={280} className="rounded-lg"/>
-              </div>
-              <div>
-                <Skeleton width={150} height={25}/>
-                <Skeleton width={200} height={25}/>
-                <br/><br/>
-                <Skeleton width={300} height={25} count={3}/>
-              </div>
-            </div>
-            </>
-            
-      ) : (
-        blogs.map((blog, idx) => (
-          <div
-            key={blog._id || idx}
-            className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 gap-y-8 md:gap-x-8"
-          >
-            <div className="w-full md:w-[70%] h-auto">
-              {blog.image ? (
-                <img
-                  src={blog.image}
-                  alt="image"
-                  width={400}
-                  height={400}
-                  className="rounded-lg"
-                />
-              ) : (
-                <Image
-                  src="/team/team1.jpg"
-                  alt="image"
-                  width={400}
-                  height={400}
-                  className="rounded-full h-10 w-10"
-                />
-              )}
-            </div>
-            <div className="flex flex-col justify-start items-center md:items-start gap-y-4 text-center md:text-left md:w-[70%]">
-              {renderBlogDetails(blog, idx)}
-            </div>
+            ))}
           </div>
-        ))
-      )}
+        ) : blogs.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {blogs.map((blog, idx) => (
+              <div
+                key={blog._id || idx}
+                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              >
+                {/* Blog Image */}
+                <div className="relative h-64 overflow-hidden">
+                  {blog.image ? (
+                    <Image
+                      src={blog.image}
+                      alt={blog.blogtitle || "Blog image"}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                      <span className="text-gray-400">No Image</span>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Blog Content */}
+                <div className="p-6">
+                  {/* Author Info and Date */}
+                  <div className="flex items-center mb-4">
+                    <div className="  ">
+                      <p className="text-sm font-medium text-gray-900">
+                        {blog.author || "Unknown Author"}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {blog.datetime
+                          ? (() => {
+                              let dt = new Date(blog.datetime);
+                              return dt instanceof Date && !isNaN(dt)
+                                ? `${dt.toLocaleString("en-US", { month: "short" })} ${dt.getDate()}, ${dt.getFullYear()}`
+                                : "Invalid Date";
+                            })()
+                          : "No Date Available"}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Blog Title */}
+                  <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                    {blog.blogtitle}
+                  </h2>
+
+                  {/* Blog Description */}
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                    {expandedBlogs[idx]
+                      ? blog.description
+                      : `${blog.description?.substring(0, 120)}...`}
+                  </p>
+
+                  {/* Read More Button */}
+                  <div className="flex items-center justify-between">
+                    {blog.description && blog.description.length > 120 && (
+                      <button
+                        className="text-custom-blue hover:text-blue-600 text-sm font-medium transition-colors duration-200"
+                        onClick={() => toggleBlogExpand(idx)}
+                      >
+                        {expandedBlogs[idx] ? "Show Less" : "Read more →"}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16">
+            <p className="text-gray-500 text-lg">No blogs available at the moment.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

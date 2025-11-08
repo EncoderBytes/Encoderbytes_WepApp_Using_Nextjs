@@ -16,15 +16,46 @@ const Contactform = () => {
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    
+    // Clear specific error when user starts typing
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
   };
 
   const validate = () => {
     let tempErrors = {};
-    if (!formData.username) tempErrors.username = "Username is required";
-    if (!formData.email) tempErrors.email = "Email is required";
-    if (!formData.phone) tempErrors.phone = "Phone is required";
+    
+    // Username/Name validation
+    if (!formData.username) {
+      tempErrors.username = "Name is required";
+    } else if (formData.username.trim().length < 2) {
+      tempErrors.username = "Name must be at least 2 characters long";
+    } else if (formData.username.trim().length > 50) {
+      tempErrors.username = "Name must be less than 50 characters";
+    } else if (!/^[a-zA-Z\s]+$/.test(formData.username.trim())) {
+      tempErrors.username = "Enter a valid name (only letters and spaces allowed)";
+    }
 
+    // Email validation
+    if (!formData.email) {
+      tempErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      tempErrors.email = "Invalid email format";
+    }
+
+    // Phone validation
+    if (!formData.phone) {
+      tempErrors.phone = "Phone number is required";
+    } else if (!/^\d+$/.test(formData.phone.trim())) {
+      tempErrors.phone = "Phone number must contain only digits";
+    } else if (formData.phone.trim().length < 10 || formData.phone.trim().length > 15) {
+      tempErrors.phone = "Phone number must be between 10-15 digits";
+    }
+
+    // Message validation
     if (!formData.message) {
       tempErrors.message = "Message is required";
     } else {
@@ -40,22 +71,40 @@ const Contactform = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      try {
-        await axios.post(API_URL_GetInTouch, formData);
+    
+    // Always run validation before submitting
+    const isValid = validate();
+    
+    if (!isValid) {
+      toast.error("Please fix all validation errors before submitting");
+      return; // Prevent submission
+    }
+
+    try {
+      const response = await axios.post(API_URL_GetInTouch, formData);
+      
+      if (response.status === 200) {
         toast.success("Message sent successfully!");
+        
+        // Clear form and errors on successful submission
         setFormData({
           username: "",
           email: "",
           phone: "",
           message: "",
         });
-      } catch (error) {
-        console.error("There was a error sending the message!", error);
+        setErrors({});
+      }
+    } catch (error) {
+      console.error("There was an error sending the message!", error);
+      
+      // Handle server-side validation errors
+      if (error.response && error.response.status === 400 && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+        toast.error("Please fix the validation errors");
+      } else {
         toast.error("There was an error sending the message!");
       }
-    } else {
-      toast.warn("Please fix the errors in the form.");
     }
   };
 
@@ -70,14 +119,15 @@ const Contactform = () => {
                 type="text"
                 name="username"
                 id="username"
-                placeholder="Username"
+                placeholder="Name"
                 value={formData.username}
                 onChange={handleChange}
-                className="w-full border-b-2 mb-2 px-3 py-2 focus:outline-none bg-transparent"
-                required
+                className={`w-full border-b-2 mb-2 px-3 py-2 focus:outline-none bg-transparent ${
+                  errors.username ? 'border-red-500' : 'border-gray-300'
+                }`}
               />
               {errors.username && (
-                <p className="text-red-500 text-[10px] ml-3">{errors.username}</p>
+                <p className="text-red-500 text-sm mb-2 ml-3">{errors.username}</p>
               )}
 
               <div className="flex flex-col lg:flex-row md:flex-row sm:flex-col mt-6 pb-3 gap-4">
@@ -90,10 +140,11 @@ const Contactform = () => {
                     placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full border-b-2 px-3 py-2 focus:outline-none bg-transparent mb-4 md:mb-0 sm:mb-2 md:mr-2"
-                    required
+                    className={`w-full border-b-2 px-3 py-2 focus:outline-none bg-transparent mb-4 md:mb-0 sm:mb-2 md:mr-2 ${
+                      errors.email ? 'border-red-500' : 'border-gray-300'
+                    }`}
                   />
-                  {errors.email && <p className="text-red-500 text-[10px]  ml-3">{errors.email}</p>}
+                  {errors.email && <p className="text-red-500 text-sm ml-3">{errors.email}</p>}
                 </div>
 
                 <div className="w-full lg:w-1/2 md:w-1/2 sm:w-full">
@@ -105,10 +156,11 @@ const Contactform = () => {
                     placeholder="Phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full border-b-2 px-3 py-2 focus:outline-none bg-transparent sm:ml-0 md:ml-2"
-                    required
+                    className={`w-full border-b-2 px-3 py-2 focus:outline-none bg-transparent sm:ml-0 md:ml-2 ${
+                      errors.phone ? 'border-red-500' : 'border-gray-300'
+                    }`}
                   />
-                  {errors.phone && <p className="text-red-500 text-[10px]  ml-3">{errors.phone}</p>}
+                  {errors.phone && <p className="text-red-500 text-sm ml-3">{errors.phone}</p>}
                 </div>
               </div>
 
@@ -120,16 +172,22 @@ const Contactform = () => {
                 rows="7"
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full border-[1px] px-4 py-2 mt-5 focus:outline-none bg-transparent resize-none"
-                required
+                className={`w-full border-[1px] px-4 py-2 mt-5 focus:outline-none bg-transparent resize-none ${
+                  errors.message ? 'border-red-500' : 'border-gray-300'
+                }`}
               ></textarea>
               {errors.message && (
-                <p className="text-red-500 text-[10px] ml-3">{errors.message}</p>
+                <p className="text-red-500 text-sm ml-3">{errors.message}</p>
               )}
 
               <button
                 type="submit"
-                className="w-[134px] h-11 bg-custom-blue text-white font-semibold rounded mt-6"
+                disabled={Object.keys(errors).length > 0}
+                className={`w-[134px] h-11 font-semibold rounded mt-6 transition-colors ${
+                  Object.keys(errors).length > 0 
+                    ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
+                    : 'bg-custom-blue text-white hover:bg-blue-700'
+                }`}
               >
                 Send Message
               </button>

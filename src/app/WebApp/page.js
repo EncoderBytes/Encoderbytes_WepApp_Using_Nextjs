@@ -364,7 +364,7 @@ const WebAPP = () => {
 
       {/* section 8 */}
 
-      <section className="bg-gray-100 pb-10 mt-20 md:px-12">
+      <section id="webprojects" className="bg-gray-100 pb-10 mt-20 md:px-12">
                           <div className="flex pt-20 justify-center items-center text-4xl font-bebas tracking-custom">
                             <span>WEB</span>
                             <span className="text-custom-blue">&nbsp;APPLICATIONS</span>
@@ -496,7 +496,7 @@ const WebAPP = () => {
                           <div className="flex flex-col md:flex-row justify-center items-center mt-10">
                             <Link href="/Projects">
                               <button className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-gray-100 hover:border-2 hover:border-custom-blue hover:text-custom-blue">
-                                View Portfolio
+                                View All Projects
                               </button>
                             </Link>
                           </div>
@@ -634,7 +634,7 @@ const WebAPP = () => {
               <div className="flex flex-col md:flex-row justify-center items-center mt-10">
                 <Link href="/Projects">
                   <button className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-gray-100 hover:border-2 hover:border-custom-blue hover:text-custom-blue">
-                    View Portfolio
+                    View All Projects
                   </button>
                 </Link>
               </div>

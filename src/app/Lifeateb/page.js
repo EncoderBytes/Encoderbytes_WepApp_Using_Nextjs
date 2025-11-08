@@ -59,7 +59,7 @@ const page = () => {
             </Link>
 
             <Link href="/Projects">
-              <button className="text-custom-blue font-semibold transition-all w-36 h-11 border-2 border-custom-blue  rounded-md hover:text-white hover:bg-custom-blue">
+              <button className="text-customFull transition-all w-36 h-11 font-semibold rounded-md bg-custom-blue hover:bg-white hover:border-2 hover:border-custom-blue hover:text-custom-blue">
                 Portfolio
               </button>
             </Link>

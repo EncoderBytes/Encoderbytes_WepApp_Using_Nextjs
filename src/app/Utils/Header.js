@@ -19,7 +19,14 @@ const Header = () => {
   // Helper to determine if a link is active
   const isActive = (hrefs) => {
     if (typeof hrefs === 'string') hrefs = [hrefs];
-    return hrefs.some(href => pathname === href || pathname.startsWith(href + '/'));
+    return hrefs.some(href => {
+      if (href === '/') {
+        // For home route, check exact match only
+        return pathname === '/';
+      }
+      // For other routes, check exact match or if it starts with the href
+      return pathname === href || pathname.startsWith(href + '/');
+    });
   };
 
   useEffect(() => {
@@ -89,13 +96,20 @@ const Header = () => {
             How we work
           </Link>
           <div className="relative">
-            <button
-              onClick={toggleProjectsDropdown}
-              className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${isActive(["/Services","/Mobile","/WebApp","/Ai","/Uiux"]) ? "text-custom-blue" : "text-white"}`}
-            >
-              Services
-              <span className="ml-1">&#9662;</span>
-            </button>
+            <div className="flex items-center">
+              <Link
+                href="/Services"
+                className={`lg:mr-1 xl:mr-2 hover:text-custom-blue ${isActive(["/Services","/Mobile","/WebApp","/Ai","/Uiux"]) ? "text-custom-blue" : "text-white"}`}
+              >
+                Services
+              </Link>
+              <button
+                onClick={toggleProjectsDropdown}
+                className={`ml-1 hover:text-custom-blue ${isActive(["/Services","/Mobile","/WebApp","/Ai","/Uiux"]) ? "text-custom-blue" : "text-white"}`}
+              >
+                <span>&#9662;</span>
+              </button>
+            </div>
 
             {isProjectsDropdownOpen && (
               <div
@@ -103,7 +117,7 @@ const Header = () => {
                 onClick={closeProjectsDropdown}
               >
                 <div
-                  className="p-2 mt-1 fixed left-0 w-full pb-6 h-[350px] text-white"
+                  className="p-2 mt-1 fixed left-0 w-full pb-6 h-[375px] text-white"
                   style={{ backgroundColor: "rgba(0,0,0,0.8)" }}
                 >
                   <div className="flex w-4/6 m-auto mt-10 text-2xl font-bold">
@@ -167,6 +181,14 @@ const Header = () => {
                               Tools & Technologies
                             </Link>
                           </li>
+                          <li>
+                            <Link
+                              href="/Mobile/#mobileprojects"
+                              className="hover:text-custom-blue hover:border-b-2 hover:border-custom-blue"
+                            >
+                              Projects
+                            </Link>
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -222,6 +244,14 @@ const Header = () => {
                               Tools & Technologies
                             </Link>
                           </li>
+                          <li>
+                            <Link
+                              href="/WebApp/#webprojects"
+                              className="hover:text-custom-blue hover:border-b-2 hover:border-custom-blue"
+                            >
+                              Projects
+                            </Link>
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -251,6 +281,14 @@ const Header = () => {
                               className="hover:text-custom-blue hover:border-b-2 hover:border-custom-blue"
                             >
                               Tools & Technologies
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/Ai/#aiprojects"
+                              className="hover:text-custom-blue hover:border-b-2 hover:border-custom-blue"
+                            >
+                              Projects
                             </Link>
                           </li>
                         </ul>
@@ -284,6 +322,14 @@ const Header = () => {
                               Tools & Technologies
                             </Link>
                           </li>
+                          <li>
+                            <Link
+                              href="/Uiux/#uiuxprojects"
+                              className="hover:text-custom-blue hover:border-b-2 hover:border-custom-blue"
+                            >
+                              Projects
+                            </Link>
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -315,7 +361,7 @@ const Header = () => {
 
         {/* Right Side: Contact Us Button */}
         <div className="hidden lg:flex justify-between">
-          <Link href="#form">
+          <Link href="/#form">
             <button className="border hover:bg-custom-blue text-white font-normal py-1 px-2 text-sm rounded-sm shadow-md">
               Contact Us
             </button>
@@ -442,6 +488,14 @@ const Header = () => {
                               Tools & Technologies
                             </Link>
                           </li>
+                          <li>
+                            <Link
+                              href="/Projects"
+                              className="hover:text-custom-blue"
+                            >
+                              Projects
+                            </Link>
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -491,6 +545,14 @@ const Header = () => {
                               Tools & Technologies
                             </Link>
                           </li>
+                          <li>
+                            <Link
+                              href="/Projects"
+                              className="hover:text-custom-blue"
+                            >
+                              Projects
+                            </Link>
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -519,6 +581,14 @@ const Header = () => {
                               Tools & Technologies
                             </Link>
                           </li>
+                          <li>
+                            <Link
+                              href="/Projects"
+                              className="hover:text-custom-blue"
+                            >
+                              Projects
+                            </Link>
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -542,6 +612,14 @@ const Header = () => {
                               className="hover:text-custom-blue"
                             >
                               Tools & Technologies
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/Projects"
+                              className="hover:text-custom-blue"
+                            >
+                              Projects
                             </Link>
                           </li>
                         </ul>
@@ -574,7 +652,7 @@ const Header = () => {
         >
           Career
         </Link>
-        <Link href="#form">
+        <Link href="/#form">
           <button className="bg-blue-500 hover:bg-custom-blue  py-2 px-4 rounded-md shadow-md w-full text-left">
             Contact Us
           </button>

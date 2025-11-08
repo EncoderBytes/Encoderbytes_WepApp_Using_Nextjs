@@ -111,19 +111,19 @@ import Image from "next/image";
 const Carousal = () => {
   const slides = [
     {
-      imageUrl: "/clients/markus1.png",
+      imageUrl: "/clients/ceo3.PNG",
       text: "I can highly recommend EncoderBytes as an app development company. They are great to work with, highly responsive, and knowledgeable when it comes to building custom apps on flutter/firebase. Would use them again for future projects without thinking twice.",
-      author: "Markus Stripf",
-      role: "Co-Founder, Spoon Guru UK",
+      author: "Ana Williams",
+      role: "CEO, ANA Digital Solutions",
     },
     {
-      imageUrl: "/clients/markus1.png",
+      imageUrl: "/clients/ceo12.jpg",
       text: "Encoderbytes is extremely knowledgeable and helpful. They know the ins and outs of mobile app development. Their understanding of different technologies and frameworks in the space is also very impressive. I hope I get the chance to work with them again.",
       author: "Jake Corry",
       role: "Backend Software Engineer at MX",
     },
     {
-      imageUrl: "/clients/markus1.png",
+      imageUrl: "/clients/ceo21.jpg",
       text: "I have worked with Encoderbytes and they are very professional and excellent software developers. I admire their speed of development and quality of work when given an assignment.",
       author: "Blaise Labriola",
       role: "AI/Machine Learning & Stock Portfolio Analytics",

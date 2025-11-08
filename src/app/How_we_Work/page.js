@@ -249,7 +249,7 @@ const How_we_work = () => {
               <p className="text-xs mt-1">1-2 hours</p>
             </div>
             <div className="w-full py-10 border-white flex flex-col justify-center items-center">
-              <span className="font-bold mb-3">DAILY SCRUM STANDUP</span>
+              <span className="font-bold mb-3">RETROSPECTIVE MEETING</span>
               <p className="text-xs">bi-weekly</p>
               <p className="text-xs mt-1">3-4 hours</p>
             </div>

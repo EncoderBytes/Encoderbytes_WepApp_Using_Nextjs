@@ -375,7 +375,7 @@ const CaseStudyPage = ({searchParams}) => {
       <Link href='/Projects'
         className="text-customFull transition-all w-36 h-10 font-semibold m-auto rounded-md bg-custom-blue mb-6 hover:bg-white hover:border-2 hover:border-custom-blue hover:text-custom-blue flex items-center justify-center"
       >
-        View Portfolio
+        View All Projects
       </Link>
       <Contactform />
     </>

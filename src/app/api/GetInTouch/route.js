@@ -85,10 +85,52 @@ export async function POST(request) {
     const data = await request.json();
     const { username, email, phone, message } = data;
 
+    // Server-side validation
+    const errors = {};
+
+    // Username/Name validation
+    if (!username || username.trim().length < 2) {
+      errors.username = "Name must be at least 2 characters long";
+    } else if (username.trim().length > 50) {
+      errors.username = "Name must be less than 50 characters";
+    } else if (!/^[a-zA-Z\s]+$/.test(username.trim())) {
+      errors.username = "Name can only contain letters and spaces";
+    }
+
+    // Email validation
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      errors.email = "Invalid email format";
+    }
+
+    // Phone validation
+    if (!phone || !/^\d+$/.test(phone.trim())) {
+      errors.phone = "Phone number must contain only digits";
+    } else if (phone.trim().length < 10 || phone.trim().length > 15) {
+      errors.phone = "Phone number must be between 10-15 digits";
+    }
+
+    // Message validation
+    if (!message || message.trim().length === 0) {
+      errors.message = "Message is required";
+    } else {
+      const wordCount = message.trim().split(/\s+/).length;
+      if (wordCount < 5 || wordCount > 100) {
+        errors.message = "Message must be between 5 and 100 words";
+      }
+    }
+
+    // If there are validation errors, return them
+    if (Object.keys(errors).length > 0) {
+      return NextResponse.json(
+        { message: 'Validation failed', errors },
+        { status: 400 }
+      );
+    }
+
     // Insert the data into the MySQL table
     const [result] = await db.query(
       'INSERT INTO getintouch (username, email, phone, message) VALUES (?, ?, ?, ?)',
-      [username, email, phone, message]
+      [username.trim(), email.trim(), phone.trim(), message.trim()]
     );
 
     if (result.affectedRows === 0) {
@@ -98,10 +140,10 @@ export async function POST(request) {
     return NextResponse.json({
       result: {
         id: result.insertId,
-        username,
-        email,
-        phone,
-        message,
+        username: username.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        message: message.trim(),
       },
       status: 200,
     });
