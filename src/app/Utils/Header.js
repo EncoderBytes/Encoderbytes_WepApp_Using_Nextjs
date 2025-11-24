@@ -1,31 +1,27 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRef } from 'react';
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const Header = () => {
-
-
   const pathname = usePathname();
   const [isSticky, setIsSticky] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProjectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
 
-
-
   // Helper to determine if a link is active
   const isActive = (hrefs) => {
-    if (typeof hrefs === 'string') hrefs = [hrefs];
-    return hrefs.some(href => {
-      if (href === '/') {
+    if (typeof hrefs === "string") hrefs = [hrefs];
+    return hrefs.some((href) => {
+      if (href === "/") {
         // For home route, check exact match only
-        return pathname === '/';
+        return pathname === "/";
       }
       // For other routes, check exact match or if it starts with the href
-      return pathname === href || pathname.startsWith(href + '/');
+      return pathname === href || pathname.startsWith(href + "/");
     });
   };
 
@@ -44,6 +40,10 @@ const Header = () => {
     };
   }, []);
 
+  useEffect(() => {
+    closeProjectsDropdown();
+  }, [pathname]);
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -55,14 +55,13 @@ const Header = () => {
     setProjectsDropdownOpen(false);
   };
 
-
   return (
     <nav
-      className={`bg-lightBlack fixed top-0 md:top-0 left-0 w-full z-50 h-20 transition-all duration-300 opacity-90 ${isSticky ? "py-2 top-0" : "p-2 lg:mt-6 mt-0 "
-        }`}
+      className={`bg-lightBlack fixed top-0 md:top-0 left-0 w-full z-50 h-20 transition-all duration-300 opacity-90 ${
+        isSticky ? "py-2 top-0" : "p-2 lg:mt-6 mt-0 "
+      }`}
     >
       <div className="flex justify-between items-center px-6 md:px-12 m-auto py-2">
-
         <div className="flex justify-center items-center">
           <Link href="/">
             <Image
@@ -75,23 +74,29 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="hidden lg:flex flex-grow justify-center gap-2 lg:gap-3 text-xs md:text-sm lg:text-base" >
-
+        <div className="hidden lg:flex flex-grow justify-center gap-2 lg:gap-3 text-xs md:text-sm lg:text-base">
           <Link
             href="/"
-            className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${isActive("/") ? "text-custom-blue" : "text-white"}`}
+            // onClick={closeProjectsDropdown}
+            className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${
+              isActive("/") ? "text-custom-blue" : "text-white"
+            }`}
           >
             Home
           </Link>
           <Link
             href="/About"
-            className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${isActive("/About") ? "text-custom-blue" : "text-white"}`}
+            className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${
+              isActive("/About") ? "text-custom-blue" : "text-white"
+            }`}
           >
             About
           </Link>
           <Link
             href="/How_we_Work"
-            className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${isActive("/How_we_Work") ? "text-custom-blue" : "text-white"}`}
+            className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${
+              isActive("/How_we_Work") ? "text-custom-blue" : "text-white"
+            }`}
           >
             How we work
           </Link>
@@ -99,13 +104,21 @@ const Header = () => {
             <div className="flex items-center">
               <Link
                 href="/Services"
-                className={`lg:mr-1 xl:mr-2 hover:text-custom-blue ${isActive(["/Services","/Mobile","/WebApp","/Ai","/Uiux"]) ? "text-custom-blue" : "text-white"}`}
+                className={`lg:mr-1 xl:mr-2 hover:text-custom-blue ${
+                  isActive(["/Services", "/Mobile", "/WebApp", "/Ai", "/Uiux"])
+                    ? "text-custom-blue"
+                    : "text-white"
+                }`}
               >
                 Services
               </Link>
               <button
                 onClick={toggleProjectsDropdown}
-                className={`ml-1 hover:text-custom-blue ${isActive(["/Services","/Mobile","/WebApp","/Ai","/Uiux"]) ? "text-custom-blue" : "text-white"}`}
+                className={`ml-1 hover:text-custom-blue ${
+                  isActive(["/Services", "/Mobile", "/WebApp", "/Ai", "/Uiux"])
+                    ? "text-custom-blue"
+                    : "text-white"
+                }`}
               >
                 <span>&#9662;</span>
               </button>
@@ -341,19 +354,25 @@ const Header = () => {
 
           <Link
             href="/Projects"
-            className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${isActive("/Projects") ? "text-custom-blue" : "text-white"}`}
+            className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${
+              isActive("/Projects") ? "text-custom-blue" : "text-white"
+            }`}
           >
             Projects
           </Link>
           <Link
             href="/Career"
-            className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${isActive("/Career") ? "text-custom-blue" : "text-white"}`}
+            className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${
+              isActive("/Career") ? "text-custom-blue" : "text-white"
+            }`}
           >
             Career
           </Link>
           <Link
             href="/Blog"
-            className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${isActive("/Blog") ? "text-custom-blue" : "text-white"}`}
+            className={`lg:mr-2 xl:mr-4 hover:text-custom-blue ${
+              isActive("/Blog") ? "text-custom-blue" : "text-white"
+            }`}
           >
             Blog
           </Link>
@@ -392,26 +411,34 @@ const Header = () => {
 
       {/* Mobile Navigation Links */}
       <div
-        className={`lg:hidden text-white ${isMobileMenuOpen ? "" : "hidden"} bg-gray-700`}
+        className={`lg:hidden text-white ${
+          isMobileMenuOpen ? "" : "hidden"
+        } bg-gray-700`}
         id="mobile-menu"
       >
         <Link
           href="/"
-          className={`block py-1 px-4 hover:text-custom-blue ${isActive("/") ? "text-custom-blue" : "text-white"}`}
+          className={`block py-1 px-4 hover:text-custom-blue ${
+            isActive("/") ? "text-custom-blue" : "text-white"
+          }`}
           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
         >
           Home
         </Link>
         <Link
           href="/About"
-          className={`block py-1 px-4 hover:text-custom-blue ${isActive("/About") ? "text-custom-blue" : "text-white"}`}
+          className={`block py-1 px-4 hover:text-custom-blue ${
+            isActive("/About") ? "text-custom-blue" : "text-white"
+          }`}
           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
         >
           About
         </Link>
         <Link
           href="/Projects"
-          className={`block py-1 px-4 hover:text-custom-blue ${isActive("/Projects") ? "text-custom-blue" : "text-white"}`}
+          className={`block py-1 px-4 hover:text-custom-blue ${
+            isActive("/Projects") ? "text-custom-blue" : "text-white"
+          }`}
           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
         >
           Projects
@@ -419,7 +446,11 @@ const Header = () => {
         <div className="relative">
           <button
             onClick={toggleProjectsDropdown}
-            className={`ml-4 relative hover:text-custom-blue ${isActive(["/Mobile","/WebApp","/Ai","/Uiux"]) ? "text-custom-blue" : "text-white"}`}
+            className={`ml-4 relative hover:text-custom-blue ${
+              isActive(["/Mobile", "/WebApp", "/Ai", "/Uiux"])
+                ? "text-custom-blue"
+                : "text-white"
+            }`}
           >
             Service
             <span className="ml-1">&#9662;</span>
@@ -633,21 +664,27 @@ const Header = () => {
         </div>
         <Link
           href="/Blog"
-          className={`block py-1 px-4 hover:text-custom-blue ${isActive("/Blog") ? "text-custom-blue" : "text-white"}`}
+          className={`block py-1 px-4 hover:text-custom-blue ${
+            isActive("/Blog") ? "text-custom-blue" : "text-white"
+          }`}
           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
         >
           Blog
         </Link>
         <Link
           href="/How_we_Work"
-          className={`block py-1 px-4 hover:text-custom-blue ${isActive("/How_we_Work") ? "text-custom-blue" : "text-white"}`}
+          className={`block py-1 px-4 hover:text-custom-blue ${
+            isActive("/How_we_Work") ? "text-custom-blue" : "text-white"
+          }`}
           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
         >
           How we work
         </Link>
         <Link
           href="/Career"
-          className={`block py-1 px-4 hover:text-custom-blue ${isActive("/Career") ? "text-custom-blue" : "text-white"}`}
+          className={`block py-1 px-4 hover:text-custom-blue ${
+            isActive("/Career") ? "text-custom-blue" : "text-white"
+          }`}
           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
         >
           Career
@@ -658,7 +695,7 @@ const Header = () => {
           </button>
         </Link>
       </div>
-    </nav >
+    </nav>
   );
 };
 
