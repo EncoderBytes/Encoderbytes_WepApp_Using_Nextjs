@@ -111,7 +111,7 @@ import Image from "next/image";
 const Carousal = () => {
   const slides = [
     {
-      imageUrl: "/clients/ceo3.PNG",
+      imageUrl: "/clients/ceo3.webp",
       text: "I can highly recommend EncoderBytes as an app development company. They are great to work with, highly responsive, and knowledgeable when it comes to building custom apps on flutter/firebase. Would use them again for future projects without thinking twice.",
       author: "Ana Williams",
       role: "CEO, ANA Digital Solutions",

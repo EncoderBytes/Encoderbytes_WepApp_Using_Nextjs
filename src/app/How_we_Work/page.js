@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Top from "../Utils/Top";
 import Link from "next/link";
 import { Howwework } from "../components/Howwework";
@@ -7,6 +7,30 @@ import Contactform from "../Utils/Contactform";
 import Image from "next/image";
 const How_we_work = () => {
   const [activeLink, setActiveLink] = useState("#01");
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[id]");
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.3,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveLink(`#${entry.target.id}`);
+        }
+      });
+    }, options);
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, []);
+
   return (
     <div className=" bg-white">
       <Top />
@@ -26,33 +50,39 @@ const How_we_work = () => {
           </h1>
           <p className="w-5/6 md:w-3/6 leading-tight text-paraClr my-3">
             We follow the state of the art software development process ,
-            initiating from requirement gathering from user till completion
-            and deployment. Each phase during development of a software is
-            valuable for us.
+            initiating from requirement gathering from user till completion and
+            deployment. Each phase during development of a software is valuable
+            for us.
           </p>
-          <a
-            href="/"
-            className="text-paraClr font-semibold mt-20 text-xs"
-          >
-            Home &nbsp;- <span className="text-custom-blue">&nbsp;How We Work</span>
+          <a href="/" className="text-paraClr font-semibold mt-20 text-xs">
+            Home &nbsp;-{" "}
+            <span className="text-custom-blue">&nbsp;How We Work</span>
           </a>
         </div>
       </div>
 
       <section className="flex items-start justify-center">
-        <nav className="w-1/3 flex items-start justify-start md:justify-center">
+        <nav className="w-1/3 flex items-start justify-start md:justify-center sticky top-4 h-screen">
           <div className="w-full flex items-start justify-center">
             <div className="mt-16 w-8/12">
               <div className="relative w-full h-auto">
-
                 <span className="absolute top-0 left-0 flex w-full opacity-50">
                   <ul className="flex flex-col gap-12 text-paraClr mt-10 font-bebas text-xl tracking-custom z-30">
                     <li>
                       <div className="flex justify-start items-center group hover:text-custom-blue transition-colors duration-300">
-                        <span className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${activeLink === "#01" ? "text-custom-blue" : ""}`}> •</span>
+                        <span
+                          className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${
+                            activeLink === "#01" ? "text-custom-blue" : ""
+                          }`}
+                        >
+                          {" "}
+                          •
+                        </span>
                         <span className="pl-10 cursor-pointer">
-                          <Link 
-                            className={`group-hover:text-custom-blue transition-colors duration-300 ${activeLink === "#01" ? "text-custom-blue  " : ""}`} 
+                          <Link
+                            className={`group-hover:text-custom-blue transition-colors duration-300 ${
+                              activeLink === "#01" ? "text-custom-blue  " : ""
+                            }`}
                             href="#01"
                             onClick={() => setActiveLink("#01")}
                           >
@@ -63,10 +93,19 @@ const How_we_work = () => {
                     </li>
                     <li>
                       <div className="flex justify-start items-center group hover:text-custom-blue transition-colors duration-300">
-                        <span className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${activeLink === "#02" ? "text-custom-blue" : ""}`}> •</span>
+                        <span
+                          className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${
+                            activeLink === "#02" ? "text-custom-blue" : ""
+                          }`}
+                        >
+                          {" "}
+                          •
+                        </span>
                         <span className="pl-10 cursor-pointer">
-                          <Link 
-                            className={`group-hover:text-custom-blue transition-colors duration-300 ${activeLink === "#02" ? "text-custom-blue" : ""}`} 
+                          <Link
+                            className={`group-hover:text-custom-blue transition-colors duration-300 ${
+                              activeLink === "#02" ? "text-custom-blue" : ""
+                            }`}
                             href="#02"
                             onClick={() => setActiveLink("#02")}
                           >
@@ -77,10 +116,19 @@ const How_we_work = () => {
                     </li>
                     <li>
                       <div className="flex justify-start items-center group hover:text-custom-blue transition-colors duration-300">
-                        <span className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${activeLink === "#03" ? "text-custom-blue" : ""}`}> •</span>
+                        <span
+                          className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${
+                            activeLink === "#03" ? "text-custom-blue" : ""
+                          }`}
+                        >
+                          {" "}
+                          •
+                        </span>
                         <span className="pl-10 cursor-pointer">
-                          <Link 
-                            className={`group-hover:text-custom-blue transition-colors duration-300 ${activeLink === "#03" ? "text-custom-blue" : ""}`} 
+                          <Link
+                            className={`group-hover:text-custom-blue transition-colors duration-300 ${
+                              activeLink === "#03" ? "text-custom-blue" : ""
+                            }`}
                             href="#03"
                             onClick={() => setActiveLink("#03")}
                           >
@@ -91,10 +139,19 @@ const How_we_work = () => {
                     </li>
                     <li>
                       <div className="flex justify-start items-center group hover:text-custom-blue transition-colors duration-300">
-                        <span className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${activeLink === "#04" ? "text-custom-blue" : ""}`}> •</span>
+                        <span
+                          className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${
+                            activeLink === "#04" ? "text-custom-blue" : ""
+                          }`}
+                        >
+                          {" "}
+                          •
+                        </span>
                         <span className="pl-10 cursor-pointer">
-                          <Link 
-                            className={`group-hover:text-custom-blue transition-colors duration-300 ${activeLink === "#04" ? "text-custom-blue" : ""}`} 
+                          <Link
+                            className={`group-hover:text-custom-blue transition-colors duration-300 ${
+                              activeLink === "#04" ? "text-custom-blue" : ""
+                            }`}
                             href="#04"
                             onClick={() => setActiveLink("#04")}
                           >
@@ -105,10 +162,19 @@ const How_we_work = () => {
                     </li>
                     <li>
                       <div className="flex justify-start items-center group hover:text-custom-blue transition-colors duration-300">
-                        <span className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${activeLink === "#05" ? "text-custom-blue" : ""}`}> •</span>
+                        <span
+                          className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${
+                            activeLink === "#05" ? "text-custom-blue" : ""
+                          }`}
+                        >
+                          {" "}
+                          •
+                        </span>
                         <span className="pl-10 cursor-pointer">
-                          <Link 
-                            className={`group-hover:text-custom-blue transition-colors duration-300 ${activeLink === "#05" ? "text-custom-blue" : ""}`} 
+                          <Link
+                            className={`group-hover:text-custom-blue transition-colors duration-300 ${
+                              activeLink === "#05" ? "text-custom-blue" : ""
+                            }`}
                             href="#05"
                             onClick={() => setActiveLink("#05")}
                           >
@@ -119,10 +185,19 @@ const How_we_work = () => {
                     </li>
                     <li>
                       <div className="flex justify-start items-center group hover:text-custom-blue transition-colors duration-300">
-                        <span className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${activeLink === "#06" ? "text-custom-blue" : ""}`}> •</span>
+                        <span
+                          className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${
+                            activeLink === "#06" ? "text-custom-blue" : ""
+                          }`}
+                        >
+                          {" "}
+                          •
+                        </span>
                         <span className="pl-10 cursor-pointer">
-                          <Link 
-                            className={`group-hover:text-custom-blue transition-colors duration-300 ${activeLink === "#06" ? "text-custom-blue" : ""}`} 
+                          <Link
+                            className={`group-hover:text-custom-blue transition-colors duration-300 ${
+                              activeLink === "#06" ? "text-custom-blue" : ""
+                            }`}
                             href="#06"
                             onClick={() => setActiveLink("#06")}
                           >
@@ -156,7 +231,9 @@ const How_we_work = () => {
                 />
 
                 <div className="font-bold mt-14 text-paraClr text-lg">
-                  <span className="border-b-4 border-custom-blue">{item.underlinetitile}</span>
+                  <span className="border-b-4 border-custom-blue">
+                    {item.underlinetitile}
+                  </span>
                   <span>{item.simpletitle}</span>
                 </div>
 
@@ -226,7 +303,10 @@ const How_we_work = () => {
           <span className="text-white"> STRUCTURE.</span>
         </div>
         <div className="text-white w-5/6 md:w-4/6 text-center m-auto mt-2 leading-tight">
-          We do daily discussion and communication between our team to check the progress and performance of our team. This is to ensure that our progress is going to meet the deadline. For that we use different tools like Skype, Google Meet, Trello, Microsoft 360.
+          We do daily discussion and communication between our team to check the
+          progress and performance of our team. This is to ensure that our
+          progress is going to meet the deadline. For that we use different
+          tools like Skype, Google Meet, Trello, Microsoft 360.
         </div>
 
         <div className="flex flex-col md:flex-row w-5/6 m-auto gap-10 mt-10 text-white">

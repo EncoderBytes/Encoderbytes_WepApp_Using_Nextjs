@@ -12,6 +12,8 @@ const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProjectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
 
+  const dropdownRef = useRef(null);
+
   // Helper to determine if a link is active
   const isActive = (hrefs) => {
     if (typeof hrefs === "string") hrefs = [hrefs];
@@ -43,6 +45,21 @@ const Header = () => {
   useEffect(() => {
     closeProjectsDropdown();
   }, [pathname]);
+
+  useEffect(() => {
+    function handleClick(e) {
+      if (dropdownRef.current && dropdownRef.current.contains(e.target)) {
+        return;
+      }
+      closeProjectsDropdown();
+    }
+
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
@@ -113,6 +130,7 @@ const Header = () => {
                 Services
               </Link>
               <button
+                ref={dropdownRef}
                 onClick={toggleProjectsDropdown}
                 className={`ml-1 hover:text-custom-blue ${
                   isActive(["/Services", "/Mobile", "/WebApp", "/Ai", "/Uiux"])
