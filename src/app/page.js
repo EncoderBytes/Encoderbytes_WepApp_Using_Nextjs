@@ -8,7 +8,12 @@ import Top from "./Utils/Top";
 import Contactform from "./Utils/Contactform";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Link from "next/link";
-import { API_URL_Projects } from "./AdminDashboard/components/ShowApidatas/apiUrls";
+import {
+  API_URL_OurApproaches,
+  API_URL_Projects,
+  API_URL_Stats,
+  API_URL_WeProvide,
+} from "./AdminDashboard/components/ShowApidatas/apiUrls";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css"; // Import skeleton styles
 import { set } from "mongoose";
@@ -52,20 +57,20 @@ export default function Home() {
       try {
         setLoading(true);
 
-        const res = await axios.get("/api/stats");
-        const data = res.data();
+        const res = await axios.get(API_URL_Stats);
+        const data = res.data.Result || []; // array of numbers
 
         setNumbers({
-          projectsDelivered: data.projectsDelivered,
-          happyClients: data.happyClients,
-          globalOffice: data.globalOffice,
-          yearsInBusiness: data.yearsInBusiness,
-          expertTeam: data.expertTeam,
+          projectsDelivered: data[0] + "+" || "0",
+          happyClients: data[1] || "0",
+          globalOffice: "0" + data[2] || "0",
+          yearsInBusiness: "0" + data[3] || "0",
+          expertTeam: data[4] || "0",
         });
       } catch (error) {
         console.error("Error:", error);
 
-        // fallback to zeros
+        // fallback to default values
         setNumbers({
           projectsDelivered: "100+",
           happyClients: "300",
@@ -99,13 +104,13 @@ export default function Home() {
     numbers.expertTeam ?? "0",
   ];
 
-  // Fetched Services from backend
+  // Fetched Services WeProvide from backend
   useEffect(() => {
     async function fetchServices() {
       try {
         setLoading(true);
-        const res = await axios.get("/api/services");
-        const data = res.data();
+        const res = await axios.get(API_URL_WeProvide);
+        const data = res.data.Result;
         setServices(data);
       } catch (error) {
         console.error("Error fetching services:", error);
@@ -125,8 +130,8 @@ export default function Home() {
       try {
         setLoading(true);
 
-        const res = await axios.get("/api/services");
-        const data = res.data();
+        const res = await axios.get(API_URL_OurApproaches);
+        const data = res.data?.Result;
 
         // If backend gives empty → fallback used
         if (!data || data.length === 0) {
@@ -452,6 +457,7 @@ export default function Home() {
                 >
                   <div className="flex justify-between">
                     <span className="text-4xl md:text-7xl font-bebas text-paraClr opacity-20">
+                      {service.id < 10 ? 0 : ""}
                       {service.id}
                     </span>
                     <Image
@@ -897,6 +903,7 @@ export default function Home() {
                 <div className="rounded-lg bg-white p-4" key={index}>
                   <div className="flex justify-between">
                     <span className="text-4xl md:text-7xl font-bold text-[#454544] opacity-20 font-bebas tracking-custom">
+                      {cart.no < 10 ? 0 : ""}
                       {cart.no}
                     </span>
 

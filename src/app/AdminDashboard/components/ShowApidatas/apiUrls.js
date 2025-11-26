@@ -12,5 +12,8 @@ export const API_URL_GetInTouch = `${url}/api/GetInTouch`;
 export const API_URL_Request = `${url}/api/RequestForJoining`;
 export const API_URL_Projects = `${url}/api/Project`;
 export const API_URL_Blog = `${url}/api/Blog`;
+export const API_URL_WeProvide = `${url}/api/WeProvide`;
+export const API_URL_OurApproaches = `${url}/api/OurApproaches`;
+export const API_URL_Stats = `${url}/api/Stats`;
 
 

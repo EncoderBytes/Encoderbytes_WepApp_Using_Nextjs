@@ -115,92 +115,93 @@ cloudinary.v2.config({
 // }
 
 
-// mysql method
-
 export async function GET() {
   try {
     const db = await connect();
 
-    // Fetch all blogs
-    const [allBlogs] = await db.query("SELECT * FROM blog");
+    // Fetch all rows from weprovide table
+    const [allItems] = await db.query("SELECT * FROM weprovide");
 
-    // Get blog count
-    const [countRows] = await db.query("SELECT COUNT(*) AS count FROM blog");
-    const blogCount = countRows[0].count;
+    // Get row count
+    const [countRows] = await db.query("SELECT COUNT(*) AS count FROM weprovide");
+    const itemCount = countRows[0].count;
 
-    if (!allBlogs || allBlogs.length === 0) {
-      return NextResponse.json({ Result: allBlogs });
+    if (!allItems || allItems.length === 0) {
+      return NextResponse.json({ Result: allItems, count: 0 });
     } else {
-      return NextResponse.json({ Result: allBlogs, count: blogCount });
+      return NextResponse.json({ Result: allItems, count: itemCount });
     }
   } catch (error) {
-    console.error("Error fetching blogs:", error);
-    return NextResponse.json({ Message: "Internal Server Error" }, { status: 500 });
+    console.error("Error fetching items:", error);
+    return NextResponse.json(
+      { Message: "Internal Server Error", error },
+      { status: 500 }
+    );
   }
 }
 
-export async function POST(request) {
-  try {
-    const db = await connect();                // 1️⃣  open MySQL connection
-    const data = await request.formData();     // 2️⃣  grab form data
+// export async function POST(request) {
+//   try {
+//     const db = await connect();                // 1️⃣  open MySQL connection
+//     const data = await request.formData();     // 2️⃣  grab form data
 
-    /* ---------- image upload (optional) ---------- */
-    const file = data.get("image");
-    let imageUrl = "";
-    let publicId = "";
+//     /* ---------- image upload (optional) ---------- */
+//     const file = data.get("image");
+//     let imageUrl = "";
+//     let publicId = "";
 
-    if (file && typeof file === "object") {
-      const buffer = Buffer.from(await file.arrayBuffer());
+//     if (file && typeof file === "object") {
+//       const buffer = Buffer.from(await file.arrayBuffer());
 
-      const { secure_url, public_id } = await new Promise((resolve, reject) => {
-        cloudinary.v2.uploader
-          .upload_stream({ resource_type: "auto" }, (err, res) =>
-            err ? reject(err) : resolve(res)
-          )
-          .end(buffer);
-      });
+//       const { secure_url, public_id } = await new Promise((resolve, reject) => {
+//         cloudinary.v2.uploader
+//           .upload_stream({ resource_type: "auto" }, (err, res) =>
+//             err ? reject(err) : resolve(res)
+//           )
+//           .end(buffer);
+//       });
 
-      imageUrl = secure_url;
-      publicId = public_id;
-    } else {
-      // default image
-      imageUrl =
-        "https://res.cloudinary.com/dpj2ewekx/image/upload/v1725603041/samples/smile.jpg";
-    }
+//       imageUrl = secure_url;
+//       publicId = public_id;
+//     } else {
+//       // default image
+//       imageUrl =
+//         "https://res.cloudinary.com/dpj2ewekx/image/upload/v1725603041/samples/smile.jpg";
+//     }
 
-    /* ---------- other fields ---------- */
-    const { blogtitle, author, datetime, description } = Object.fromEntries(
-      data.entries()
-    );
+//     /* ---------- other fields ---------- */
+//     const { blogtitle, author, datetime, description } = Object.fromEntries(
+//       data.entries()
+//     );
 
-    /* ---------- ensure unique title ---------- */
-    const [existing] = await db.query(
-      "SELECT id FROM blog WHERE blogtitle = ?",
-      [blogtitle]
-    );
-    if (existing.length > 0) {
-      return NextResponse.json({ error: "Blog already exists", status: 400 });
-    }
+//     /* ---------- ensure unique title ---------- */
+//     const [existing] = await db.query(
+//       "SELECT id FROM blog WHERE blogtitle = ?",
+//       [blogtitle]
+//     );
+//     if (existing.length > 0) {
+//       return NextResponse.json({ error: "Blog already exists", status: 400 });
+//     }
 
-    /* ---------- insert new blog ---------- */
-    const [insert] = await db.query(
-      `INSERT INTO blog
-         (blogtitle, author, datetime, description, image, publicId)
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [blogtitle, author, datetime, description, imageUrl, publicId]
-    );
+//     /* ---------- insert new blog ---------- */
+//     const [insert] = await db.query(
+//       `INSERT INTO blog
+//          (blogtitle, author, datetime, description, image, publicId)
+//        VALUES (?, ?, ?, ?, ?, ?)`,
+//       [blogtitle, author, datetime, description, imageUrl, publicId]
+//     );
 
-    if (insert.affectedRows === 0) {
-      return NextResponse.json({ message: "Blog not added", status: 500 });
-    }
+//     if (insert.affectedRows === 0) {
+//       return NextResponse.json({ message: "Blog not added", status: 500 });
+//     }
 
-    return NextResponse.json({
-      message: "Blog created successfully",
-      success: true,
-      status: 200,
-    });
-  } catch (error) {
-    console.error("Error creating blog:", error);
-    return NextResponse.json({ error: error.message, status: 500 });
-  }
-}
+//     return NextResponse.json({
+//       message: "Blog created successfully",
+//       success: true,
+//       status: 200,
+//     });
+//   } catch (error) {
+//     console.error("Error creating blog:", error);
+//     return NextResponse.json({ error: error.message, status: 500 });
+//   }
+// }
