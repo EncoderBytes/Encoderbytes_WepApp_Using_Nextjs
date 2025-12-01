@@ -3,14 +3,14 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_URL_OurApproaches } from "./ShowApidatas/apiUrls";
 
-const AddServiceModal = ({ isclose, getAllServices }) => {
+const AddApproachModal = ({ isclose, getAll }) => {
   const modalRef = useRef();
 
   const [formData, setFormData] = useState({
-    OrderNumber: "",
-    title: "",
-    subtitle: "",
+    no: "",
+    heading: "",
     description: "",
     file: null,
   });
@@ -24,7 +24,7 @@ const AddServiceModal = ({ isclose, getAllServices }) => {
     if (modalRef.current === e.target) isclose();
   };
 
-  // Close modal on Escape key
+  // Escape close
   const handleKeyDown = useCallback(
     (e) => {
       if (e.key === "Escape") isclose();
@@ -37,7 +37,7 @@ const AddServiceModal = ({ isclose, getAllServices }) => {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
 
-  // Handle input changes
+  // Handle input fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -50,7 +50,7 @@ const AddServiceModal = ({ isclose, getAllServices }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle file upload and preview
+  // Handle image file + preview
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setFormData((prev) => ({ ...prev, file }));
@@ -64,8 +64,8 @@ const AddServiceModal = ({ isclose, getAllServices }) => {
     }
   };
 
-  // Send service to API
-  const sendService = async () => {
+  // Send to API
+  const sendApproach = async () => {
     if (wordCount < 10) {
       setError("Minimum 10 words required.");
       return;
@@ -73,24 +73,23 @@ const AddServiceModal = ({ isclose, getAllServices }) => {
 
     try {
       const sendData = new FormData();
-      sendData.append("OrderNumber", formData.OrderNumber);
-      sendData.append("title", formData.title);
-      sendData.append("subtitle", formData.subtitle);
+      sendData.append("no", formData.no);
+      sendData.append("heading", formData.heading);
       sendData.append("description", formData.description);
       if (formData.file) sendData.append("image", formData.file);
 
-      const res = await axios.post("/api/WeProvide", sendData);
+      const res = await axios.post("/api/OurApproaches", sendData);
 
       if (res.data.success) {
-        toast.success("Service added successfully!");
-        if (getAllServices) await getAllServices(); // call parent function to refresh list
-        isclose(); // close modal
+        toast.success("Approach added successfully!");
+        if (getAll) await getAll();
+        isclose();
       } else {
-        toast.error(res.data.message || "Service could not be added");
+        toast.error(res.data.message || "Failed to add approach");
       }
     } catch (err) {
       console.error(err);
-      toast.error("Service could not be added");
+      toast.error("Error adding approach");
     }
   };
 
@@ -101,17 +100,21 @@ const AddServiceModal = ({ isclose, getAllServices }) => {
       className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
     >
       <div className="mt-10 flex flex-col gap-4 text-white bg-slate-400 rounded-md p-8 w-[600px] max-h-[90vh] overflow-y-auto">
-        <button className="self-end" onClick={isclose}>❌</button>
-        <h2 className="text-xl font-semibold text-gray-900">Add New Service</h2>
+        <button className="self-end" onClick={isclose}>
+          ❌
+        </button>
+        <h2 className="text-xl font-semibold text-gray-900">
+          Add New Approach
+        </h2>
 
         <section className="grid grid-cols-2 gap-4">
-          {/* OrderNumber */}
+          {/* Order Number */}
           <div>
             <label className="text-black">Order Number :</label>
             <input
               type="number"
-              name="OrderNumber"
-              value={formData.OrderNumber}
+              name="no"
+              value={formData.no}
               onChange={handleInputChange}
               className="mt-1 px-3 py-1.5 w-full rounded-md border border-gray-400 text-black"
             />
@@ -122,20 +125,8 @@ const AddServiceModal = ({ isclose, getAllServices }) => {
             <label className="text-black">Title :</label>
             <input
               type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-              className="mt-1 px-3 py-1.5 w-full rounded-md border border-gray-400 text-black"
-            />
-          </div>
-
-          {/* Subtitle */}
-          <div className="col-span-2">
-            <label className="text-black">Subtitle :</label>
-            <input
-              type="text"
-              name="subtitle"
-              value={formData.subtitle}
+              name="heading"
+              value={formData.heading}
               onChange={handleInputChange}
               className="mt-1 px-3 py-1.5 w-full rounded-md border border-gray-400 text-black"
             />
@@ -149,6 +140,7 @@ const AddServiceModal = ({ isclose, getAllServices }) => {
               onChange={handleFileChange}
               className="mt-1 block w-full text-black"
             />
+
             {imagePreview && (
               <img
                 src={imagePreview}
@@ -173,14 +165,14 @@ const AddServiceModal = ({ isclose, getAllServices }) => {
         </section>
 
         <button
-          onClick={sendService}
+          onClick={sendApproach}
           className="bg-white text-black p-2 rounded-md border hover:shadow-md hover:shadow-blue-300"
         >
-          Add Service
+          Add Approach
         </button>
       </div>
     </div>
   );
 };
 
-export default AddServiceModal;
+export default AddApproachModal;

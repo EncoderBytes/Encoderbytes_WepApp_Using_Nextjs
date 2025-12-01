@@ -21,11 +21,11 @@ import { set } from "mongoose";
 export default function Home() {
   const [latestProject, setLatestProject] = useState([]);
   const [numbers, setNumbers] = useState({
-    projectsDelivered: null,
-    happyClients: null,
-    globalOffice: null,
-    yearsInBusiness: null,
-    expertTeam: null,
+    projectsDelivered: "0",
+    happyClients: "0",
+    globalOffice: "0",
+    yearsInBusiness: "0",
+    expertTeam: "0",
   });
   const [services, setServices] = useState([]);
   const [cards, setCards] = useState([]);
@@ -58,19 +58,21 @@ export default function Home() {
         setLoading(true);
 
         const res = await axios.get(API_URL_Stats);
-        const data = res.data.Result || []; // array of numbers
+        const data = res.data.Result?.[0]; 
+
+        if (!data) return;
 
         setNumbers({
-          projectsDelivered: data[0] + "+" || "0",
-          happyClients: data[1] || "0",
-          globalOffice: "0" + data[2] || "0",
-          yearsInBusiness: "0" + data[3] || "0",
-          expertTeam: data[4] || "0",
+          projectsDelivered: data.projectsDelivered + "+",
+          happyClients: data.happyClients.toString(),
+          globalOffice: "0" +  data.globalOffice.toString(),
+          yearsInBusiness: "0" + data.yearsInBusiness.toString(),
+          expertTeam: data.expertTeam.toString(),
         });
       } catch (error) {
-        console.error("Error:", error);
+        console.log("Error:", error);
 
-        // fallback to default values
+        // default fallback values
         setNumbers({
           projectsDelivered: "100+",
           happyClients: "300",
@@ -149,6 +151,8 @@ export default function Home() {
 
     fetchCards();
   }, []);
+
+  console.log(showServices);
 
   return (
     <div className="bg-white">
@@ -458,10 +462,10 @@ export default function Home() {
                   <div className="flex justify-between">
                     <span className="text-4xl md:text-7xl font-bebas text-paraClr opacity-20">
                       {service.id < 10 ? 0 : ""}
-                      {service.id}
+                      {service.OrderNumber}
                     </span>
                     <Image
-                      src={service.icon}
+                      src={service.image || service.icon}
                       alt={`${service.title} icon`}
                       width={70}
                       height={70}
@@ -908,8 +912,8 @@ export default function Home() {
                     </span>
 
                     <Image
-                      src={cart.image1}
-                      alt="Service Icon"
+                      src={cart.image}
+                      alt={`${cart.heading}` || "Icon"}
                       width={70}
                       height={70}
                     />

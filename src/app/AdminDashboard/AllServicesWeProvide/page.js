@@ -11,8 +11,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import { API_URL_WeProvide } from "../components/ShowApidatas/apiUrls";
 
-
-
 const AddNewServiceModal = dynamic(
   () => import("../components/AddNewServicesModal"),
   { ssr: false }
@@ -51,6 +49,7 @@ const WeProvideTable = () => {
       setLoading(false);
     }
   };
+
 
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
@@ -127,39 +126,41 @@ const WeProvideTable = () => {
                     </td>
                   </tr>
                 ) : (searchTerm ? filteredServices : services).length > 0 ? (
-                  (searchTerm ? filteredServices : services).map((service, idx) => (
-                    <tr key={service.id} className="border-b border-gray-400">
-                      <td className="px-4 py-2">{idx + 1}</td>
-                      <td className="px-4 py-2">
-                        <Image
-                          src={service.image}
-                          alt={service.title}
-                          width={64}
-                          height={64}
-                          className="h-16 w-16 object-cover"
-                          loading="lazy"
-                          unoptimized
-                        />
-                      </td>
-                      <td className="px-4 py-2">{service.title}</td>
-                      <td className="px-4 py-2">{service.subtitle}</td>
-                      <td className="px-4 py-2">{service.description}</td>
-                      <td className="px-4 py-2 text-center">
-                        <button
-                          className="text-green-500 px-2 py-1 rounded hover:underline"
-                          onClick={() => handleEdit(service.id)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="text-red-500 px-2 py-1 rounded hover:underline ml-2"
-                          onClick={() => handleDelete(service.id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))
+                  (searchTerm ? filteredServices : services).map(
+                    (service, idx) => (
+                      <tr key={service.id} className="border-b border-gray-400">
+                        <td className="px-4 py-2">{idx + 1}</td>
+                        <td className="px-4 py-2">
+                          <Image
+                            src={service.image}
+                            alt={service.title}
+                            width={64}
+                            height={64}
+                            className="h-16 w-16 object-cover"
+                            loading="lazy"
+                            unoptimized
+                          />
+                        </td>
+                        <td className="px-4 py-2">{service.title}</td>
+                        <td className="px-4 py-2">{service.subtitle}</td>
+                        <td className="px-4 py-2">{service.description}</td>
+                        <td className="px-4 py-2 text-center">
+                          <button
+                            className="text-green-500 px-2 py-1 rounded hover:underline"
+                            onClick={() => handleEdit(service.id)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="text-red-500 px-2 py-1 rounded hover:underline ml-2"
+                            onClick={() => handleDelete(service.id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  )
                 ) : (
                   <tr>
                     <td colSpan="6" className="text-center py-4">
@@ -171,7 +172,7 @@ const WeProvideTable = () => {
             </table>
           </div>
 
-           {showModal && (
+          {showModal && (
             <AddNewServiceModal
               isclose={() => setShowModal(false)}
               fetchServices={fetchServices}

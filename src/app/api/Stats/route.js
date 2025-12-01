@@ -4,21 +4,79 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const db = await connect();
-    const [rows] = await db.query("SELECT value FROM stats ORDER BY id ASC");
+    const [rows] = await db.query(
+      `SELECT projectsDelivered,happyClients,globalOffice,yearsInBusiness,expertTeam FROM stats`
+    );
 
-    // rows = [{ value: 120 }, { value: 85 }, ... ]
-    const values = rows.map((row) => row.value);
+    if (!rows || rows.length === 0) {
+      return NextResponse.json({
+        status: 200,
+        Result: [],
+        message: "No stats found",
+      });
+    }
 
     return NextResponse.json({
-      Result: values,
-      count: values.length,
       status: 200,
+      Result: rows,
     });
   } catch (error) {
-    console.error("Error fetching stats:", error);
-    return NextResponse.json(
-      { Message: "Internal Server Error", error },
-      { status: 500 }
+    console.log(error);
+    return NextResponse.json({ status: 500, error: error.message });
+  }
+}
+
+export async function PUT(request) {
+  try {
+    const db = await connect();
+
+    const body = await request.json();
+
+    const {
+      projectsDelivered,
+      happyClients,
+      globalOffice,
+      yearsInBusiness,
+      expertTeam,
+    } = body;
+
+    // Validation
+    if (
+      projectsDelivered === undefined ||
+      happyClients === undefined ||
+      globalOffice === undefined ||
+      yearsInBusiness === undefined ||
+      expertTeam === undefined
+    ) {
+      return NextResponse.json(
+        { status: 400, message: "All fields are required!" },
+        { status: 400 }
+      );
+    }
+
+    // ✅ Correct UPDATE with parameters
+    const [result] = await db.query(
+      `UPDATE stats SET 
+        projectsDelivered = ?, 
+        happyClients = ?, 
+        globalOffice = ?, 
+        yearsInBusiness = ?, 
+        expertTeam = ?`,
+      [
+        projectsDelivered,
+        happyClients,
+        globalOffice,
+        yearsInBusiness,
+        expertTeam,
+      ]
     );
+
+    return NextResponse.json({
+      status: 200,
+      message: "Stats Updated Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ status: 500, error: error.message });
   }
 }

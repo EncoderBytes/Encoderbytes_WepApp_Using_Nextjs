@@ -1,6 +1,6 @@
 export const Cartobj = [
   {
-    no: "01",
+    no: "1",
     image1: "/icons/analysis.png",
     image2: "/Text-headings/discussion-analysis.png",
     heading: "DISCUSSION & ANALYSIS",
@@ -8,7 +8,7 @@ export const Cartobj = [
       "Together with our developers and analysts, we begin by discussing and analysing our client’s needs, sketching the outline of the desired software, identifying gaps and proposing solutions along the way.",
   },
   {
-    no: "02",
+    no: "2",
     image1: "/icons/prototype.png",
     image2: "/Text-headings/prototyping.png",
     heading: "PROTOTYPING",
@@ -16,7 +16,7 @@ export const Cartobj = [
       "We help our clients and their end-users visualise the look-and-feel and interaction of the finished product before it is actually built using state-of-the-art design and prototyping tools.",
   },
   {
-    no: "03",
+    no: "3",
     image1: "/icons/specification.png",
     image2: "/Text-headings/software-specifications.png",
     heading: "SOFTWARE SPECIFICATIONS",
@@ -24,7 +24,7 @@ export const Cartobj = [
       "We write a software specifications document (software blueprint) that ensures that our clients get exactly what they expected and agreed to - in terms of functionality and the product’s UI and UX design.",
   },
   {
-    no: "04",
+    no: "4",
     image1: "/icons/developapprch.png",
     image2: "/Text-headings/development-approache.png",
     heading: "DEVELOPMENT APPROACH",
@@ -32,7 +32,7 @@ export const Cartobj = [
       "We use agile development style alongside the traditional approaches to ensure reliability of delivery schedule and quality of the end product.",
   },
   {
-    no: "05",
+    no: "5",
     image1: "/icons/rapiddevapp.png",
     image2: "/Text-headings/rapid-application-develop.png",
     heading: "RAPID APPLICATION DEVELOPMENT",
@@ -40,7 +40,7 @@ export const Cartobj = [
       "Our developers make use of cutting-edge tools and development frameworks to ensure quality code construction in the shortest time possible.",
   },
   {
-    no: "06",
+    no: "6",
     image1: "/icons/startup.png",
     image2: "/Text-headings/launch-support.png",
     heading: "LAUNCH & SUPPORT",
@@ -244,7 +244,7 @@ export const Teammembers = [
 ];
 export const fallbackServices = [
   {
-    id: "01",
+    id: "1",
     title: "MOBILE APP",
     subtitle: "DEVELOPMENT",
     description:
@@ -252,7 +252,7 @@ export const fallbackServices = [
     icon: "/icons/mob.png",
   },
   {
-    id: "02",
+    id: "2",
     title: "WEB APPLICATION",
     subtitle: "DEVELOPMENT",
     description:
@@ -260,7 +260,7 @@ export const fallbackServices = [
     icon: "/icons/website.png",
   },
   {
-    id: "03",
+    id: "3",
     title: "ARTIFICIAL",
     subtitle: "INTELLIGENCE",
     description:
@@ -268,7 +268,7 @@ export const fallbackServices = [
     icon: "/icons/artificial.png",
   },
   {
-    id: "04",
+    id: "4",
     title: "UI/UX",
     subtitle: "DESIGN",
     description:

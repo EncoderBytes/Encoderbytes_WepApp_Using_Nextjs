@@ -10,12 +10,12 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { API_URL_OurApproaches } from "../components/ShowApidatas/apiUrls";
 
-const AddApproachModal = dynamic(
-  () => import("../components/AddNewProjectModal"),
+const AddNewApproachModal = dynamic(
+  () => import("../components/AddNewApproachModal"),
   { ssr: false }
 );
 const UpdateApproachModal = dynamic(
-  () => import("../components/Updates/UpdateModelForProject"),
+  () => import("../components/Updates/UpdateModelForApproaches"),
   { ssr: false }
 );
 
@@ -29,7 +29,6 @@ const OurApproachesTable = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filtered, setFiltered] = useState([]);
 
-  // Fetch Data
   useEffect(() => {
     fetchApproaches();
   }, []);
@@ -48,7 +47,6 @@ const OurApproachesTable = () => {
     }
   };
 
-  // Search
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchTerm(value);
@@ -60,19 +58,28 @@ const OurApproachesTable = () => {
     setFiltered(f);
   };
 
-  // Delete
+  // const handleDelete = async (id) => {
+  //   try {
+  //     await axios.delete(`${API_URL_OurApproaches}/${id}`);
+  //     toast.success("Deleted successfully!");
+  //     fetchApproaches();
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error("Failed to delete.");
+  //   }
+  // };
+
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${API_URL_OurApproaches}/${id}`);
-      toast.success("Deleted successfully!");
+      toast.success("Approches deleted successfully!");
       fetchApproaches();
     } catch (err) {
-      console.log(err);
-      toast.error("Failed to delete.");
+      console.error("Error deleting Approches:", err);
+      toast.error("Failed to delete Approches.");
     }
   };
 
-  // Edit
   const handleEdit = (id) => {
     setSelectedId(id);
     setShowUpdateModal(true);
@@ -83,8 +90,8 @@ const OurApproachesTable = () => {
       <Header />
       <div className="flex gap-4">
         <Sidebar />
+
         <div className="container overflow-x-auto w-full p-4 mt-10 md:mt-0">
-          {/* TITLE + BUTTON */}
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Our Approaches</h2>
             <button
@@ -95,16 +102,14 @@ const OurApproachesTable = () => {
             </button>
           </div>
 
-          {/* SEARCH */}
           <input
             type="text"
             placeholder="Search by Title"
-            className="border border-gray-300 px-3 py-2 rounded-md mr-2 mb-3"
+            className="border border-gray-300 px-3 py-2 rounded-md mb-3"
             value={searchTerm}
             onChange={handleSearch}
           />
 
-          {/* TABLE */}
           <div className="overflow-x-auto h-[500px]">
             <table className="min-w-[900px] border border-gray-300">
               <thead className="bg-gray-200">
@@ -118,72 +123,52 @@ const OurApproachesTable = () => {
               </thead>
 
               <tbody>
-                {loading ? (
-                  <tr>
-                    <td colSpan="7" className="text-center py-4">
-                      Loading approaches...
+                {(searchTerm ? filtered : approaches).map((approach) => (
+                  <tr key={approach._id} className="border-b border-gray-400">
+                    <td className="px-4 py-2">{approach.no}</td>
+
+                    <td className="px-4 py-2">
+                      <Image
+                        src={approach.image}
+                        alt={approach.heading}
+                        width={64}
+                        height={64}
+                        className="h-16 w-16 object-cover"
+                        unoptimized
+                      />
+                    </td>
+
+                    <td className="px-4 py-2">{approach.heading}</td>
+
+                    <td className="px-4 py-2">
+                      <div className="overflow-y-scroll max-h-[4rem]">
+                        {approach.description}
+                      </div>
+                    </td>
+
+                    <td className="px-4 py-2 text-center">
+                      <button
+                        className="text-green-500 hover:underline"
+                        onClick={() => handleEdit(approach.id)}
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        className="text-red-500 hover:underline ml-2"
+                        onClick={() => handleDelete(approach.id)}
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
-                ) : error ? (
-                  <tr>
-                    <td colSpan="7" className="text-center py-4">
-                      {error}
-                    </td>
-                  </tr>
-                ) : (searchTerm ? filtered : approaches).length > 0 ? (
-                  (searchTerm ? filtered : approaches).map((item, idx) => (
-                    <tr key={item.id} className="border-b border-gray-400">
-                      <td className="px-4 py-2">{item.no}</td>
-
-                      <td className="px-4 py-2">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          width={64}
-                          height={64}
-                          className="h-16 w-16 object-cover"
-                          unoptimized
-                        />
-                      </td>
-
-                      <td className="px-4 py-2">{item.heading}</td>
-
-                      <td className="px-4 py-2">
-                        <div className="overflow-y-scroll max-h-[4rem]">
-                          {item.description}
-                        </div>
-                      </td>
-
-                      <td className="px-4 py-2 text-center">
-                        <button
-                          className="text-green-500 hover:underline"
-                          onClick={() => handleEdit(item.id)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="text-red-500 hover:underline ml-2"
-                          onClick={() => handleDelete(item.id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="7" className="text-center py-4">
-                      No data available.
-                    </td>
-                  </tr>
-                )}
+                ))}
               </tbody>
             </table>
           </div>
 
-          {/* MODALS */}
           {showModal && (
-            <AddApproachModal
+            <AddNewApproachModal
               isclose={() => setShowModal(false)}
               refresh={fetchApproaches}
             />
@@ -192,8 +177,8 @@ const OurApproachesTable = () => {
           {showUpdateModal && (
             <UpdateApproachModal
               isclose={() => setShowUpdateModal(false)}
-              approachId={selectedId}
-              refresh={fetchApproaches}
+              editId={selectedId}
+              getAll={fetchApproaches}
             />
           )}
         </div>

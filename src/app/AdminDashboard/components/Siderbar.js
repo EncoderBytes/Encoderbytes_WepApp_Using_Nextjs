@@ -151,6 +151,21 @@ const Sidebar = () => {
               </li>
             </Link>
             <Link
+              href="/AdminDashboard/AllStates"
+              className="flex flex-col items-start px-2 cursor-pointer justify-center hover:border-2 hover:border-gray-300"
+            >
+              <li className="cursor-pointer py-3 flex items-start justify-start w-full">
+                <div className="flex gap-3 justify-start items-center w-full">
+                  <span className="lg:block sm:block">
+                    {<CiSettings />}
+                  </span>
+                  <span className="md:block sm:hidden xs:hidden">
+                    Our States
+                  </span>
+                </div>
+              </li>
+            </Link>
+            <Link
               href="/AdminDashboard/AllApproaches"
               className="flex flex-col items-start px-2 cursor-pointer justify-center hover:border-2 hover:border-gray-300"
             >
