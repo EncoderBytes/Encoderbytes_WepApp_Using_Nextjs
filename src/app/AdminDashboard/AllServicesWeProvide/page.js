@@ -50,7 +50,6 @@ const WeProvideTable = () => {
     }
   };
 
-
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchTerm(value);
@@ -109,7 +108,8 @@ const WeProvideTable = () => {
                   <th className="px-4 py-2">Title</th>
                   <th className="px-4 py-2">Subtitle</th>
                   <th className="px-4 py-2">Description</th>
-                  <th className="px-4 py-2">Actions</th>
+                  <th className="px-4 py-2">Edit</th>
+                  <th className="px-4 py-2">Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -151,6 +151,8 @@ const WeProvideTable = () => {
                           >
                             Edit
                           </button>
+                        </td>
+                        <td>
                           <button
                             className="text-red-500 px-2 py-1 rounded hover:underline ml-2"
                             onClick={() => handleDelete(service.id)}
@@ -175,7 +177,7 @@ const WeProvideTable = () => {
           {showModal && (
             <AddNewServiceModal
               isclose={() => setShowModal(false)}
-              fetchServices={fetchServices}
+              getAllServices={fetchServices}
             />
           )}
           {showUpdateModal && (

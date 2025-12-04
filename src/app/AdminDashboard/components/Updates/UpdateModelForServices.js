@@ -80,10 +80,7 @@ const UpdateServiceModal = ({ isclose, serviceId, fetchServices }) => {
           description: data.description,
           image: data.image,
         });
-
-        // setImagePreview(
-        //   data.file?.startsWith("http") ? data.file : `/uploads/${data.image}`
-        // );
+        
         if (data.image) {
           setImagePreview(data.image);
         }

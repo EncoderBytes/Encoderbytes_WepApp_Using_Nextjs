@@ -5,10 +5,12 @@ import Header from "../components/Header";
 import Sidebar from "../components/Siderbar";
 import dynamic from "next/dynamic";
 import axios from "axios";
+import { isAuthenticated } from "@/app/helper/verifytoken";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { API_URL_OurApproaches } from "../components/ShowApidatas/apiUrls";
+import { useRouter } from "next/navigation";
 
 const AddNewApproachModal = dynamic(
   () => import("../components/AddNewApproachModal"),
@@ -28,10 +30,15 @@ const OurApproachesTable = () => {
   const [selectedId, setSelectedId] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [filtered, setFiltered] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
+    if (!isAuthenticated()) {
+      router.push("/AdminDashboard/Login");
+      return;
+    }
     fetchApproaches();
-  }, []);
+  }, [router]);
 
   const fetchApproaches = async () => {
     try {
@@ -57,17 +64,6 @@ const OurApproachesTable = () => {
 
     setFiltered(f);
   };
-
-  // const handleDelete = async (id) => {
-  //   try {
-  //     await axios.delete(`${API_URL_OurApproaches}/${id}`);
-  //     toast.success("Deleted successfully!");
-  //     fetchApproaches();
-  //   } catch (err) {
-  //     console.log(err);
-  //     toast.error("Failed to delete.");
-  //   }
-  // };
 
   const handleDelete = async (id) => {
     try {
@@ -110,15 +106,16 @@ const OurApproachesTable = () => {
             onChange={handleSearch}
           />
 
-          <div className="overflow-x-auto h-[500px]">
+          <div className="">
             <table className="min-w-[900px] border border-gray-300">
               <thead className="bg-gray-200">
                 <tr>
-                  <th className="px-4 py-2">S.no</th>
-                  <th className="px-4 py-2">Image</th>
-                  <th className="px-4 py-2">Title</th>
-                  <th className="px-4 py-2 w-64">Description</th>
-                  <th className="px-4 py-2">Actions</th>
+                  <th className="px-8 py-2">S.no</th>
+                  <th className="px-8 py-2">Image</th>
+                  <th className="px-8 py-2">Title</th>
+                  <th className="px-8 py-2">Description</th>
+                  <th className="px-8 py-2">Edit</th>
+                  <th className="px-8 py-2">Delete</th>
                 </tr>
               </thead>
 
@@ -141,7 +138,7 @@ const OurApproachesTable = () => {
                     <td className="px-4 py-2">{approach.heading}</td>
 
                     <td className="px-4 py-2">
-                      <div className="overflow-y-scroll max-h-[4rem]">
+                      <div>
                         {approach.description}
                       </div>
                     </td>
@@ -153,7 +150,8 @@ const OurApproachesTable = () => {
                       >
                         Edit
                       </button>
-
+                    </td>
+                    <td className="px-4 py-2 text-center">
                       <button
                         className="text-red-500 hover:underline ml-2"
                         onClick={() => handleDelete(approach.id)}
@@ -170,7 +168,7 @@ const OurApproachesTable = () => {
           {showModal && (
             <AddNewApproachModal
               isclose={() => setShowModal(false)}
-              refresh={fetchApproaches}
+              getAll={fetchApproaches}
             />
           )}
 

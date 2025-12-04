@@ -42,7 +42,7 @@ const UpdateApproachModal = ({ isclose, getAll, editId }) => {
 
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/api/ourapproaches/${editId}`);
+        const res = await axios.get(`/api/OurApproaches/${editId}`);
         const data = res.data.Result;
 
         setFormData({
@@ -96,31 +96,32 @@ const UpdateApproachModal = ({ isclose, getAll, editId }) => {
 
   // UPDATE API
   const updateApproach = async () => {
-    if (wordCount < 10) {
-      setError("Minimum 10 words required.");
-      return;
+    const formDataToSend = new FormData();
+
+    formDataToSend.append("no", formData.no);
+    formDataToSend.append("heading", formData.heading);
+    formDataToSend.append("description", formData.description);
+
+    // If user selected a new image
+    if (formData.image && typeof formData.image !== "string") {
+      formDataToSend.append("image", formData.image);
+    } else {
+      // keep old cloudinary URL
+      formDataToSend.append("oldImage", formData.image);
     }
 
     try {
-      const sendData = new FormData();
-      sendData.append("no", formData.no);
-      sendData.append("heading", formData.heading);
-      sendData.append("description", formData.description);
+      const res = await axios.put(
+        `${API_URL_OurApproaches}/${editId}`,
+        formDataToSend,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
 
-      if (formData.file) sendData.append("image", formData.file);
-
-      const res = await axios.put(`/api/ourapproaches/${editId}`, sendData);
-
-      if (res.data.success) {
-        toast.success("Approach updated successfully!");
-        if (getAll) await getAll();
-        isclose();
-      } else {
-        toast.error(res.data.message || "Failed to update approach");
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("Error updating approach");
+      toast.success("Approach updated successfully");
+      getAll();
+      isclose();
+    } catch (error) {
+      toast.error("Error updating Approach");
     }
   };
 

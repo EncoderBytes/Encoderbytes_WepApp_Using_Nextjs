@@ -122,7 +122,7 @@ export async function PUT(request, { params }) {
     const [rows] = await db.query("SELECT * FROM ourapproaches WHERE id = ?", [id]);
 
     if (rows.length === 0) {
-      return NextResponse.json({ error: "Service not found" }, { status: 404 });
+      return NextResponse.json({ error: "Approach not found" }, { status: 404 });
     }
 
     const old = rows[0];
@@ -153,13 +153,13 @@ export async function PUT(request, { params }) {
 
     if (updateRes.affectedRows === 0) {
       return NextResponse.json(
-        { error: "Failed to update service" },
+        { error: "Failed to update Approach" },
         { status: 500 }
       );
     }
 
     return NextResponse.json({
-      message: "Service updated successfully",
+      message: "Approach updated successfully",
       updatedService: {
         id,
         no: no || old.no,
@@ -170,9 +170,9 @@ export async function PUT(request, { params }) {
       },
     });
   } catch (error) {
-    console.error("Error updating service:", error);
+    console.error("Error updating Approach:", error);
     return NextResponse.json(
-      { error: "Failed to update service" },
+      { error: "Failed to update Approach" },
       { status: 500 }
     );
   }
