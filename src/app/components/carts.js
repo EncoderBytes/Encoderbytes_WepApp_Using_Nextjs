@@ -1,7 +1,7 @@
 export const Cartobj = [
   {
     no: "1",
-    image1: "/icons/analysis.png",
+    image: "/icons/analysis.png",
     image2: "/Text-headings/discussion-analysis.png",
     heading: "DISCUSSION & ANALYSIS",
     description:
@@ -9,7 +9,7 @@ export const Cartobj = [
   },
   {
     no: "2",
-    image1: "/icons/prototype.png",
+    image: "/icons/prototype.png",
     image2: "/Text-headings/prototyping.png",
     heading: "PROTOTYPING",
     description:
@@ -17,7 +17,7 @@ export const Cartobj = [
   },
   {
     no: "3",
-    image1: "/icons/specification.png",
+    image: "/icons/specification.png",
     image2: "/Text-headings/software-specifications.png",
     heading: "SOFTWARE SPECIFICATIONS",
     description:
@@ -25,7 +25,7 @@ export const Cartobj = [
   },
   {
     no: "4",
-    image1: "/icons/developapprch.png",
+    image: "/icons/developapprch.png",
     image2: "/Text-headings/development-approache.png",
     heading: "DEVELOPMENT APPROACH",
     description:
@@ -33,7 +33,7 @@ export const Cartobj = [
   },
   {
     no: "5",
-    image1: "/icons/rapiddevapp.png",
+    image: "/icons/rapiddevapp.png",
     image2: "/Text-headings/rapid-application-develop.png",
     heading: "RAPID APPLICATION DEVELOPMENT",
     description:
@@ -41,7 +41,7 @@ export const Cartobj = [
   },
   {
     no: "6",
-    image1: "/icons/startup.png",
+    image: "/icons/startup.png",
     image2: "/Text-headings/launch-support.png",
     heading: "LAUNCH & SUPPORT",
     description:
@@ -245,6 +245,7 @@ export const Teammembers = [
 export const fallbackServices = [
   {
     id: "1",
+    OrderNumber: "1",
     title: "MOBILE APP",
     subtitle: "DEVELOPMENT",
     description:
@@ -253,6 +254,7 @@ export const fallbackServices = [
   },
   {
     id: "2",
+    OrderNumber: "2",
     title: "WEB APPLICATION",
     subtitle: "DEVELOPMENT",
     description:
@@ -261,6 +263,7 @@ export const fallbackServices = [
   },
   {
     id: "3",
+    OrderNumber: "3",
     title: "ARTIFICIAL",
     subtitle: "INTELLIGENCE",
     description:
@@ -269,6 +272,7 @@ export const fallbackServices = [
   },
   {
     id: "4",
+    OrderNumber: "4",
     title: "UI/UX",
     subtitle: "DESIGN",
     description:

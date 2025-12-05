@@ -99,11 +99,11 @@ export default function Home() {
 
   // Values in same order
   const values = [
-    numbers.projectsDelivered ?? "0",
-    numbers.happyClients ?? "0",
-    numbers.globalOffice ?? "0",
-    numbers.yearsInBusiness ?? "0",
-    numbers.expertTeam ?? "0",
+    numbers.projectsDelivered,
+    numbers.happyClients,
+    numbers.globalOffice,
+    numbers.yearsInBusiness,
+    numbers.expertTeam,
   ];
 
   // Fetched Services WeProvide from backend
@@ -152,7 +152,7 @@ export default function Home() {
     fetchCards();
   }, []);
 
-  console.log(showServices);
+  // console.log(showServices);
 
   return (
     <div className="bg-white">
