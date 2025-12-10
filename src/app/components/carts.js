@@ -1,7 +1,7 @@
 export const Cartobj = [
   {
     no: "1",
-    image: "/icons/analysis.png",
+    image: "/icons/analysis.webp",
     image2: "/Text-headings/discussion-analysis.png",
     heading: "DISCUSSION & ANALYSIS",
     description:
@@ -9,7 +9,7 @@ export const Cartobj = [
   },
   {
     no: "2",
-    image: "/icons/prototype.png",
+    image: "/icons/prototype.webp",
     image2: "/Text-headings/prototyping.png",
     heading: "PROTOTYPING",
     description:
@@ -17,7 +17,7 @@ export const Cartobj = [
   },
   {
     no: "3",
-    image: "/icons/specification.png",
+    image: "/icons/specification.webp",
     image2: "/Text-headings/software-specifications.png",
     heading: "SOFTWARE SPECIFICATIONS",
     description:
@@ -25,7 +25,7 @@ export const Cartobj = [
   },
   {
     no: "4",
-    image: "/icons/developapprch.png",
+    image: "/icons/developapprch.webp",
     image2: "/Text-headings/development-approache.png",
     heading: "DEVELOPMENT APPROACH",
     description:
@@ -33,7 +33,7 @@ export const Cartobj = [
   },
   {
     no: "5",
-    image: "/icons/rapiddevapp.png",
+    image: "/icons/rapiddevapp.webp",
     image2: "/Text-headings/rapid-application-develop.png",
     heading: "RAPID APPLICATION DEVELOPMENT",
     description:
@@ -41,7 +41,7 @@ export const Cartobj = [
   },
   {
     no: "6",
-    image: "/icons/startup.png",
+    image: "/icons/startup.webp",
     image2: "/Text-headings/launch-support.png",
     heading: "LAUNCH & SUPPORT",
     description:
@@ -250,7 +250,7 @@ export const fallbackServices = [
     subtitle: "DEVELOPMENT",
     description:
       "We build stunning Mobile Apps that work across a variety of devices to increase and engage audiences, with security, scalability, and usability.",
-    icon: "/icons/mob.png",
+    icon: "/icons/mob.webp",
   },
   {
     id: "2",
@@ -259,7 +259,7 @@ export const fallbackServices = [
     subtitle: "DEVELOPMENT",
     description:
       "By utilizing the latest technologies, we build web applications that deliver remarkable functionality and user engagement.",
-    icon: "/icons/website.png",
+    icon: "/icons/website.webp",
   },
   {
     id: "3",
@@ -268,7 +268,7 @@ export const fallbackServices = [
     subtitle: "INTELLIGENCE",
     description:
       "Our AI team develops solutions to enhance operational efficiency for businesses, integrating AI models into mobile and web platforms.",
-    icon: "/icons/artificial.png",
+    icon: "/icons/artificial.webp",
   },
   {
     id: "4",
@@ -277,7 +277,7 @@ export const fallbackServices = [
     subtitle: "DESIGN",
     description:
       "Our UI/UX designs focus on solving user problems efficiently, applying design thinking with a structured UX process.",
-    icon: "/icons/user-experience.png",
+    icon: "/icons/user-experience.webp",
   },
 ];
 const logo = "/projecttitles/mobileapps.png";

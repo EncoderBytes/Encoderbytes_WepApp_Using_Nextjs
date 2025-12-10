@@ -58,14 +58,14 @@ export default function Home() {
         setLoading(true);
 
         const res = await axios.get(API_URL_Stats);
-        const data = res.data.Result?.[0]; 
+        const data = res.data.Result?.[0];
 
         if (!data) return;
 
         setNumbers({
           projectsDelivered: data.projectsDelivered + "+",
           happyClients: data.happyClients.toString(),
-          globalOffice: "0" +  data.globalOffice.toString(),
+          globalOffice: "0" + data.globalOffice.toString(),
           yearsInBusiness: "0" + data.yearsInBusiness.toString(),
           expertTeam: data.expertTeam.toString(),
         });
@@ -187,7 +187,7 @@ export default function Home() {
       <div
         className="relative flex flex-col items-center h-[760px] bg-cover bg-no-repeat text-white"
         style={{
-          backgroundImage: "url('/backgrounds/background-image.png')",
+          backgroundImage: "url('/backgrounds/background-image.webp')",
           backgroundBlendMode: "overlay",
         }}
       >
@@ -436,7 +436,7 @@ export default function Home() {
         </div> */}
 
         {/* Dynamic Card */}
-        <div className="grid grid-cols-1 md:grid-cols-2 mt-8 w-12/12 gap-5 m-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-8 w-full gap-5 mx-auto">
           {loading
             ? showServices.map((_, index) => (
                 <div
@@ -690,26 +690,27 @@ export default function Home() {
         </div>
       </div> */}
       <div className="flex flex-col lg:flex-row justify-center items-center px-6 md:px-12 mt-20 gap-y-8 md:gap-x-8">
-        <div className="bg-yellow w-full md:w-[70%] h-auto  relative">
+        <div
+          className="bg-yellow w-full md:w-[70%] relative 
+             h-[300px] md:h-[400px] 
+             lg:w-[746px] lg:h-[469px] 
+             rounded-lg overflow-hidden"
+        >
           {loading ? (
             <Skeleton height={400} width={"100%"} borderRadius={12} />
           ) : latestProject[0] ? (
             <Image
               src={latestProject[0].Image}
               alt={latestProject[0].ProjectName}
-              className="object-cover w-full h-full 
-                lg:w-[746px] lg:h-[469px]  
-               rounded-lg"
-              width={746}
-              height={469}
+              fill
+              className="object-cover"
             />
           ) : (
             <Image
-              src="/backgrounds/induz-a-industrial-category-wordpress-theme.png"
+              src="/backgrounds/induz-a-industrial-category-wordpress-theme.webp"
               alt="Logo"
-              className="object-cover w-full h-full"
-              width={400}
-              height={400}
+              fill
+              className="object-cover"
             />
           )}
         </div>
@@ -754,7 +755,7 @@ export default function Home() {
           {loading ? (
             <Skeleton width={400} count={3} />
           ) : latestProject[0] ? (
-            <p className="text-paraClr leading-tight line-clamp-3">
+            <p className="leading-tight line-clamp-3">
               {latestProject[0].ProjectDescription}
             </p>
           ) : (
@@ -920,11 +921,15 @@ export default function Home() {
                   </div>
 
                   <div className="flex flex-col md:w-full ml-2 mt-6">
-                    <p className="text-4xl font-bebas tracking-custom -mb-2 text-custom-blue">
-                      {cart.heading}
+                    <p className="text-4xl font-bebas tracking-custom -mb-2 text-black">
+                      OUR APPROACHES
                     </p>
 
-                    <p className="mt-6 text-paraClr opacity-50 leading-tight">
+                    {/* heading */}
+                    <p className="text-4xl font-bebas tracking-custom -mb-2 text-custom-blue">
+                      TO {cart.heading}
+                    </p>
+                    <p className="mt-6 text-paraClr capitalize opacity-50 leading-tight">
                       {cart.description}
                     </p>
                   </div>
@@ -964,12 +969,12 @@ export default function Home() {
       <div
         className="flex flex-col md:flex-row md:h-80 bg-gradient-to-b from-black via-black to-transparent bg-no-repeat bg-cover w-full"
         style={{
-          backgroundImage: "url('/backgrounds/Rectangle2.png')",
+          backgroundImage: "url('/backgrounds/Rectangle2.webp')",
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
       >
-        <div className="my-10 flex flex-col md:flex-row justify-between items-center md:px-16 w-11/12 m-auto">
+        <div className="my-10 flex flex-col md:flex-row justify-between items-center md:px-16 w-9/12 m-auto">
           <div>
             <div className="mb-4 md:mb-0 text-custom-blue font-bebas text-[40px] tracking-custom">
               <h1 className="text-white -mb-6">
@@ -1077,9 +1082,9 @@ export default function Home() {
               </div>
               {loading ? (
                 <Skeleton width={150} height={30} />
-              ) : latestProject[1] ? (
+              ) : latestProject[0] ? (
                 <div className="text-custom-blue text-4xl font-bebas tracking-custom">
-                  {latestProject[1].ProjectCategory}
+                  {latestProject[0].ProjectCategory}
                 </div>
               ) : (
                 <div className="text-custom-blue text-4xl font-bebas tracking-custom">
@@ -1089,9 +1094,9 @@ export default function Home() {
 
               {loading ? (
                 <Skeleton count={3} width={400} />
-              ) : latestProject[1] ? (
+              ) : latestProject[0] ? (
                 <p className="text-paraClr leading-tight line-clamp-3">
-                  {latestProject[1].ProjectDescription}
+                  {latestProject[0].ProjectDescription}
                 </p>
               ) : (
                 <p className="text-paraClr leading-tight">
@@ -1102,10 +1107,10 @@ export default function Home() {
                 </p>
               )}
 
-              {latestProject[1] ? (
+              {latestProject[0] ? (
                 <a
                   href={`/Case_Study?project=${
-                    latestProject[1]?.id || latestProject[1]?._id || ""
+                    latestProject[0]?.id || latestProject[0]?._id || ""
                   }`}
                   rel="noopener noreferrer"
                 >
@@ -1123,20 +1128,24 @@ export default function Home() {
                 </Link>
               )}
             </div>
-            <div className="bg-yellow w-full md:w-[70%] h-auto relative">
+            <div
+              className="bg-yellow w-full md:w-[70%] relative 
+             h-[300px] md:h-[400px] 
+             lg:w-[746px] lg:h-[469px] 
+             rounded-lg overflow-hidden"
+            >
               {loading ? (
                 <Skeleton height={300} width={"100%"} borderRadius={12} />
-              ) : latestProject[1] ? (
+              ) : latestProject[0] ? (
                 <Image
-                  src={latestProject[1].Image}
-                  alt={latestProject[1].ProjectCategory}
-                  className="w-full h-full lg:w-[637px] lg:h-[400px] object-cover rounded-lg"
-                  width={400}
-                  height={400}
+                  src={latestProject[0].Image}
+                  alt={latestProject[0].ProjectCategory}
+                  fill
+                  className="object-cover"
                 />
               ) : (
                 <Image
-                  src="/backgrounds/Mask-group1.png"
+                  src="/backgrounds/Mask-group1.webp"
                   alt="Health Industry Illustration"
                   className="w-full h-full object-cover"
                   width={400}
@@ -1179,20 +1188,24 @@ export default function Home() {
         </div>
       </div> */}
       <div className="flex flex-col-reverse md:flex-row justify-center items-center px-6 md:px-12 mt-20 gap-y-8 md:gap-x-8">
-        <div className="bg-yellow w-full md:w-[70%] h-auto relative">
+        <div
+          className="bg-yellow w-full md:w-[70%] relative 
+             h-[300px] md:h-[400px] 
+             lg:w-[746px] lg:h-[469px] 
+             rounded-lg overflow-hidden"
+        >
           {loading ? (
             <Skeleton height={300} width={"100%"} borderRadius={12} />
           ) : latestProject[1] ? (
             <Image
               src={latestProject[1].Image}
               alt={latestProject[1].ProjectCategory}
-              className="w-full h-full lg:w-[637px] lg:h-[400px]  object-cover rounded-lg"
-              width={400}
-              height={400}
+              className="object-cover"
+              fill
             />
           ) : (
             <Image
-              src="/backgrounds/Mask-group1.png"
+              src="/backgrounds/Mask-group1.webp"
               alt="Health Industry Illustration"
               className="w-full h-full object-cover"
               width={400}
@@ -1234,10 +1247,10 @@ export default function Home() {
             </p>
           )}
 
-          {latestProject[2] ? (
+          {latestProject[1] ? (
             <a
               href={`/Case_Study?project=${
-                latestProject[2]?.id || latestProject[2]?._id || ""
+                latestProject[1]?.id || latestProject[1]?._id || ""
               }`}
               rel="noopener noreferrer"
             >
@@ -1302,9 +1315,9 @@ export default function Home() {
               </div>
               {loading ? (
                 <Skeleton width={150} height={30} />
-              ) : latestProject[3] ? (
+              ) : latestProject[2] ? (
                 <div className="text-custom-blue text-4xl font-bebas tracking-custom">
-                  {latestProject[3].ProjectCategory}
+                  {latestProject[2].ProjectCategory}
                 </div>
               ) : (
                 <div className="text-custom-blue text-4xl font-bebas tracking-custom">
@@ -1314,9 +1327,9 @@ export default function Home() {
 
               {loading ? (
                 <Skeleton count={3} width={400} />
-              ) : latestProject[3] ? (
+              ) : latestProject[2] ? (
                 <p className="text-paraClr leading-tight line-clamp-3">
-                  {latestProject[3].ProjectDescription}
+                  {latestProject[2].ProjectDescription}
                 </p>
               ) : (
                 <p className="text-paraClr leading-tight">
@@ -1327,10 +1340,10 @@ export default function Home() {
                 </p>
               )}
 
-              {latestProject[3] ? (
+              {latestProject[2] ? (
                 <a
                   href={`/Case_Study?project=${
-                    latestProject[3]?.id || latestProject[3]?._id || ""
+                    latestProject[2]?.id || latestProject[2]?._id || ""
                   }`}
                   rel="noopener noreferrer"
                 >
@@ -1348,20 +1361,24 @@ export default function Home() {
                 </Link>
               )}
             </div>
-            <div className="bg-yellow w-full md:w-[70%] h-auto relative">
+            <div
+              className="bg-yellow w-full md:w-[70%] relative 
+             h-[300px] md:h-[400px] 
+             lg:w-[746px] lg:h-[469px] 
+             rounded-lg overflow-hidden"
+            >
               {loading ? (
                 <Skeleton height={300} width={"100%"} borderRadius={12} />
-              ) : latestProject[3] ? (
+              ) : latestProject[2] ? (
                 <Image
-                  src={latestProject[3].Image}
-                  alt={latestProject[3].ProjectCategory}
-                  className="w-full h-full lg:w-[637px] lg:h-[400px]  object-cover rounded-lg"
-                  width={400}
-                  height={400}
+                  src={latestProject[2].Image}
+                  alt={latestProject[2].ProjectCategory}
+                  className="object-cover"
+                  fill
                 />
               ) : (
                 <Image
-                  src="/backgrounds/Mask-group1.png"
+                  src="/backgrounds/Mask-group1.webp"
                   alt="Health Industry Illustration"
                   className="w-full h-full object-cover"
                   width={400}

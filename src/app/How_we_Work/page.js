@@ -226,8 +226,8 @@ const How_we_work = () => {
                   src={item.image}
                   alt={`Image for ${item.heading}`} // More descriptive alt text
                   className="object-cover"
-                  width={856}
-                  height={460}
+                  width={400}
+                  height={400}
                 />
 
                 <div className="font-bold mt-14 text-paraClr text-lg">

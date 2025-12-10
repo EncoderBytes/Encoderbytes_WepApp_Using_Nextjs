@@ -78,11 +78,11 @@ const Header = () => {
         isSticky ? "py-2 top-0" : "p-2 lg:mt-6 mt-0 "
       }`}
     >
-      <div className="flex justify-between items-center px-6 md:px-12 m-auto py-2">
+      <div className="flex justify-between items-center w-10/12 m-auto py-2">
         <div className="flex justify-center items-center">
           <Link href="/">
             <Image
-              src="/logos/logo.png"
+              src="/logos/logo.webp"
               alt="Logo"
               className="h-auto"
               width={190}

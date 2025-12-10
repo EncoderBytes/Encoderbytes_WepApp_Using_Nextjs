@@ -117,13 +117,13 @@ const Carousal = () => {
       role: "CEO, ANA Digital Solutions",
     },
     {
-      imageUrl: "/clients/ceo12.jpg",
+      imageUrl: "/clients/ceo12.webp",
       text: "Encoderbytes is extremely knowledgeable and helpful. They know the ins and outs of mobile app development. Their understanding of different technologies and frameworks in the space is also very impressive. I hope I get the chance to work with them again.",
       author: "Jake Corry",
       role: "Backend Software Engineer at MX",
     },
     {
-      imageUrl: "/clients/ceo21.jpg",
+      imageUrl: "/clients/ceo21.webp",
       text: "I have worked with Encoderbytes and they are very professional and excellent software developers. I admire their speed of development and quality of work when given an assignment.",
       author: "Blaise Labriola",
       role: "AI/Machine Learning & Stock Portfolio Analytics",

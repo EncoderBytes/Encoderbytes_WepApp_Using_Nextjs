@@ -78,7 +78,7 @@ const Services = () => {
           <Image
             src="/backgrounds/Rectangle-29.png"
             alt="Logo"
-            className="object-cover rounded-[10px]"
+            className="object-cover rounded-[10px] w-full h-full"
             width={636}
             height={400}
           />
