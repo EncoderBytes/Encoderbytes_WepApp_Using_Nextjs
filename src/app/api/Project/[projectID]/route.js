@@ -181,7 +181,7 @@ cloudinary.v2.config({
 //     );
 //   }
 // }
-
+export const dynamic = "force-dynamic";
 
 // mysql method
 

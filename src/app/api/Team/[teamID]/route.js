@@ -177,7 +177,7 @@ cloudinary.v2.config({
 //   }
 // }
 
-
+export const dynamic = "force-dynamic";
 // mysql method
 export async function GET(request, context) {
   try {

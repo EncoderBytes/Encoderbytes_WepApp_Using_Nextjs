@@ -4,6 +4,7 @@ const { NextResponse } = require("next/server");
 
 // update vefiy user
 
+export const dynamic = "force-dynamic";
 export async function PUT(request, context) {
   try {
     await connect();

@@ -9,6 +9,8 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+export const dynamic = "force-dynamic";
+
 // GET SINGLE SERVICE BY ID
 export async function GET(request, { params }) {
   try {

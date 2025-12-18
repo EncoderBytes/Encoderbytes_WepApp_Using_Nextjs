@@ -11,6 +11,7 @@ const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProjectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
 
   const dropdownRef = useRef(null);
 
@@ -44,6 +45,7 @@ const Header = () => {
 
   useEffect(() => {
     closeProjectsDropdown();
+    setIsMobileServicesOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -462,7 +464,7 @@ const Header = () => {
           Projects
         </Link>
         <div className="relative">
-          <button
+          {/* <button
             onClick={toggleProjectsDropdown}
             className={`ml-4 relative hover:text-custom-blue ${
               isActive(["/Mobile", "/WebApp", "/Ai", "/Uiux"])
@@ -472,13 +474,49 @@ const Header = () => {
           >
             Service
             <span className="ml-1">&#9662;</span>
+          </button> */}
+          <Link
+            href="/Services"
+            className={`ml-4 relative hover:text-custom-blue ${
+              isActive(["/Services", "/Mobile", "/WebApp", "/Ai", "/Uiux"])
+                ? "text-custom-blue"
+                : "text-white"
+            }`}
+            onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            Services
+          </Link>
+          {/* <button
+            // ref={dropdownRef}
+            // onClick={toggleProjectsDropdown}
+            className={`ml-1 hover:text-custom-blue ${
+              isActive(["/Services", "/Mobile", "/WebApp", "/Ai", "/Uiux"])
+                ? "text-custom-blue"
+                : "text-white"
+            }`}
+          >
+            <span>&#9662;</span>
+          </button> */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMobileServicesOpen(!isMobileServicesOpen);
+            }}
+            className={`ml-1 hover:text-custom-blue ${
+              isActive(["/Services", "/Mobile", "/WebApp", "/Ai", "/Uiux"])
+                ? "text-custom-blue"
+                : "text-white"
+            }`}
+          >
+            <span>&#9662;</span>
           </button>
 
-          {isProjectsDropdownOpen && (
+          {isMobileServicesOpen && (
             <div
               className="absolute left-0 mt-5 w-full border rounded-md  text-white shadow-lg z-10"
               onClick={() => {
                 closeProjectsDropdown();
+                setIsMobileServicesOpen(false);
                 setMobileMenuOpen(!isMobileMenuOpen);
               }}
             >

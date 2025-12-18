@@ -1,6 +1,7 @@
 import { connect } from "@/app/config/db";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
 // GET SINGLE STATS BY ID
 export async function GET(request, { params }) {
   try {
