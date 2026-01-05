@@ -8,32 +8,43 @@ import "react-toastify/dist/ReactToastify.css";
 import { isAuthenticated } from "@/app/helper/verifytoken";
 import { useRouter } from "next/navigation";
 import { RequestCount } from "../components/ShowApidatas/ShowUserAPiDatas";
+import {API_URL_Request} from "../components/ShowApidatas/apiUrls"
 const CandidateTable = () => {
   const router = useRouter();
   const [showAllReq, setshowAllReq] = useState([]);
-  useEffect(() => {
-    // Check if user is authenticated
-    if (!isAuthenticated()) {
-      router.push("/AdminDashboard/Login"); // Redirect to login page if not authenticated
-      return;
-    }
-    ///////////////////////////////
+  const [requestsLoading, setRequestsLoading] = useState(false);
+  const [requestsError, setRequestsError] = useState(null);
+  const fetchRequests = () => {
+    setRequestsLoading(true);
+    setRequestsError(null);
     RequestCount()
       .then(({ admins }) => {
         setshowAllReq(admins);
+        setRequestsLoading(false);
       })
       .catch((error) => {
+        setRequestsError("Failed to fetch requests.");
+        setRequestsLoading(false);
         console.log(`Failed to fetch Request: ${error}`);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      router.push("/AdminDashboard/Login");
+      return;
+    }
+    fetchRequests();
+  }, [router]);
 
   // Function to delete an item
   const handleDelete = async (id) => {
+    console.log("Deleting ID:", id);
     try {
-      console.log("hi", id);
-      await axios.delete(`${API_URL}/${id}`);
-      showalladmins();
-      toast.success("Delete Request Sucessfully");
+      await axios.delete(`${API_URL_Request}/${id}`);
+      toast.success("Delete Request Successfully");
+      // Remove the deleted item from the UI
+      setshowAllReq((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Error deleting item:", error);
     }
@@ -43,7 +54,7 @@ const CandidateTable = () => {
       <Header className="min-w-full" />
       <div className="flex  gap-4">
         <Sidebar />
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 mt-10 md:mt-0">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Candidates</h2>
           </div>
@@ -62,45 +73,21 @@ const CandidateTable = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* Example Row */}
-
-                {/* {showAllReq.map((item, idx) => (
-                  <tr key={item._id} className="border-2 border-b-gray-500">
-                    <td className="px-4 py-2">{idx + 1}</td>
-                    <td className="px-4 py-2">{item.username}</td>
-                    <td className="px-4 py-2">{item.email}</td>
-                    <td className="px-4 py-2">{item.phone}</td>
-                    <td className="px-4 py-2">{item.experience}</td>
-                    <td className="px-4 py-2">{item.expected_salary}</td>
-                    <td className="px-4 py-2 text-center">
-                      <button
-                        className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                        onClick={() =>
-                          window.open(`/pdf/${item.file_cv}`, "_blank")
-                        }
-                      >
-                        Show CV
-                      </button>
-                    </td>
-                    <td className="px-4 py-2 text-center">
-                      <button
-                        className="text-red-500 hover:underline"
-                        onClick={() => handleDelete(item._id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))} */}
-                {!showAllReq ? (
+                {requestsLoading ? (
                   <tr>
-                    <td colSpan="8" className="text-center py-4">
-                      No data found
+                    <td colSpan={8} className="text-center py-8 text-gray-500">
+                      Loading requests...
                     </td>
                   </tr>
-                ) : (
+                ) : requestsError ? (
+                  <tr>
+                    <td colSpan={8} className="text-center py-8 text-red-500">
+                      {requestsError}
+                    </td>
+                  </tr>
+                ) : Array.isArray(showAllReq) && showAllReq.length > 0 ? (
                   showAllReq.map((item, idx) => (
-                    <tr key={item._id} className="border-2 border-b-gray-500">
+                    <tr key={item.id} className="border-2 border-b-gray-500">
                       <td className="px-4 py-2">{idx + 1}</td>
                       <td className="px-4 py-2">{item.username}</td>
                       <td className="px-4 py-2">{item.email}</td>
@@ -110,7 +97,7 @@ const CandidateTable = () => {
                       <td className="px-4 py-2 text-center">
                         <button
                           className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                          onClick={() => window.open(`/pdf/${item.file_cv}`, "_blank")}
+                          onClick={() => window.open(item.file_cv, "_blank")}
                         >
                           Show CV
                         </button>
@@ -118,16 +105,20 @@ const CandidateTable = () => {
                       <td className="px-4 py-2 text-center">
                         <button
                           className="text-red-500 hover:underline"
-                          onClick={() => handleDelete(item._id)}
+                          onClick={() => handleDelete(item.id)}
                         >
                           Delete
                         </button>
                       </td>
                     </tr>
                   ))
+                ) : (
+                  <tr>
+                    <td colSpan={8} className="text-center py-8 text-gray-500">
+                      No requests yet
+                    </td>
+                  </tr>
                 )}
-
-                {/* end */}
               </tbody>
             </table>
           </div>

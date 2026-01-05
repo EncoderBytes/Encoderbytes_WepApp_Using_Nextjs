@@ -54,19 +54,30 @@ const UpdateBlogModal = ({ isclose, reload, proId }) => {
       ...prevData,
       image: file || null,
     }));
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setImagePreview(reader.result);
+      reader.readAsDataURL(file);
+    } else {
+      setImagePreview(formData.image); // fallback to old image
+    }
   };
   const formatDate = (dateString) => {
+    if (!dateString) return "";
     const date = new Date(dateString);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
   };
   const showalladmins = () => {
     axios
       .get(`${API_URL_Blog}/${proId}`)
       .then((res) => {
         const adminData = res.data.Result;
+        console.log(adminData);
         setFormData({
           blogtitle: adminData.blogtitle,
           author: adminData.author,
@@ -81,8 +92,10 @@ const UpdateBlogModal = ({ isclose, reload, proId }) => {
       });
   };
   useEffect(() => {
-    showalladmins();
-  }, []);
+    if (proId) {
+      showalladmins();
+    }
+  }, [proId]);
   const sendMessage = async () => {
     try {
       const formDataToSend = new FormData();
@@ -186,20 +199,8 @@ const UpdateBlogModal = ({ isclose, reload, proId }) => {
               onChange={handleInputChange}
             />
           </div>
-          <div>
-            <label htmlFor="datetime" className="text-gray-950">
-              Date And Time :
-            </label>
-            <br />
-            <input
-              type="date" // Use datetime-local for date and time input
-              id="date"
-              name="datetime"
-              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
-              value={formData.datetime} // Assuming formData.datetime is correctly formatted
-              onChange={handleInputChange}
-            />
-          </div>
+        </section>  
+          
           <div>
             <label htmlFor="description" className="text-gray-950">
               Discription :
@@ -214,7 +215,21 @@ const UpdateBlogModal = ({ isclose, reload, proId }) => {
               onChange={handleInputChange}
             />
           </div>
-
+        <section className="grid grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="datetime" className="text-gray-950">
+              Date And Time :
+            </label>
+            <br />
+            <input
+              type="datetime-local"
+              id="datetime"
+              name="datetime"
+              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+              value={formData.datetime}
+              onChange={handleInputChange}
+            />
+          </div>
           <div class="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black">
             <label class="block">
               <span className="text-gray-950">Upload file</span>
@@ -224,26 +239,31 @@ const UpdateBlogModal = ({ isclose, reload, proId }) => {
                 type="file"
                 class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
               />
-            </label>
-          </div>
-          <div className="w-[100px] h-20 mb-4">
-            {imagePreview ? (
+              {imagePreview && (
               <img
                 src={imagePreview}
                 alt={`Profile Picture of ${formData.author}`}
-                className="profile-picture"
+                className="mt-2 w-24 h-24 object-cover rounded-md border"
               />
-            ) : (
+            )}
+            </label>
+          </div>
+          {/* 
+          of no use
+
+          <div className="w-[100px] h-20 mb-4">
+            
+             : (
               <div className="w-full h-full bg-gray-200 rounded-full flex items-center justify-center">
-                {/* <span className="text-gray-400">No Image</span> */}
+                <span className="text-gray-400">No Image</span>
                 <img
                   src="https://static.thenounproject.com/png/363639-200.png"
                   alt="Profile Preview"
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
-            )}
-          </div>
+            )
+          </div> */}
         </section>
 
         <button

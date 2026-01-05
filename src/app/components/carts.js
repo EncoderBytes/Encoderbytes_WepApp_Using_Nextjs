@@ -1,43 +1,49 @@
 export const Cartobj = [
   {
-    no: "01",
-    image1: "/icons/analysis.png",
+    no: "1",
+    image: "/icons/analysis.webp",
     image2: "/Text-headings/discussion-analysis.png",
+    heading: "DISCUSSION & ANALYSIS",
     description:
       "Together with our developers and analysts, we begin by discussing and analysing our client’s needs, sketching the outline of the desired software, identifying gaps and proposing solutions along the way.",
   },
   {
-    no: "02",
-    image1: "/icons/prototype.png",
+    no: "2",
+    image: "/icons/prototype.webp",
     image2: "/Text-headings/prototyping.png",
+    heading: "PROTOTYPING",
     description:
       "We help our clients and their end-users visualise the look-and-feel and interaction of the finished product before it is actually built using state-of-the-art design and prototyping tools.",
   },
   {
-    no: "03",
-    image1: "/icons/specification.png",
+    no: "3",
+    image: "/icons/specification.webp",
     image2: "/Text-headings/software-specifications.png",
+    heading: "SOFTWARE SPECIFICATIONS",
     description:
       "We write a software specifications document (software blueprint) that ensures that our clients get exactly what they expected and agreed to - in terms of functionality and the product’s UI and UX design.",
   },
   {
-    no: "04",
-    image1: "/icons/developapprch.png",
+    no: "4",
+    image: "/icons/developapprch.webp",
     image2: "/Text-headings/development-approache.png",
+    heading: "DEVELOPMENT APPROACH",
     description:
       "We use agile development style alongside the traditional approaches to ensure reliability of delivery schedule and quality of the end product.",
   },
   {
-    no: "05",
-    image1: "/icons/rapiddevapp.png",
+    no: "5",
+    image: "/icons/rapiddevapp.webp",
     image2: "/Text-headings/rapid-application-develop.png",
+    heading: "RAPID APPLICATION DEVELOPMENT",
     description:
       "Our developers make use of cutting-edge tools and development frameworks to ensure quality code construction in the shortest time possible.",
   },
   {
-    no: "06",
-    image1: "/icons/startup.png",
+    no: "6",
+    image: "/icons/startup.webp",
     image2: "/Text-headings/launch-support.png",
+    heading: "LAUNCH & SUPPORT",
     description:
       "Our team is exceptionally skilled in planning the deployment and maintenance of large, complex, and high-visibility software systems and mobile apps.",
   },
@@ -234,6 +240,44 @@ export const Teammembers = [
     status: "DIRECTOR OPERATIONS",
     LinkedIn: "",
     Github: "",
+  },
+];
+export const fallbackServices = [
+  {
+    id: "1",
+    OrderNumber: "1",
+    title: "MOBILE APP",
+    subtitle: "DEVELOPMENT",
+    description:
+      "We build stunning Mobile Apps that work across a variety of devices to increase and engage audiences, with security, scalability, and usability.",
+    icon: "/icons/mob.webp",
+  },
+  {
+    id: "2",
+    OrderNumber: "2",
+    title: "WEB APPLICATION",
+    subtitle: "DEVELOPMENT",
+    description:
+      "By utilizing the latest technologies, we build web applications that deliver remarkable functionality and user engagement.",
+    icon: "/icons/website.webp",
+  },
+  {
+    id: "3",
+    OrderNumber: "3",
+    title: "ARTIFICIAL",
+    subtitle: "INTELLIGENCE",
+    description:
+      "Our AI team develops solutions to enhance operational efficiency for businesses, integrating AI models into mobile and web platforms.",
+    icon: "/icons/artificial.webp",
+  },
+  {
+    id: "4",
+    OrderNumber: "4",
+    title: "UI/UX",
+    subtitle: "DESIGN",
+    description:
+      "Our UI/UX designs focus on solving user problems efficiently, applying design thinking with a structured UX process.",
+    icon: "/icons/user-experience.webp",
   },
 ];
 const logo = "/projecttitles/mobileapps.png";

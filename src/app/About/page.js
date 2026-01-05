@@ -4,12 +4,13 @@ import React, { useEffect, useState } from "react";
 import Top from "../Utils/Top";
 import { AboutCarts } from "../components/carts";
 import Contactform from "../Utils/Contactform";
-import Link from "next/link";
-import { FaGithubSquare } from "react-icons/fa";
+import { FaGithubSquare, FaLinkedin } from "react-icons/fa";
 import { TeamCount } from "../AdminDashboard/components/ShowApidatas/ShowUserAPiDatas";
+import Link from "next/link";
 
 const Page = () => {
   const [employees, setemployees] = useState([]);
+  // console.log(employees);
 
   useEffect(() => {
     getTeam();
@@ -22,414 +23,305 @@ const Page = () => {
       console.log(`Failed to fetch team: ${error}`);
     }
   };
+
+  // const sortedEmployees = employees.sort((a, b) => {
+  //   // Example: Sort by username alphabetically
+  //   return a.username.localeCompare(b.username);
+  // });
+  const sortedEmployees = employees.sort((a, b) => a.order - b.order);
+
   return (
-    <div className=" bg-white">
+    <div className="bg-white">
       <Top />
       <div
-        className="max-w-full h-auto flex justify-center items-center"
+        className="max-w-full h-[350px] flex justify-center items-center mt-20"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/backgrounds/banner-Facebook-Cover-copy.png')",
-          backgroundSize: "100% 100vh", // Set background size to full width and full height of the viewport
+            "linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/backgrounds/banner_Facebook Cover copy.png')",
+          backgroundSize: "100% 100%",
           backgroundBlendMode: "overlay",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="flex flex-col justify-center items-center py-24">
-          {/* <Image
-            src="/Text-headings/All-About-encoderbytes.png"
-            alt="Logo"
-            width={400}
-            height={700}
-            className="w-full md:w-auto"
-          /> */}
-          <div className="text-custom-blue text-2xl md:text-4xl font-bold flex justify-center items-center">
+        <div className="flex flex-col justify-center items-center py-24 text-center">
+          <h1 className="text-custom-blue text-4xl font-bebas tracking-custom">
             ALL ABOUT ENCODERBYTES
-          </div>
-          <div className="flex  m-auto py-3">
-            <p className="flex w-5/6 md:w-3/6 m-auto justify-center items-center text-center">
-              We solve real-world problems with the help of new and emerging
-              technology. We strive to provide fully-fledged R&D based quality
-              services and products using standard SDLC, Agile methodology and
-              uptodate technology.
-            </p>
-          </div>
+          </h1>
+          <p className="w-5/6 md:w-3/6 leading-tight text-paraClr my-3">
+            A lot goes on behind the scenes when we are building software. Excitement. Teamwork. Labour of love. A bit of craziness. This is what makes EncoderBytes – Good to the Core!
+          </p>
           <a
             href="/"
-            className="text-black font-bold text-center md:text-left mt-20"
+            className="text-paraClr font-semibold mt-20 text-xs"
           >
-            Home - <span className="text-custom-blue">About Us</span>
+            Home &nbsp;- <span className="text-custom-blue">About Us</span>
           </a>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-32 md:gap-x-8 mb-32 ">
-        <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
-          <div className="text-1xl font-bold">
-            <span className="border-b-4 border-custom-blue">e n c o</span>
-            <span className=""> d e r b y t e s .</span>
+
+      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-12 mt-20 md:mt-32 gap-x-8 mb-32">
+        <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%] mb-5">
+          <div className="text-lg font-bold">
+            <span className="border-b-4 border-custom-blue">E n c o</span>
+            <span>d e r b y t e s .</span>
           </div>
-          <div className="text-4xl font-bold">
-            <span className="">WHO WE</span>
+          <div className="text-4xl font-bebas tracking-custom">
+            <span>WHO WE</span>
             <span className="text-custom-blue"> ARE?</span>
           </div>
-          <p className="text-sm md:text-md">
-            Encoder Bytes Pvt. is an emerging AI first company that works in
-            multiple fronts pertaining to three verticals, i-e training,
-            products and services, with a focus on 4th industry.
-            <br></br>
-            <br></br> Our first hand goal is to be the leading tech services
-            provider in 4th industrial and High-technologies such as Mobile App
-            development, Web development. AI, Blockchain, AR/VR,We are on a
-            mission to develop user centric products that can provide both
-            economic and social benefits for the people.
+          <p className="text-sm md:text-base text-paraClr">
+            EncoderBytes is one of the leading software development companies in PK, serving an impressive local and overseas clients. Our team works in an agile manner and engages well with our clients across different stages of their software app development projects.
+            <br />
+            <br />
+            Our multiple geographical offices allow us to offer a highly efficient hybrid onshore-offshore model to our clients. This model ensures local liaison in Pakistan for project management, requirements analysis, and high-level technical design while providing exceptional value for money and access to incredible tech talent.
           </p>
         </div>
         <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
           <Image
-            src="/backgrounds/unsplash1.png"
-            alt="Logo"
+            src="/backgrounds/Group 96.png"
+            alt="Company Representation"
             className="object-cover w-full h-full"
             width={400}
             height={400}
           />
         </div>
       </div>
-      {/* section 2 */}
-      <div className="bg-gray-200 p-14 px-20">
-        <div className="flex justify-center items-center flex-col mt-4 ">
-          <div className="text-custom-blue text-2xl md:text-4xl font-bold flex justify-center items-center gap-2">
-            <span className="text-black">WHAT WE </span>
-            <span className="text-custom-blue"> VALUE?</span>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6  mt-20 w-5/6 m-auto">
-          <div className="flex flex-col justify-center mx-auto cardContent bg-white rounded-md">
-            <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto">
-              <div className="card c1 shadow text-dark rounded-lg">
-                <div className="card-body my-3" id="cardBody1">
-                  <div className="mt-2 cardtext1 text-center p-8">
-                    <h1 className="font-bold text-4xl">CLIENT</h1>
-                    <p className="text-wrap card-text box-content mt-3 text-md text-custom-blue">
-                      Our client-centric approach always prioritizes our clients
-                      and their needs. We make sure that every decision,
-                      process, and strategy we follow aligns with the goals of
-                      our client and delivers results that surpass their
-                      expectations.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center mx-auto cardContent bg-white rounded-md">
-            <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto">
-              <div className="card c1 shadow text-dark rounded-lg">
-                <div className="card-body my-3" id="cardBody1">
-                  <div className="mt-2 cardtext1 text-center p-8">
-                    <h1 className="font-bold text-4xl">TEAM WORK</h1>
-                    <p className="text-wrap card-text box-content mt-3 text-md text-custom-blue">
-                      Our team consists of Super programmers. World Class
-                      business analysts. Creative designers and problem solvers.
-                      There&apos;s hardly a software app development challenge
-                      that our team cannot tackle.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center mx-auto cardContent bg-white rounded-md">
-            <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto">
-              <div className="card c1 shadow text-dark rounded-lg">
-                <div className="card-body my-3" id="cardBody1">
-                  <div className="mt-2 cardtext1 text-center p-8">
-                    <h1 className="font-bold text-4xl">PROCESS</h1>
-                    <p className="text-wrap card-text box-content mt-3 text-md text-custom-blue">
-                      We use upto date agile methodology of software development
-                      cycle (SDLC) to ensure clients satisfactions with
-                      expeditious development and delivery.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* section 3rd */}
-      <div className="w-full min-h-full flex justify-center items-center mt-14">
-        <div className="flex justify-center items-center  flex-col mt-4 ">
-          <div className="text-4xl font-bold">
-            <span className="">WHY CHOOSE </span>
-            <span className="text-custom-blue">US?</span>
+      <div className="bg-custom pt-10 pb-16 md:px-12">
+        <div className="flex justify-center items-center flex-col mt-4">
+          <div className="text-custom-blue text-4xl flex justify-center items-center gap-2 font-bebas">
+            <span className="text-black">WHAT WE </span>
+            <span className="text-custom-blue">VALUE?</span>
           </div>
-          <p className="w-5/6 mt-11 text-center text-md ">
-            To ensure your business growth with timely delivery of your software
-            with multiple revision, we are best fit for you
-          </p>
         </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 pb-32 w-5/6 m-auto ">
-        {AboutCarts.map((cart) => {
-          return (
+
+        <div className=" flex md:flex-row flex-col items-center justify-center gap-7 mt-10">
+          {[
+            {
+              title: "CLIENT",
+              content:
+                "Our client-centric approach always prioritizes our clients and their needs. We make sure that every decision, process, and strategy we follow aligns with the goals of our client and delivers results that surpass their expectations.",
+            },
+            {
+              title: "TEAM WORK",
+              content:
+                "With a healthy work environment that encourages open communication and opportunities for personal and professional growth, EncoderBytes strives to keep all team members content. Our team is what makes us good to the core!",
+            },
+            {
+              title: "PROCESS",
+              content:
+                "EncoderBytes’s agile development process is designed to ensure efficiency and maximum value. Our flexible process allows us to swiftly adapt to changes in our client’s requirements so that projects are delivered rapidly and reliably.",
+            },
+          ].map((item, index) => (
             <div
-              className="rounded-xl bg-gray-200 p-8  mb-4 md:mb-0 h-auto "
-              key={cart.no}
+              key={index}
+              className="h-48 bg-white w-[360px] md:w-[500px] md:h-[230px] flex flex-col justify-center items-center rounded-lg"
             >
-              <div className="flex justify-between">
-                <span className="text-8xl font-bold text-slate-300">
-                  {cart.no}
-                </span>
-                <Image src={cart.image1} alt="Logo" width={70} height={60} />
-              </div>
-              <div className="text-2xl md:text-2xl font-bold mt-10">
-                <span className="">{cart.text1} </span>
-                <span className="text-custom-blue">{cart.text2}</span>
-              </div>
-              <p className="flex justify-center mt-6 text-gray-400 text-md">
-                {cart.description}
+              <h1 className="text-4xl font-bebas">{item.title}</h1>
+              <p className="text-wrap card-text box-content mt-3 text-md text-custom-blue text-center text-sm px-5 leading-tight">
+                {item.content}
               </p>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
-      {/* section 4th */}
+
+      <div className="w-full min-h-full flex justify-center items-center mt-14">
+        <div className="flex flex-col justify-center items-center mt-4">
+          <h2 className="text-4xl font-bebas tracking-custom">
+            <span>WHY CHOOSE </span>
+            <span className="text-custom-blue">US?</span>
+          </h2>
+          <p className="w-5/6 mt-2 text-center text-paraClr leading-tight">
+            Have the peace of mind that you are working with one of the best bespoke software development companies in Khyber Pakhtunkhwa.
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 mb-20 w-full px-4 md:px-12 m-auto">
+        {AboutCarts.map((cart) => (
+          <div className="rounded-xl bg-custom p-5 mb-4 md:mb-0 h-[240px]" key={cart.no}>
+            <div className="flex justify-between">
+              <span className="text-5xl md:text-6xl  text-paraClr font-bebas opacity-20">
+                {cart.no}
+              </span>
+              <Image src={cart.image1} alt="Card Image" width={70} height={70} />
+            </div>
+            <div className="text-3xl mt-3">
+              <span className="font-bebas">{cart.text1} &nbsp;</span>
+              <span className="font-bebas text-custom-blue">{cart.text2}</span>
+            </div>
+            <p className="flex justify-center mt-3 text-paraClr opacity-50 leading-tight">
+              {cart.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
       <div
-        className="flex flex-col md:flex-row md:h-96 bg-gradient-to-b from-black via-black to-transparent bg-no-repeat bg-cover w-full "
+        className="flex flex-col md:flex-row md:h-80 bg-gradient-to-b from-black via-black to-transparent bg-no-repeat bg-cover w-full"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0,0.5)),url('/backgrounds/Rectangle2.png')",
+          backgroundImage: "url('/backgrounds/Rectangle2.png')",
+          backgroundSize: "100% 100%",
           backgroundBlendMode: "overlay",
-          backgroundSize: "cover", // Ensure the background image covers the container
-          backgroundPosition: "center", // Center the background image
+          backgroundRepeat: "no-repeat",
         }}
       >
-        <div className=" my-3  flex flex-col md:flex-row justify-between items-center  sm:flex-row md:px-16 w-10/12 m-auto ">
-          <div className="flex flex-col  gap-4">
-            <div className="mb-4 md:mb-0">
-              <Image
-                src="/Text-headings/ur-cost.png"
-                className="mx-auto md:mx-0"
-                alt="Logo"
-                width={400}
-                height={400}
-              />
+        <div className="my-10 flex flex-col md:flex-row justify-between items-center md:px-16 w-11/12 md:w-9/12 m-auto">
+          <div>
+            <div className="mb-4 md:mb-0 text-custom-blue font-bebas text-[40px] tracking-custom">
+              <h1 className="text-white -mb-6">
+                Let’s discuss. <span className="text-custom-blue">How much</span>
+              </h1>
+              <h2>Your App Costs?</h2>
             </div>
-            <div className="text-white text-md font-medium w-5/6 mt-5">
-              DM us, to Know about the Cost and Feasibility of your idea to
-              shape it into a robust software .
+            <div className="text-[#e5e5e5] md:flex md:justify-start mb-4">
+              Send us the features you are looking to build, and we shall advise on the next steps.
             </div>
           </div>
-          <Link href="#form">
-            <div className="">
-              <button className="hover:text-custom-blue hover:bg-transparent px-5 my-2 py-4  font-bold rounded-md border-2 bg-custom-blue text-white border-custom-blue">
-                LET&apos;S &nbsp; DISCUSS
-              </button>
-            </div>
-          </Link>
+          <div>
+
+            <Link href='#form'
+              className="text-white font-semibold transition-all w-[142px] h-11 border-2 bg-custom-blue border-custom-blue rounded-md hover:bg-transparent hover:text-custom-blue flex items-center justify-center">
+              Let&apos;s Discuss
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* section 5th */}
-      <div className="w-full bg-gray-300 py-16">
+      <div className="w-full bg-gray-100 py-16">
         <div
-          className="m-4 md:mx-20 flex flex-col justify-center items-center h-full rounded-md md:h-auto md:p-20"
+          className="m-4 md:mx-12 flex flex-col justify-center items-center rounded-xl h-full md:h-auto md:p-32 text-white"
           style={{
             backgroundImage: "url('/backgrounds/developing-cost.png')",
-            backgroundSize: "cover", // Ensure the background image covers the container
-            backgroundPosition: "center", // Center the background image
+            backgroundSize: "100% 100%",
+            backgroundBlendMode: "overlay",
+            backgroundRepeat: "no-repeat",
           }}
         >
-          <div className="mt-32 text-4xl md:mt-32 text-white font-bold md:text-5xl">
-            HOW IS
-          </div>
+          <div className="text-center py-5">
+            <div className="text-[32px] font-bold -mb-8">
+              HOW IS
+            </div>
 
-          <div className="py-10 text-white font-bold text-3xl md:text-7xl">
-            LIFE AT ENCODERBYTES.
+            <div className="py-7 text-3xl md:text-8xl font-bebas tracking-custom">
+              LIFE AT ENCODERBYTES.
+            </div>
+
+            <p className="w-5/6 md:w-5/6 m-auto text-base md:text-xl text-customFull text-center leading-tight">
+              Since 2019, we have been in the business, and over the past few years, we have grown our team with the best in the industry. Our expert team is working across various areas of technology.
+            </p>
+
+            <Link href='/Lifeateb'
+              className="text-custom-blue font-semibold transition-all w-[142px] h-11 border-2 bg-white  rounded-md hover:bg-transparent hover:text-custom-blue flex items-center justify-center m-auto mt-16">
+              Explore
+            </Link>
           </div>
-          <p className="mt-5 mx-4 md:mx-40 text-white text-start w-4/6 text-md">
-            Encoder Bytes is in existence since 2020, our multi talented team
-            have expertise both in Development and cocurricular activities. We
-            Keep our employees active and relax to ensure a healthy working
-            environment while providing a career and professional growth
-            ecosystem
-          </p>
-          <button className="text-custom-blue hover:text-white text-md px-5 py-3 font-black  mt-6 rounded-md bg-white hover:bg-custom-blue mb-6">
-            E X P L O R E
-          </button>
         </div>
       </div>
-      {/* section 6th team */}
 
       <div className="w-full min-h-full flex justify-center items-center mt-14">
         <div className="flex justify-center items-center flex-col mt-4">
-          <div className="text-md md:text-4xl font-bold">
+          <h2 className="text-4xl font-bebas tracking-custom text-center">
             MEET OUR
             <span className="text-custom-blue"> TEAM.</span>
-          </div>
-          <p className=" mt-5 text-center w-4/6 text-md">
-            Our team consists of Super programmers. World Class business
-            analysts. Creative designers and problem solvers. There&apos;s
-            hardly a software app development challenge that our team cannot
-            tackle.
+          </h2>
+          <p className="mt-2 text-center w-5/6 md:w-5/6 text-paraClr leading-tight">
+            Our team consists of super programmers, world-class business analysts, creative designers, and problem solvers. There’s hardly a software app development challenge that our team cannot tackle.
           </p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-4  mt-12  pb-20 w-5/6 m-auto">
-        {employees.map((team) => (
-          <div key={team.image} class="px-20 mt-4 md:py-1 md:px-3">
-            <div class="cardtext1 border-2 border-gray-300 rounded-xl shadow-md text-center h-[400px]  py-10 hover:border-2 hover:border-custom-blue ">
-              <div class="row">
-                <div class="col-md-12 flex justify-center rounded-full">
-                  <img
-                    src={`${team.image}`}
-                    className="img-fluid  rounded-full  filter grayscale hover:filter-none transition duration-300"
-                    alt="Logo"
-                    width={170}
-                    height={170}
-                    style={{ backgroundSize: "cover" }}
-                  />
-                </div>
+      <div className="grid grid-cols-1 md:grid-cols-4 px-4 mt-3 md:px-10 pb-20 w-6/6 m-auto">
+        {sortedEmployees.map((team) => (
+          <div key={team.image} className=" mt-4 md:py-1 md:px-3 relative">
+            <div className="border-2 border-gray-300 relative rounded-xl shadow-md text-center h-[425px] py-10 hover:border-2 hover:border-custom-blue transition duration-300">
+              <div className="flex justify-center rounded-full">
+                <Image
+                  src={team.image}
+                  className="img-fluid rounded-full w-52 h-52 filter grayscale hover:filter-none transition duration-300"
+                  alt={`${team.username}'s profile`} // More descriptive alt text
+                  width={170}
+                  height={170}
+                  style={{ backgroundSize: "cover" }}
+                />
               </div>
 
-              <h1 class="py-3 px-4 mt-2">
-                <span class="font-bold text-custom-blue text-xl">
+
+              <div className="social-icons ">
+              <h1 className="py-3 px-4 mt-2">
+                <span className="font-extrabold text-custom-blue text-xl uppercase">
                   {team.username}
                 </span>
-                <p class="text-xs card-text box-content text-gray-400">
+                {/*  <p className="text-xs card-text box-content text-paraClr opacity-50">
                   {team.email}
-                </p>
-                <p class="text-xs card-text box-content text-gray-400">
+                </p>*/}
+                <p className="text-xs card-text box-content text-paraClr opacity-50">
                   {team.designation}
                 </p>
               </h1>
-              <div class="social-icons mt-10 pb-10 ">
-                <div className="flex justify-center bg-gray-300 w-3/6 m-auto items-center rounded-md text-gray-500 hover:bg-blue-100">
-                  {team.LinkedIn && (
-                    <a href={team.LinkedIn} class="px-2 py-1">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        class="w-6 h-6 fill-current hover:text-blue-600 text-gray-500"
-                      >
-                        <path d="M22,0H2A2,2,0,0,0,0,2V22a2,2,0,0,0,2,2H22a2,2,0,0,0,2-2V2A2,2,0,0,0,22,0ZM7.57,20H4V9H7.57ZM5.76,7.68A2.75,2.75,0,1,1,8.28,5.2,2.76,2.76,0,0,1,5.76,7.68ZM20,20H16V14c0-1.14-.42-1.91-1.52-1.91S13,12.86,13,14v6H9V9h3v1.27A4.22,4.22,0,0,1,16,8.8c3.71,0,4.52,2.44,4.52,5.6Z"></path>
-                      </svg>
-                    </a>
-                  )}
-                  {team.Github && (
-                    <a href={team.Github} class="px-2 py-1 hover:text-blue-600">
-                      <FaGithubSquare size={25} />
-                    </a>
-                  )}
-                </div>
+                {team.LinkedIn && team.Github && (<div className="flex justify-center gap-1 bg-gray-300 w-32 h-8 m-auto items-center rounded-md text-gray-500 hover:bg-blue-100 transition duration-300">
+
+                  <a href={team.LinkedIn} aria-label={`LinkedIn profile of ${team.username}`}>
+                    <FaLinkedin size={25} />
+                  </a>
+
+
+                  <a href={team.Github} className="hover:text-custom-blue" aria-label={`GitHub profile of ${team.username}`}>
+                    <FaGithubSquare size={25} />
+                  </a>
+
+                </div>)}
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/*  */}
+      <div className="bg-custom py-10 px-4 md:px-12">
+        <div className="flex justify-center items-center flex-col mt-4">
+          <div className="text-custom-blue text-4xl flex justify-center items-center gap-2 font-bebas tracking-custom">
+            <span className="text-black">CAREER AT </span>
+            <span className="text-custom-blue">ENCODERBYTES.</span>
+          </div>
+          <div className="flex w-11/12 md:w-9/12 m-auto text-center mt-3 leading-tight text-paraClr">
+            We are seeking talented, passionate individuals who want to work on real-world products and gain hands-on skills. Among hundreds, we choose you to be a part of the EncoderBytes family if you have experience in
+          </div>
+          <div className="flex justify-center items-center md:w-4/6 m-auto text-center mt-2 text-custom-blue font-bold">
+            PROJECT MANAGEMENT, TECHNICAL/ENGINEERING, QUALITY ASSURANCE, AND MARKETING
+          </div>
+        </div>
 
-      <div className="w-full min-h-full flex justify-center items-center  bg-gray-200">
-        <div className="flex justify-center items-center flex-col mt-4 bg-gray-200">
-          <div className="text-md md:text-4xl font-bold mt-14">
-            CAREER AT
-            <span className="text-custom-blue"> ENCODERBYTES.</span>
+        <div className="flex items-center justify-center flex-col md:flex-row gap-7 my-10">
+          <div className="h-48 bg-white w-[306px] md:w-[350px] flex flex-col justify-center items-center rounded-lg">
+            <h1 className="font-bold text-custom-blue px-2">PROJECT MANAGEMENT</h1>
+            <p className="text-wrap card-text box-content mt-3 text-center text-sm px-4 leading-tight text-paraClr">
+              For passionate individuals with the ability to execute, manage, and deliver projects while effectively dealing with clients.
+            </p>
           </div>
-          <div className="flex w-3/4 m-auto text-center mt-5 text-md">
-            We are starving for the talented accordant, passionate who wants to
-            work on real world products and acquired hands-on skills. Among
-            hundreds, we chose you to be the family of Encoderbyte if you have
-            experience in
+
+          <div className="h-48 bg-white w-[306px] md:w-[350px] flex flex-col justify-center items-center rounded-lg">
+            <h1 className="font-bold text-custom-blue">TECHNICAL/ENGINEERING</h1>
+            <p className="text-wrap card-text box-content mt-3 text-center text-sm px-4 leading-tight text-paraClr">
+              A healthy work environment that encourages open communication and opportunities for personal and professional growth, ensuring all team members feel valued.
+            </p>
           </div>
-          <div className="flex justify-center items-center w-4/6 m-auto text-center mt-2 text-custom-blue font-black text-10 ">
-            PROJECT MANAGEMENT, TECHNICAL/ENGINEERING, QUALITY ASSURANCE AND
-            MARKETING
+
+          <div className="h-48 bg-white w-[306px] md:w-[350px] flex flex-col justify-center items-center rounded-lg">
+            <h1 className="font-bold text-custom-blue">QUALITY ASSURANCE</h1>
+            <p className="text-wrap card-text box-content mt-3 text-center text-sm px-4 leading-tight text-paraClr">
+              For digital enthusiasts looking to upscale and enhance current services using digital media.
+            </p>
+          </div>
+
+          <div className="h-48 bg-white w-[306px] md:w-[350px] flex flex-col justify-center items-center rounded-lg">
+            <h1 className="font-bold text-custom-blue">MARKETING</h1>
+            <p className="text-wrap card-text box-content mt-3 text-center text-sm px-4 leading-tight text-paraClr">
+              For evangelists with a passion for telling compelling stories that resonate with our clients.
+            </p>
           </div>
         </div>
       </div>
-
-      <div className="bg-gray-200 p-14">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-9  mt-10 w-5/6 m-auto ">
-          <div className="flex flex-col justify-center bg-white mx-auto cardContent rounded-xl p-6">
-            <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto  ">
-              <div className="card-body" id="cardBody1">
-                <div className="mt-2  cardtext1 text-center p-3">
-                  <h1 className="font-bold text-md text-custom-blue">
-                    PROJECT MANAGEMENT
-                  </h1>
-                  <p className="text-wrap card-text box-content mt-3 text-sm">
-                    For the passionate having ability to execute and manage and
-                    win projects and deal with the clients efficiently.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* second cart */}
-          <div className="flex flex-col justify-center mx-auto cardContent bg-white rounded-md">
-            <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto">
-              {/* <div className="card c1 shadow text-dark rounded-lg"> */}
-              <div className="card-body my-3" id="cardBody1">
-                <div className="mt-2 cardtext1 text-center p-5">
-                  <h1 className="font-bold text-md text-custom-blue">
-                    TECHNICAL/ <br />
-                    ENGINEERING
-                  </h1>
-                  <p className="text-wrap card-text box-content mt-3 text-sm">
-                    For the aspirants of emerging technologies like AI, Data
-                    Science , Block chain, Web, Mobile, Graphics and UI/UX
-                    Designing.
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* </div> */}
-          </div>
-          {/* 3rd cart */}
-          <div className="flex flex-col justify-center mx-auto cardContent bg-white rounded-md">
-            <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto">
-              {/* <div className="card c1 shadow text-dark rounded-lg"> */}
-              <div className="card-body my-3" id="cardBody1">
-                <div className="mt-2 cardtext1 text-center p-5">
-                  <h1 className="font-bold text-md text-custom-blue">
-                    {" "}
-                    QUALITY ASSURANCE
-                  </h1>
-                  <p className="text-wrap card-text box-content mt-3 text-sm ">
-                    For the digital passionate to upscale and rescale current
-                    services using digital media
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* </div> */}
-          </div>
-          {/* 4th cart */}
-          <div className="flex flex-col justify-center mx-auto cardContent bg-white rounded-md">
-            <div className="w-full mb-5 md:mb-0 lg:mb-5 md:mr-0 lg:mr-0 lg:ml-auto">
-              {/* <div className="card c1 shadow text-dark rounded-lg"> */}
-              <div className="card-body my-3" id="cardBody1">
-                <div className="mt-2 cardtext1 text-center p-5">
-                  <h1 className="font-bold text-md text-custom-blue">
-                    MARKETING
-                  </h1>
-                  <p className="text-wrap card-text box-content mt-3 text-sm ">
-                    For the evangelists who have a passion for telling
-                    compelling stories to the world that resonate with our
-                    clients.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* </div> */}
-      </div>
-
       <Contactform />
     </div>
   );

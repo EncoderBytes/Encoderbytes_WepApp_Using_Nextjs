@@ -1,296 +1,338 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Top from "../Utils/Top";
 import Link from "next/link";
 import { Howwework } from "../components/Howwework";
 import Contactform from "../Utils/Contactform";
 import Image from "next/image";
 const How_we_work = () => {
+  const [activeLink, setActiveLink] = useState("#01");
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[id]");
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.3,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveLink(`#${entry.target.id}`);
+        }
+      });
+    }, options);
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, []);
+
   return (
     <div className=" bg-white">
       <Top />
-      {/* first section */}
       <div
-        className="max-w-full h-auto flex justify-center items-center mt-12"
+        className="max-w-full h-[350px] flex justify-center items-center mt-20"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/backgrounds/banner-Facebook-Cover-copy.png')",
-          backgroundSize: "100% 100vh", // Set background size to full width and full height of the viewport
+            "linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/backgrounds/banner_Facebook Cover copy.png')",
+          backgroundSize: "100% 100%",
           backgroundBlendMode: "overlay",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="flex flex-col justify-center items-center py-24">
-          <div className="text-custom-blue text-2xl md:text-5xl font-bold flex justify-center items-center">
+        <div className="flex flex-col justify-center items-center py-24 text-center">
+          <h1 className="text-custom-blue text-4xl font-bebas tracking-custom">
             HOW DO WE WORK?
-          </div>
-          <div className="flex  m-auto py-3">
-            <p className="flex w-5/6 md:w-3/6 m-auto justify-center items-center text-center text-md ">
-              We follow the state of the art software development process ,
-              initiating from requirement gathering from user till completion
-              and deployment. Each phase during development of a software is
-              valuable for us.
-            </p>
-          </div>
-          <a
-            href="/"
-            className="text-black font-bold text-center md:text-left mt-20 text-md"
-          >
-            Home - <span className="text-custom-blue ">How We Work</span>
+          </h1>
+          <p className="w-5/6 md:w-3/6 leading-tight text-paraClr my-3">
+            We follow the state of the art software development process ,
+            initiating from requirement gathering from user till completion and
+            deployment. Each phase during development of a software is valuable
+            for us.
+          </p>
+          <a href="/" className="text-paraClr font-semibold mt-20 text-xs">
+            Home &nbsp;-{" "}
+            <span className="text-custom-blue">&nbsp;How We Work</span>
           </a>
         </div>
       </div>
-      {/* second section */}
-      <section className="  flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-20 md:gap-x-8 mb-32 ">
-        <div className="relative w-full md:w-[50%] h-auto">
-          <span className="absolute top-0 left-0 flex  w-full">
-            {" "}
-            <ul className="flex flex-col gap-16 text-gray-400 mt-10">
-              <li>
-                <div className="flex justify-start items-start font-bold ">
-                  <span> •</span>
-                  <span className="pl-10">
-                    <Link className="" href="#">
-                      {" "}
-                      01. DISCUSSION & ANALYSIS{" "}
-                    </Link>
-                  </span>
-                </div>
-              </li>
-              <li>
-                <div className="flex justify-start items-start font-bold ">
-                  <span> •</span>
-                  <span className="pl-10">
-                    <Link className="" href="#">
-                      {" "}
-                      02. PLANNING AND DESIGN{" "}
-                    </Link>
-                  </span>
-                </div>
-              </li>
-              <li>
-                <div className="flex justify-start items-start font-bold ">
-                  <span> •</span>
-                  <span className="pl-10">
-                    <Link className="" href="#">
-                      {" "}
-                      03. SOFTWARE DESIGN{" "}
-                    </Link>
-                  </span>
-                </div>
-              </li>
-              <li>
-                <div className="flex justify-start items-start font-bold ">
-                  <span> •</span>
-                  <span className="pl-10">
-                    <Link className="" href="#">
-                      {" "}
-                      04. SOFTWARE DEVELOPMENT{" "}
-                    </Link>
-                  </span>
-                </div>
-              </li>
-              <li>
-                <div className="flex justify-start items-start font-bold ">
-                  <span> •</span>
-                  <span className="pl-10">
-                    <Link className="" href="#">
-                      {" "}
-                      05. QUALITY ASSURANCE{" "}
-                    </Link>
-                  </span>
-                </div>
-              </li>
-              <li>
-                <div className="flex justify-start items-start font-bold ">
-                  <span> •</span>
-                  <span className="pl-10">
-                    <Link className="" href="#">
-                      {" "}
-                      06. MAINTENANCE{" "}
-                    </Link>
-                  </span>
-                </div>
-              </li>
-            </ul>
-          </span>
-          <pre className="border-gray-400 border-l-2 py-72 ml-1  "></pre>
-        </div>
 
-        {/* iamge */}
-        <div className="bg-yellow w-full md:w-[100%] h-auto md:h-full relative mt-5">
-          <Image
-            src="/backgrounds/img1.png"
-            alt="Logo"
-            className="object-cover w-full h-full"
-            width={400}
-            height={400}
-          />
-          <div className="font-bold md:text-2xl text-center md:text-left mt-16 text-gray-700">
-            <span className="border-b-2 border-custom-blue">d i s c u</span>
-            <span className="">s s i o n & a n a n l y s i s.</span>
+      <section className="flex items-start justify-center">
+        <nav className="w-1/3 flex items-start justify-start md:justify-center sticky top-4 h-screen">
+          <div className="w-full flex items-start justify-center">
+            <div className="mt-16 w-8/12">
+              <div className="relative w-full h-auto">
+                <span className="absolute top-0 left-0 flex w-full opacity-50">
+                  <ul className="flex flex-col gap-12 text-paraClr mt-10 font-bebas text-xl tracking-custom z-30">
+                    <li>
+                      <div className="flex justify-start items-center group hover:text-custom-blue transition-colors duration-300">
+                        <span
+                          className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${
+                            activeLink === "#01" ? "text-custom-blue" : ""
+                          }`}
+                        >
+                          {" "}
+                          •
+                        </span>
+                        <span className="pl-10 cursor-pointer">
+                          <Link
+                            className={`group-hover:text-custom-blue transition-colors duration-300 ${
+                              activeLink === "#01" ? "text-custom-blue  " : ""
+                            }`}
+                            href="#01"
+                            onClick={() => setActiveLink("#01")}
+                          >
+                            01. DISCUSSION & ANALYSIS
+                          </Link>
+                        </span>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="flex justify-start items-center group hover:text-custom-blue transition-colors duration-300">
+                        <span
+                          className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${
+                            activeLink === "#02" ? "text-custom-blue" : ""
+                          }`}
+                        >
+                          {" "}
+                          •
+                        </span>
+                        <span className="pl-10 cursor-pointer">
+                          <Link
+                            className={`group-hover:text-custom-blue transition-colors duration-300 ${
+                              activeLink === "#02" ? "text-custom-blue" : ""
+                            }`}
+                            href="#02"
+                            onClick={() => setActiveLink("#02")}
+                          >
+                            02. PLANNING AND DESIGN
+                          </Link>
+                        </span>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="flex justify-start items-center group hover:text-custom-blue transition-colors duration-300">
+                        <span
+                          className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${
+                            activeLink === "#03" ? "text-custom-blue" : ""
+                          }`}
+                        >
+                          {" "}
+                          •
+                        </span>
+                        <span className="pl-10 cursor-pointer">
+                          <Link
+                            className={`group-hover:text-custom-blue transition-colors duration-300 ${
+                              activeLink === "#03" ? "text-custom-blue" : ""
+                            }`}
+                            href="#03"
+                            onClick={() => setActiveLink("#03")}
+                          >
+                            03. SOFTWARE DESIGN
+                          </Link>
+                        </span>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="flex justify-start items-center group hover:text-custom-blue transition-colors duration-300">
+                        <span
+                          className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${
+                            activeLink === "#04" ? "text-custom-blue" : ""
+                          }`}
+                        >
+                          {" "}
+                          •
+                        </span>
+                        <span className="pl-10 cursor-pointer">
+                          <Link
+                            className={`group-hover:text-custom-blue transition-colors duration-300 ${
+                              activeLink === "#04" ? "text-custom-blue" : ""
+                            }`}
+                            href="#04"
+                            onClick={() => setActiveLink("#04")}
+                          >
+                            04. SOFTWARE DEVELOPMENT
+                          </Link>
+                        </span>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="flex justify-start items-center group hover:text-custom-blue transition-colors duration-300">
+                        <span
+                          className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${
+                            activeLink === "#05" ? "text-custom-blue" : ""
+                          }`}
+                        >
+                          {" "}
+                          •
+                        </span>
+                        <span className="pl-10 cursor-pointer">
+                          <Link
+                            className={`group-hover:text-custom-blue transition-colors duration-300 ${
+                              activeLink === "#05" ? "text-custom-blue" : ""
+                            }`}
+                            href="#05"
+                            onClick={() => setActiveLink("#05")}
+                          >
+                            05. QUALITY ASSURANCE
+                          </Link>
+                        </span>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="flex justify-start items-center group hover:text-custom-blue transition-colors duration-300">
+                        <span
+                          className={`text-3xl cursor-pointer group-hover:text-custom-blue transition-colors duration-300 ${
+                            activeLink === "#06" ? "text-custom-blue" : ""
+                          }`}
+                        >
+                          {" "}
+                          •
+                        </span>
+                        <span className="pl-10 cursor-pointer">
+                          <Link
+                            className={`group-hover:text-custom-blue transition-colors duration-300 ${
+                              activeLink === "#06" ? "text-custom-blue" : ""
+                            }`}
+                            href="#06"
+                            onClick={() => setActiveLink("#06")}
+                          >
+                            06. MAINTENANCE
+                          </Link>
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </span>
+                <pre className="border-paraClr opacity-30 border-l-2 py-80 md:py-72 ml-1 absolute z-40"></pre>
+              </div>
+            </div>
           </div>
-          <div className="font-bold md:text-4xl text-center md:text-left mt-8">
-            <span className="text-custom-blue">OBJECTIVE</span>
-          </div>
-          <div className="mt-8 text-start">
-            <ul>
-              <li>• To understand the requirements of clients.</li>
-              <li>• To Finalize the budget Plan.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      {/* part of second section */}
-      <section className="flex flex-col justify-center items-center w-full md:pr-14">
-        <div className="">
-          <div className="font-bold md:text-4xl text-center md:text-left ">
-            <span className="text-custom-blue">DELIVERABLE</span>
-          </div>
-          <div className="mt-8">
-            <ul>
-              <li>• Finalized Project Cost Sheet.</li>
-              <li>• Project Timeline.</li>
-              <li>• Initial infographics prototype..</li>
-            </ul>
-          </div>
-        </div>
-        {/*  */}
-        <div className="mt-20">
-          <div className="font-bold md:text-4xl md:pl-52 md:text-left ">
-            <span className="text-custom-blue">TEAM MEMBER INVOLVED</span>
-          </div>
-          <div className="mt-8 md:pl-52">
-            <ul>
-              <li>• CTO</li>
-              <li>• Project Manager</li>
-              <li>• Development Lead</li>
-              <li>• UI & UX Lead</li>
-              <li>• Client</li>
-              <li>• Business Analyst</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      {Howwework.map((item) => {
-        return (
-          <>
+        </nav>
+
+        <div className="w-2/3 px-4 md:px-12">
+          {Howwework.map((item, index) => (
             <section
-              key={item.image}
-              className="  flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-20 md:gap-x-8 mb-32 "
+              key={index}
+              className="flex flex-col justify-center items-center px-6 mt-10 md:gap-x-8 mb-10"
+              id={item.id}
             >
-              <div className="relative w-full md:w-[50%] h-auto"></div>
-
-              {/* iamge */}
-              <div className="bg-yellow w-full md:w-[100%] h-auto md:h-full relative mt-5">
-                <img
+              <div className="w-full md:w-full h-auto md:h-full relative mt-5">
+                <Image
                   src={item.image}
-                  alt="Logo"
-                  className="object-cover w-full h-full"
+                  alt={`Image for ${item.heading}`} // More descriptive alt text
+                  className="object-cover"
                   width={400}
                   height={400}
                 />
-                <div className="font-bold md:text-md text-center md:text-left mt-16 text-gray-500">
-                  <span className="border-b-2 border-custom-blue">
+
+                <div className="font-bold mt-14 text-paraClr text-lg">
+                  <span className="border-b-4 border-custom-blue">
                     {item.underlinetitile}
                   </span>
-                  <span className=""> {item.simpletitle}</span>
+                  <span>{item.simpletitle}</span>
                 </div>
-                <div className="font-bold md:text-4xl text-center md:text-left mt-8">
-                  <span className="text-custom-blue">OBJECTIVE</span>
+
+                <h2 className="text-4xl  mt-5 font-bebas tracking-custom">
+                  <span className="text-custom-blue">{item.heading}</span>
+                </h2>
+
+                <div className="mt-2 text-start">
+                  <ul className="list-disc ml-8 text-paraClr">
+                    {item.objectivekeys1?.map((objective, i) => (
+                      <li key={i}>{objective}</li>
+                    ))}
+                  </ul>
                 </div>
-                <div className="mt-8 text-start">
-                  <ul>
-                    <li>{item.objectivekeys1[0]}</li>
-                    <li>{item.objectivekeys1[1]}</li>
-                    <li>{item.objectivekeys1[2]}</li>
-                    <li>{item.objectivekeys1[3]}</li>
-                    <li>{item.objectivekeys1[4]}</li>
-                    <li>{item.objectivekeys1[5]}</li>
-                    {/* <li>• To Finalize the budget Plan.</li> */}
+
+                <h2 className="text-4xl mt-10 font-bebas tracking-custom">
+                  <span className="text-custom-blue">{item.heading2}</span>
+                </h2>
+
+                <div className="mt-2 text-start">
+                  <ul className="list-disc ml-8 text-paraClr">
+                    {item.deliverablekeys?.map((deliverable, i) => (
+                      <li key={i}>{deliverable}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <h2 className="text-4xl mt-10 font-bebas tracking-custom">
+                  <span className="text-custom-blue">{item.heading3}</span>
+                </h2>
+
+                <div className="mt-2 text-start">
+                  <ul className="list-disc ml-8 text-paraClr">
+                    {item.memberkeys?.map((member, i) => (
+                      <li key={i}>{member}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <h2 className="md:text-4xl text-center md:text-left mt-10 font-bebas tracking-custom">
+                  <span className="text-custom-blue">{item.heading4}</span>
+                </h2>
+
+                <div className="mt-2 text-start">
+                  <ul className="list-disc ml-8 text-paraClr">
+                    {item.toolskeys?.map((tool, i) => (
+                      <li key={i}>{tool}</li>
+                    ))}
                   </ul>
                 </div>
               </div>
             </section>
-            {/* part of second section */}
-            <section className="flex flex-col justify-center items-center w-full md:pr-14">
-              <div className="">
-                <div className="font-bold md:text-4xl text-center md:text-left ">
-                  <span className="text-custom-blue">DELIVERABLE</span>
-                </div>
-                <div className="mt-8">
-                  <ul>
-                    {/* <li>• Finalized Project Cost Sheet.</li>
-                    <li>• Project Timeline.</li>
-                    <li>• Initial infographics prototype..</li> */}
-                    <li>{item.deliverablekeys[0]}</li>
-                    <li>{item.deliverablekeys[1]}</li>
-                    <li>{item.deliverablekeys[2]}</li>
-                    <li>{item.deliverablekeys[3]}</li>
-                    <li>{item.deliverablekeys[4]}</li>
-                    <li>{item.deliverablekeys[5]}</li>
-                  </ul>
-                </div>
-              </div>
-              {/*  */}
-              <div className="mt-20">
-                <div className="font-bold md:text-4xl md:pl-52 md:text-left ">
-                  <span className="text-custom-blue">TEAM MEMBER INVOLVED</span>
-                </div>
-                <div className="mt-8 md:pl-52">
-                  <ul>
-                    <li>• CTO</li>
-                    <li>• Project Manager</li>
-                    <li>• Development Lead</li>
-                    <li>• UI & UX Lead</li>
-                    <li>• Client</li>
-                    <li>• Business Analyst</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-          </>
-        );
-      })}
-      {/* 4rth section banner*/}
+          ))}
+        </div>
+      </section>
+
       <section
-        class="bg-yellow-400 mt-20 md:h-[550px]"
+        className="mt-20 md:h-[381px]"
         style={{
           backgroundImage: "url('/backgrounds/project-communication.png')",
-          backgroundSize: "cover",
+          backgroundSize: "100% 100%",
+          backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="text-3xl text-center font-bold pt-28 text-gray-600">
-          <span>PROJECT COMMMUNICATION</span>
+        <div className="text-4xl text-center pt-16 text-paraClr font-bebas">
+          <span>PROJECT COMMUNICATION</span>
           <span className="text-white"> STRUCTURE.</span>
         </div>
-        <div className="text-white w-4/6 text-center m-auto mt-2 text-md">
-          To make sure that our progress is going to meet the deadline we
-          discuss and communicate on a daily basis between our team to look over
-          the progress and performance of our team to ensure timely delivery of
-          a project. For smooth operations and completion of a project, we use
-          uptodate project management tools like Google meet,Trello,Skype, slack
-          and Microsoft 360.
+        <div className="text-white w-5/6 md:w-4/6 text-center m-auto mt-2 leading-tight">
+          We do daily discussion and communication between our team to check the
+          progress and performance of our team. This is to ensure that our
+          progress is going to meet the deadline. For that we use different
+          tools like Skype, Google Meet, Trello, Microsoft 360.
         </div>
-        <div className="flex flex-col md:flex-row w-5/6 m-auto gap-10 mt-10 text-white  text-md ">
-          <div className="w-full py-16  border-0 md:border-r-2 border-white flex flex-col justify-center items-center">
-            <span className="text-10 font-bold">DAILY SCRUM STANDUP</span>
-            <p className="text-sm">monday - friday</p>
-            <p className="text-sm">30 minutes</p>
+
+        <div className="flex flex-col md:flex-row w-5/6 m-auto gap-10 mt-10 text-white">
+          <div className="flex items-center justify-center w-1/2">
+            <div className="w-full py-10 border-0 md:border-r-[1px] border-white flex flex-col justify-center items-center">
+              <span className="font-bold mb-3">DAILY SCRUM STANDUP</span>
+              <p className="text-xs">monday - friday</p>
+              <p className="text-xs mt-1">30 minutes</p>
+            </div>
+            <div className="w-full py-10  border-0 md:border-r-[1px] border-white flex flex-col justify-center items-center">
+              <span className="font-bold mb-3">WEEKLY REVIEW</span>
+              <p className="text-xs">weekly</p>
+              <p className="text-xs mt-1">40-60 minutes</p>
+            </div>
           </div>
-          <div className="w-full py-16  border-0 md:border-r-2 border-white flex flex-col justify-center items-center">
-            <span className="text-10 font-bold">WEEKLY REVIEW</span>
-            <p className="text-sm">weekly</p>
-            <p className="text-sm">40-60 minutes</p>
-          </div>
-          <div className="w-full py-16  border-0 md:border-r-2 border-white flex flex-col justify-center items-center">
-            <span className="text-10 font-bold">SPRINT DELIVERY</span>
-            <p className="text-sm">2-3 - weeks</p>
-            <p className="text-sm">1-2 hours</p>
-          </div>
-          <div className="w-full py-16   border-white flex flex-col justify-center items-center">
-            <span className="text-10 font-bold">DAILY SCRUM STANDUP</span>
-            <p className="text-sm">bi-weekly</p>
-            <p className="text-sm">3-4 hours</p>
+          <div className="flex items-center justify-center w-1/2">
+            <div className="w-full py-10  border-0 md:border-r-[1px] border-white flex flex-col justify-center items-center">
+              <span className="font-bold mb-3">SPRINT DELIVERY</span>
+              <p className="text-xs">2-3 - weeks</p>
+              <p className="text-xs mt-1">1-2 hours</p>
+            </div>
+            <div className="w-full py-10 border-white flex flex-col justify-center items-center">
+              <span className="font-bold mb-3">RETROSPECTIVE MEETING</span>
+              <p className="text-xs">bi-weekly</p>
+              <p className="text-xs mt-1">3-4 hours</p>
+            </div>
           </div>
         </div>
       </section>

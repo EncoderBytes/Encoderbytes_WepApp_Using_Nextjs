@@ -1,4 +1,23 @@
+// import mongoose from "mongoose";
 
+// // const connection = process.env.MONGO_URI;
+
+// // Exporting the promise returned by mongoose.connect
+// const connect = mongoose.connect(process.env.MONGO_URI);
+
+// // Adding event listeners to handle connection events
+// mongoose.connection.on("connected", () => {
+//   console.log("Database connected successfully");
+// });
+
+// mongoose.connection.on("error", (err) => {
+//   console.error("Database connection error:", err);
+// });
+
+// mongoose.connection.on("disconnected", () => {
+//   console.log("Database disconnected");
+// });
+// export default connect;
 
 // import mongoose from "mongoose";
 
@@ -30,11 +49,20 @@ export async function connect() {
   try {
     const connection = await mysql.createConnection({
       host: 'localhost',
-      user: 'root',           
-      password: '',           
-      database: 'encoderbytes',
-      port: 3306              
+      // user: 'root',           
+      user: 'encolzgh_encolzgh',           
+      password: 'encolzgh_encolzgh',           
+      database: 'encolzgh_encoderbytes',
+      // port: 3306              
     });
+
+    // const connection = await mysql.createConnection({
+    //   host: 'localhost',
+    //   user: 'root',           
+    //   password: '',           
+    //   database: 'encoderbytes',
+    //   port: 3306              
+    // });
 
     console.log('MySQL connected successfully');
     return connection;

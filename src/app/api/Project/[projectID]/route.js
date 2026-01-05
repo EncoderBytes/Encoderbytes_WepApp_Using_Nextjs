@@ -181,7 +181,7 @@ cloudinary.v2.config({
 //     );
 //   }
 // }
-
+export const dynamic = "force-dynamic";
 
 // mysql method
 
@@ -267,8 +267,8 @@ export async function PUT(request, context) {
     let newImageUrl = null;
     let newImagePublicId = null;
 
-    // Check if a new image file is uploaded
-    if (typeof file === "object" && file.name) {
+    // Only try to upload if file exists and has a name property
+    if (file && typeof file === "object" && "name" in file && file.name) {
       const byteData = await file.arrayBuffer();
       const buffer = Buffer.from(byteData);
 
@@ -293,13 +293,44 @@ export async function PUT(request, context) {
     for (const [key, value] of data.entries()) {
       formDataObject[key] = value;
     }
-    const { ProjectName, ProjectCategory, ProjectDescription } = formDataObject;
+    const { 
+      ProjectName, 
+      ProjectCategory, 
+      ProjectDescription, 
+      ProjectTeam, 
+      ProjectTechnology, 
+      ProjectProblem, 
+      ProjectSolution, 
+      ProjectImpact, 
+      ProjectTimeline, 
+      ProjectProccess,
+      LatestProject,
+      errorsResolved,
+      userIncreased
+      } = formDataObject;
 
     // Fetch the existing project from the DB
     const [rows] = await db.query("SELECT * FROM project WHERE id = ?", [id]);
     if (rows.length === 0) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
+    // // Convert string inputs to arrays
+    // const processStringToArray = (str) => {
+    //   if (!str || str.trim() === '') {
+    //     return [];
+    //   }
+    //   return str.split(',')
+    //             .map(item => item.trim())
+    //             .filter(item => item !== '');
+    // };
+
+    // const projectTeamArray = processStringToArray(ProjectTeam);
+    // const projectTechnologyArray = processStringToArray(ProjectTechnology);
+    // console.log("Processed ProjectTeam:", projectTeamArray);
+    // console.log("Processed ProjectTechnology:", projectTechnologyArray);
+    // // Convert arrays to JSON strings for database storage
+    // const projectTeamJSON = JSON.stringify(projectTeamArray);
+    // const projectTechnologyJSON = JSON.stringify(projectTechnologyArray);
 
     const project = rows[0];
 
@@ -319,7 +350,17 @@ export async function PUT(request, context) {
            ProjectCategory = ?, 
            ProjectDescription = ?, 
            Image = ?, 
-           publicId = ? 
+           publicId = ?,
+           ProjectTeam = ?,
+           ProjectTechnology = ?,
+           ProjectProblem = ?,
+           ProjectSolution = ?,
+           ProjectImpact = ?,
+           ProjectTimeline = ?,
+           ProjectProccess = ?,
+           LatestProject = ?,
+           errorsResolved = ?,
+           userIncreased = ?
        WHERE id = ?`,
       [
         ProjectName || project.ProjectName,
@@ -327,7 +368,18 @@ export async function PUT(request, context) {
         ProjectDescription || project.ProjectDescription,
         newImageUrl || project.Image,
         newImagePublicId || project.publicId,
+        ProjectTeam || project.ProjectTeam,
+        ProjectTechnology || project.ProjectTechnology,
+        ProjectProblem || project.ProjectProblem,
+        ProjectSolution || project.ProjectSolution,
+        ProjectImpact || project.ProjectImpact,
+        ProjectTimeline || project.ProjectTimeline,
+        ProjectProccess || project.ProjectProccess,
+        LatestProject !== undefined ? LatestProject : project.LatestProject,
+        errorsResolved || project.errorsResolved,
+        userIncreased || project.userIncreased,
         id,
+
       ]
     );
 
@@ -347,6 +399,16 @@ export async function PUT(request, context) {
         ProjectDescription: ProjectDescription || project.ProjectDescription,
         Image: newImageUrl || project.Image,
         publicId: newImagePublicId || project.publicId,
+        ProjectTeam: ProjectTeam || project.ProjectTeam,
+        ProjectTechnology: ProjectTechnology || project.ProjectTechnology,
+        ProjectProblem: ProjectProblem || project.ProjectProblem,
+        ProjectSolution: ProjectSolution || project.ProjectSolution,
+        ProjectImpact: ProjectImpact || project.ProjectImpact,
+        ProjectTimeline: ProjectTimeline || project.ProjectTimeline,
+        ProjectProccess: ProjectProccess || project.ProjectProccess,
+        LatestProject: LatestProject !== undefined ? LatestProject : project.LatestProject,
+        errorsResolved: errorsResolved || project.errorsResolved,
+        userIncreased: userIncreased || project.userIncreased
       },
     });
   } catch (error) {

@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Top from "../Utils/Top";
 import Image from "next/image";
 import { Mobileapps } from "../components/Mobileapps";
@@ -6,102 +7,241 @@ import { Mobileappslogo } from "../components/Mobileapps";
 import { MobileAp } from "../components/carts";
 import Contactform from "../Utils/Contactform";
 import Link from "next/link";
+import { ProjectsCount } from "../AdminDashboard/components/ShowApidatas/ShowUserAPiDatas";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const MobileApp = () => {
+  const [Projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const getProjects = async () => {
+    try {
+      setLoading(true);
+      const { admins } = await ProjectsCount();
+      const mobileAppProjects = admins.filter(
+        (p) => p.ProjectCategory === "Mobile App"
+      );
+      setProjects(mobileAppProjects);
+    } catch (error) {
+      console.log(`Failed to fetch projects: ${error}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // console.log(Projects);
+
+  useEffect(() => {
+    getProjects();
+  }, []);
   return (
     <div className=" bg-white">
       <Top />
       <div
-        className="max-w-full h-auto flex justify-center items-center mt-12"
+        className="max-w-full h-[350px] flex justify-center items-center mt-20"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/backgrounds/banner-Facebook-Cover-copy.png')",
-          backgroundSize: "100% 100vh", // Set background size to full width and full height of the viewport
+            "linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url('/backgrounds/banner_Facebook Cover copy.png')",
+          backgroundSize: "100% 100%",
           backgroundBlendMode: "overlay",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="flex flex-col justify-center items-center py-24">
-          <div className="text-custom-blue text-2xl md:text-5xl font-bold flex justify-center items-center mt-28">
+        <div className="flex flex-col justify-center items-center py-24 text-center">
+          <h1 className="text-custom-blue text-4xl font-bebas tracking-custom">
             MOBILE APP DEVELOPMENT
-          </div>
-          <div className="flex  m-auto py-3">
-            <p className="flex font-medium  m-auto justify-center items-center text-center text-xl">
-              We develop user-centric mobile applications that solve real world
-              problems.
-            </p>
-          </div>
+          </h1>
+          <p className="w-5/6  leading-tight text-paraClr my-3">
+            We develop user-centric mobile applications that solve real world
+            problems.
+          </p>
           <a
             href="/"
-            className="text-black font-bold text-center md:text-left mt-20 text-xl"
+            className="text-paraClr font-semibold text-center md:text-left mt-20 text-xs"
           >
-            Home - Services -{" "}
-            <span className="text-custom-blue">Mobile App Development</span>
+            Home - Services -&nbsp;{" "}
+            <span className="text-custom-blue">
+              &nbsp;Mobile App Development
+            </span>
           </a>
         </div>
       </div>
+
       {/* section 2 */}
-      <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-32 md:gap-x-8 mb-32">
+      {/* <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-32 md:gap-x-8 mb-32">
         <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
-          <div className="text-1xl font-bold">
+          <div className="font-bold text-paraClr text-lg">
             <span className="border-b-4 border-custom-blue">m o b i</span>
-            <span className=""> l e a p p d e v e l o p m e n t.</span>
+            <span className=""> l e &nbsp; a p p &nbsp; d e v e l o p m e n t.  </span>
           </div>
-          <div className="text-3xl font-black">
-            <span className="">WE BUILD GOOD</span>
+          <div className="text-4xl font-bebas tracking-custom">
+            <span className="text-paraClr">WE BUILD GOOD</span>
             <span className="text-custom-blue"> MOBILE USER EXPEREINCES.</span>
           </div>
-          <p className="text-sm md:text-xl ">
-            Encodebytes mobile application development services convert your
-            mobile app ideas into feature-rich user experience.irrespective of
-            the device type(phone or mobile)we provide app development services
-            for both IOS and Android platform.
+          <p className="text-sm md:text-base text-paraClr leading-tight">
+            Encoderbytes's mobile application development services enable you to realise your mobile app ideas into feature-rich user experiences. We provide bespoke mobile app development services for both iOS and Android platforms irrespective of the device type (phone or tablet).
+            <br />
+            <br />
+            We have the perfect blend of aesthetic and technical skills to deliver sophisticated and user-centric mobile apps
           </p>
-          <button className=" text-white text-md p-5 font-bold  mt-4 rounded-md bg-custom-blue mb-6 hover:bg-white hover:border-2 hover:border-custom-blue hover:text-custom-blue">
-            LET`S DISCUSS
+          <button className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-white hover:border-2 hover:border-custom-blue hover:text-custom-blue">
+            Let`s Discuss
           </button>
         </div>
-        {/* iamge */}
         <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
           <Image
-            src="/backgrounds/unsplash1.png"
+            src="/backgrounds/mobileapp.png"
             alt="Logo"
             className="object-cover w-full h-full"
             width={400}
             height={400}
           />
         </div>
-      </div>
+      </div> */}
+      <section className="flex flex-col md:flex-row justify-center items-center px-6 md:px-16 mt-20 md:mt-32 md:gap-x-8 mb-32">
+        <div className="flex flex-col justify-center items-center md:items-start gap-5 text-center md:text-left md:w-[50%]">
+          <h2 className="font-bold text-paraClr text-lg">
+            <span className="border-b-4 border-custom-blue">M o b i</span>
+            <span> l e &nbsp; a p p &nbsp; d e v e l o p m e n t.</span>
+          </h2>
+          <div className="text-4xl font-bebas tracking-custom">
+            <span className="text-paraClr">WE BUILD GOOD</span>
+            <span className="text-custom-blue"> MOBILE USER EXPERIENCES.</span>
+          </div>
+
+          {/* {loading ? (
+            <Skeleton width={100} height={30} />
+          ) : latestProject[0] ? (
+            <h1 className="text-paraClr text-4xl font-bebas underline">
+              {latestProject[0].ProjectName}
+            </h1>
+          ) : null} */}
+
+          {/* {loading ? (
+            <Skeleton count={5} width={400} />
+          ) : latestProject[0] ? (
+            <p className="text-sm md:text-base text-paraClr leading-tight line-clamp-6">
+              {latestProject[0].ProjectDescription}
+            </p>
+          ) : (
+            <p className="text-sm md:text-base text-paraClr leading-tight">
+              Encoderbytes&apos;s mobile application development services enable
+              you to realize your mobile app ideas into feature-rich user
+              experiences. We provide bespoke mobile app development services
+              for both iOS and Android platforms, irrespective of the device
+              type (phone or tablet).
+              <br />
+              <br />
+              We have the perfect blend of aesthetic and technical skills to
+              deliver sophisticated and user-centric mobile apps.
+            </p>
+          )} */}
+
+          <p className="text-sm md:text-base text-paraClr leading-tight">
+              Encoderbytes&apos;s mobile application development services enable
+              you to realize your mobile app ideas into feature-rich user
+              experiences. We provide bespoke mobile app development services
+              for both iOS and Android platforms, irrespective of the device
+              type (phone or tablet).
+              <br />
+              <br />
+              We have the perfect blend of aesthetic and technical skills to
+              deliver sophisticated and user-centric mobile apps.
+            </p>
+            <Link
+              href="#form"
+              className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-white hover:border-2 hover:border-custom-blue hover:text-custom-blue flex items-center justify-center"
+            >
+              Let’s Discuss
+            </Link>
+
+          {/* {latestProject[0] ? (
+            <a
+              href={`/Case_Study?project=${
+                latestProject[0]?.id || latestProject[0]?._id || ""
+              }`}
+              rel="noopener noreferrer"
+            >
+              <button className="text-custom-blue font-semibold transition-all w-[157px] h-11 border-2 border-custom-blue rounded-md hover:text-white hover:bg-custom-blue flex items-center justify-center gap-3">
+                Read Details
+              </button>
+            </a>
+          ) : (
+            <Link
+              href="#form"
+              className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-white hover:border-2 hover:border-custom-blue hover:text-custom-blue flex items-center justify-center"
+            >
+              Let’s Discuss
+            </Link>
+          )} */}
+        </div>
+        <div className="bg-yellow w-full md:w-[50%] h-auto  md:h-full relative">
+          <Image
+              src="/Mobile.png"
+              alt="Mobile application development visual representation"
+              className="object-cover w-full h-full rounded-lg"
+              width={400}
+              height={400}
+            />
+        </div>
+
+
+        {/* <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
+          {loading ? (
+            <Skeleton width={400} height={300} />
+          ) : latestProject[0] ? (
+            <Image
+              src={latestProject[0].Image}
+              alt={latestProject[0].ProjectName}
+              className="object-cover w-full h-full rounded-lg"
+              width={400}
+              height={400}
+            />
+          ) : (
+            <Image
+              src="/backgrounds/mobileapp.png"
+              alt="Mobile application development visual representation"
+              className="object-cover w-full h-full"
+              width={400}
+              height={400}
+            />
+          )}
+        </div> */}
+      </section>
+
       {/* section 3 */}
-      <div className="bg-gray-200 p-14 md:px-20" id="mobilesection3">
+      {/* <div className="bg-custom p-10 md:px-20" id="mobilesection3">
         <div className="flex justify-center items-center flex-col mt-4">
-          <div className="text-custom-blue text-1xl md:text-4xl font-bold flex justify-center items-center gap-2">
+          <div className="text-custom-blue md:text-[40px] font-bebas tracking-custom flex justify-center items-center gap-2">
             <span className="text-black">MOBILE APP</span>
             <span className="text-custom-blue"> DEVELOPMENT SERVICES</span>
           </div>
-          <div className="text-center w-4/6 mt-7 text-xl">
-            Encoderbytes is a Peshawar,Pakistan based leading mobile app
+          <div className="text-center w-4/6 text-paraClr leading-tight">
+            Encoderbytes is a Peshawar, Pakistan based leading mobile app
             development company.We provide top grade mobile app development
-            services for Andriod and IOS platforms.
+            services for Android and IOS platforms.
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 mt-20 mx-16">
-          <div className="rounded-xl bg-white p-9">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 mt-14 mx-16">
+          <div className="rounded-lg   bg-white p-9">
             <div className="flex justify-between">
-              <span className="text-7xl font-bold text-slate-300">0 1</span>
+              <span className="text-4xl md:text-7xl font-bold text-paraClr opacity-20  font-bebas">
+                01
+              </span>
               <Image
                 src="/icons/android.png"
                 alt="Logo"
                 width={70}
-                height={70}
+                height={60}
               />
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6">
-              <div className="text-2xl font-bold">
+              <div className="text-3xl font-bebas tracking-custom">
                 <span className="text-black">ANDROID APP</span>
                 <span className="text-custom-blue"> DEVELOPMENT</span>
               </div>
-              <p className="mt-6 text-xl text-gray-400">
+              <p className="mt-2 text-paraClr opacity-50 leading-tight">
                 To meet your business requirement and need of the end user we
                 develop IOS apps .To create the superior quality we use the
                 latest tools,technology and user friendly mobile apps.
@@ -110,15 +250,17 @@ const MobileApp = () => {
           </div>
           <div className="rounded-lg bg-white p-9">
             <div className="flex justify-between">
-              <span className="text-7xl font-bold text-slate-300">0 2</span>
-              <Image src="/icons/apple.png" alt="Logo" width={70} height={70} />
+              <span className="text-4xl md:text-7xl font-bold text-paraClr opacity-20 font-bebas">
+                02
+              </span>
+              <Image src="/icons/apple.png" alt="Logo" width={70} height={60} />
             </div>
             <div className="flex flex-col md:w-full ml-2 mt-6">
-              <div className="text-2xl font-bold">
+              <div className="text-3xl font-bebas tracking-custom">
                 <span className="text-black">IOS APP</span>
                 <span className="text-custom-blue"> DEVELOPMENT</span>
               </div>
-              <p className="mt-6 text-xl text-gray-400">
+              <p className="mt-2 text-paraClr opacity-50 leading-tight">
                 To deliver impactful android apps for smartphones and tablets we
                 have skilled mobile app developers who convert your ideas into
                 digitized custom android app that your end users will enjoy.
@@ -126,17 +268,84 @@ const MobileApp = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+      <section className="bg-custom py-10" id="mobilesection3">
+        <div className="flex justify-center items-center flex-col mt-4">
+          <h2 className="text-custom-blue  font-bebas tracking-custom flex justify-center items-center gap-2">
+            <span className="text-black text-3xl">MOBILE APP</span>
+            <span className="text-custom-blue  text-3xl">
+              DEVELOPMENT SERVICES
+            </span>
+          </h2>
+          <p className="text-center w-5/6 md:w-4/6 text-paraClr leading-tight">
+            Encoderbytes is a leading mobile app development company based in
+            Peshawar, Pakistan. We provide top-grade mobile app development
+            services for Android and iOS platforms.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 mt-14 mx-16 mb-8">
+          <div className="rounded-lg bg-white p-9">
+            <div className="flex justify-between">
+              <span className="text-4xl md:text-7xl font-bold text-paraClr opacity-20 font-bebas">
+                01
+              </span>
+              <Image
+                src="/icons/android.png"
+                alt="Android Development Icon"
+                width={70}
+                height={60}
+              />
+            </div>
+            <div className="flex flex-col md:w-full ml-2 mt-6">
+              <h3 className="text-3xl font-bebas tracking-custom">
+                <span className="text-black">ANDROID APP</span>
+                <span className="text-custom-blue"> DEVELOPMENT</span>
+              </h3>
+              <p className="mt-2 text-paraClr opacity-50 leading-tight">
+                To meet your business requirements and the needs of end users,
+                we develop Android apps. We use the latest tools and technology
+                to create high-quality, user-friendly mobile applications.
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-lg bg-white p-9">
+            <div className="flex justify-between">
+              <span className="text-4xl md:text-7xl font-bold text-paraClr opacity-20 font-bebas">
+                02
+              </span>
+              <Image
+                src="/icons/apple.png"
+                alt="iOS Development Icon"
+                width={70}
+                height={60}
+              />
+            </div>
+            <div className="flex flex-col md:w-full ml-2 mt-6">
+              <h3 className="text-3xl font-bebas tracking-custom">
+                <span className="text-black">IOS APP</span>
+                <span className="text-custom-blue"> DEVELOPMENT</span>
+              </h3>
+              <p className="mt-2 text-paraClr opacity-50 leading-tight">
+                Our skilled mobile app developers create impactful iOS apps for
+                smartphones and tablets, transforming your ideas into engaging,
+                custom digital solutions that end users will enjoy.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* section 4 */}
       <div id="mobilesection4"></div>
-      <div className="bg-red w-full">
+      {/* <div className="bg-red w-full">
         <div className="flex justify-center items-center  flex-col mt-24 ">
-          <div className="text-4xl font-bold text-center">
+          <div className="text-4xl text-center font-bebas tracking-custom">
             <span className="">MOBILE SERVICES </span>
-            <span className="text-custom-blue">FOR DIFFERENT BUSINESS?</span>
+            <span className="text-custom-blue">FOR DIFFERENT BUSINESS</span>
           </div>
-          <p className="w-3/5 mt-5 text-center text-xl">
-            {/* <p className="flex mx-64 sm:w-4/6 mt-11 text-center border-2 border-black"> */}
+          <p className="w-3/5 mt-3 text-center text-paraClr leading-tight">
             We provide mobile application development services to different
             startups ,SMEs and large enterprises.Since 2019, from Tech to
             healthcare we have a successful record of working in different
@@ -148,32 +357,65 @@ const MobileApp = () => {
               return (
                 <div
                   key={items.image}
-                  className=" bg-gray-200 rounded-md border-black p-10 text-center flex flex-col justify-between items-center gap-4"
+                  className="bg-[#F5F5F6] rounded-lg border-black py-7 px-10 text-center flex flex-col justify-between items-center gap-4"
                 >
-                  <Image src={items.image} alt="image" width={70} height={70} />
-                  <span>{items.name}</span>
+                  <Image src={items.image} alt="image" width={60} height={60} />
+                  <span className="text-sm">{items.name}</span>
                 </div>
               );
             })}
           </div>
         </div>
-      </div>
+      </div> */}
+      <section className="w-full">
+        <div className="flex justify-center items-center flex-col mt-24 ">
+          <h2 className="text-4xl text-center font-bebas px-2 tracking-custom">
+            <span>MOBILE SERVICES </span>
+            <span className="text-custom-blue">FOR DIFFERENT BUSINESSES</span>
+          </h2>
+          <p className="w-4/5 md:w-3/5 mt-3 text-center text-paraClr leading-tight">
+            We provide mobile application development services to various
+            startups, SMEs, and large enterprises. Since 2019, we have
+            successfully worked across multiple industries, including tech and
+            healthcare, delivering quality mobile app services. No project is
+            too big or too small for us.
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 px-8 mt-10">
+            {Mobileapps.map((item) => (
+              <div
+                key={item.image}
+                className="bg-[#F5F5F6] rounded-lg border-black py-7 px-10 text-center flex flex-col justify-between items-center gap-4"
+              >
+                <Image
+                  src={item.image}
+                  alt={`${item.name} Mobile App Icon`}
+                  width={60}
+                  height={60}
+                />
+                <span className="text-sm">{item.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* section 5 */}
       <div id="mobilesection5"></div>
-      <div className="relative bg-gray-200  mt-20" style={{ height: "2400px" }}>
-        <div className="relative " style={{ width: "100vw" }}>
+      {/* <div className="relative bg-[#F5F5F6]  mt-20" style={{ height: "1600px" }}>
+        <div className="relative " style={{ width: "100%" }}>
           <Image
-            className="w-full"
+            className=" h-full w-full bg-cover bg-center"
             src="/backgrounds/Rectangle-68.png"
             alt="Background"
             width={400}
             height={400}
           />
-          <div className="absolute top-0 w-full text-center px-4">
-            <div className="text-3xl font-bold mt-20">
-              <span className="text-white">MOBILE APP DEVELOPMENT PROCESS</span>
+          <div className="absolute top-0 w-full text-center px-4 text-white">
+            <div className="text-4xl mt-20 font-bebas tracking-custom">
+              <span>MOBILE APP DEVELOPMENT PROCESS</span>
             </div>
-            <div className="mt-5 mx-auto text-xl font-medium text-white w-8/12">
+            <div className="mt-4 mx-auto w-8/12 leading-tight">
               While developing a user-centric Mobile Application, we use
               up-to-date agile methodology of the software development cycle
               (SDLC) to ensure your satisfaction with expeditious development
@@ -181,24 +423,69 @@ const MobileApp = () => {
             </div>
           </div>
         </div>
-        {/* <div className="bg-gray-400" style={{ height: "1200px" }}></div> */}
-        <div className="absolute top-52 w-full px-4">
-          <div className="mt-10 w-full md:w-5/6 bg-white rounded-2xl py-16 px-10 mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-16">
+
+        <div className="absolute top-48 w-full px-4">
+          <div className="mt-10 w-full md:w-5/6 bg-white rounded-xl py-10 px-5 mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-7 px-4 md:px-10">
               {MobileAp.map((cart) => (
                 <div
-                  className="rounded-lg w-full bg-custom-blue p-10 mt-10"
+                  className="rounded-lg w-full bg-custom-blue p-8 mt-5 text-white"
                   key={cart.no}
                 >
-                  <div className="flex justify-between">
-                    <span className="text-xl md:text-4xl text-white font-bold border-gray-500 border-b-4  border-dashed ">
+                  <div className="flex justify-between font-bebas items-center tracking-custom ">
+                    <span className="text-xl md:text-4xl border-[#ffffff4e] border-b-4 border-dashed w-3/6">
                       {cart.title}
                     </span>
-                    <span className="text-6xl font-bold text-gray-400">
+                    <span className="text-6xl opacity-20">
                       {cart.no}
                     </span>
                   </div>
-                  <div className="flex flex-col w-full mt-6 text-white text-xl leading-6">
+                  <div className="flex flex-col w-full mt-6leading-tight">
+                    <p>{cart.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div> */}
+      <div className="relative bg-[#F5F5F6] mt-20 min-h-[2500px] md:min-h-[1600px] pb-10">
+        <div className="relative" style={{ width: "100%" }}>
+          <Image
+            className="h-[300px] md:h-[400px] w-full bg-cover bg-center "
+            src="/backgrounds/Rectangle-68.png"
+            alt="Mobile App Development Background"
+            width={400}
+            height={500}
+          />
+          <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 text-white">
+            <h2 className="text-2xl md:text-4xl font-bebas tracking-custom">
+              <span>MOBILE APP DEVELOPMENT PROCESS</span>
+            </h2>
+            <p className="mt-2 md:mt-4 mx-auto w-11/12 text-xs md:text-base md:w-8/12 leading-tight">
+              While developing a user-centric mobile application, we use
+              up-to-date agile methodology of the software development cycle
+              (SDLC) to ensure your satisfaction with expeditious development
+              and delivery.
+            </p>
+          </div>
+        </div>
+
+        <div className=" mt-8 md:mt-16 w-full px-4 md:px-16">
+          <div className="mt-10 w-full md:w-6/6 bg-white rounded-xl py-10 px-5 mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-7 px-4 md:px-10">
+              {MobileAp.map((cart) => (
+                <div
+                  className="rounded-lg w-full bg-custom-blue p-8 mt-5 text-white"
+                  key={cart.no}
+                >
+                  <div className="flex justify-between font-bebas items-center tracking-custom">
+                    <span className="text-xl md:text-4xl border-[#ffffff4e] border-b-4 border-dashed w-3/6">
+                      {cart.title}
+                    </span>
+                    <span className="text-6xl opacity-20">{cart.no}</span>
+                  </div>
+                  <div className="flex flex-col w-full mt-6 leading-tight">
                     <p>{cart.description}</p>
                   </div>
                 </div>
@@ -210,47 +497,79 @@ const MobileApp = () => {
 
       {/* Section 6  */}
       <div id="mobilesection6"></div>
-      <section className="mt-[5%] text-2xl font-medium">
-        <div className="w-full  py-16">
+      {/* <section className="mt-[1%]">
+        <div className="w-full py-16">
           <div
-            className="m-4 md:mx-20 flex flex-col justify-center items-center h-full rounded-md md:h-auto md:p-20"
+            className="m-4 md:mx-20 flex flex-col justify-center items-center h-full rounded-md md:h-auto md:p-20 text-white"
             style={{
               backgroundImage: "url('/backgrounds/developing-cost.png')",
-              backgroundSize: "cover", // Ensure the background image covers the container
+              backgroundSize: "100% 100%",
               backgroundPosition: "center", // Center the background image
             }}
           >
-            <div className="mt-32 text-4xl md:mt-32 text-white font-bold md:text-5xl">
+            <div className="mt-20 text-3xl md:mt-16 font-bold">
               COST TO
             </div>
 
-            <div className="py-10 text-white font-bold text-3xl md:text-6xl">
+            <div className="pb-3 pt-1 text-4xl md:text-8xl font-bebas tracking-custom">
               DEVELOP MOBILE APPS
             </div>
-            <p className="mt-5 mx-4 md:mx-40 text-white text-center">
-              Cost is something relative, but the quality and timely delivery is
-              our value proposition in comparison to all the competitors. Yes
-              offshore we use detailed and state of the art project budgets
-              subject to your Apps requirements. We developed simple to complex
-              mobile apps ranging from $1000 to $10,000+.
+            <p className=" mx-4 md:mx-36 text-center text-customFull leading-tight mb-5">
+              In our 16+ years of experience as a mobile app development company in the UK, we have delivered many Android and iOS app development projects that range from £10,000 to £500,000. As you can well imagine, mobile apps come in all shapes and sizes for different mobile devices. Features and functionality, scalability, usability, performance – all these factors greatly affect the scope of building a mobile app. This makes budgeting for a mobile app development project a tricky exercise. But with our experience in developing mobile apps, EncoderBytes can help with highly accurate estimations of your project cost.
             </p>
-            <button className="text-custom-blue hover:text-white font-medium px-4  py-2   mt-6 rounded-md bg-white hover:bg-custom-blue mb-6">
-              LET`S DISCUSS
+            <button className="text-custom-blue hover:text-white font-medium w-36 h-10 outline-none transition-all mt-6 rounded-md bg-white hover:bg-custom-blue mb-6">
+              Let`s Discuss
             </button>
+          </div>
+        </div>
+      </section> */}
+      <section className="mt-[1%]">
+        <div className="w-full py-16">
+          <div
+            className="m-4 md:mx-16 flex flex-col justify-center items-center h-full rounded-lg md:h-auto md:p-20 text-white"
+            style={{
+              backgroundImage: "url('/backgrounds/developing-cost.png')",
+              backgroundSize: "100% 100%",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="text-3xl mt-16 font-bold">COST TO</div>
+
+            <div className="pb-3 pt-1 text-4xl md:text-8xl font-bebas tracking-custom">
+              DEVELOP MOBILE APPS
+            </div>
+            <p className="mx-4 md:mx-36 text-center text-customFull leading-tight mb-5 text-sm md:text-base">
+              In our 16+ years of experience as a mobile app development company
+              in the UK, we have delivered many Android and iOS app development
+              projects that range from £10,000 to £500,000. As you can well
+              imagine, mobile apps come in all shapes and sizes for different
+              mobile devices. Features and functionality, scalability,
+              usability, performance – all these factors greatly affect the
+              scope of building a mobile app. This makes budgeting for a mobile
+              app development project a tricky exercise. But with our experience
+              in developing mobile apps, EncoderBytes can help with highly
+              accurate estimations of your project cost.
+            </p>
+
+            <Link
+              href="#form"
+              className="text-custom-blue hover:text-white font-medium w-36 h-10 outline-none transition-all mt-6 rounded-md bg-white hover:bg-custom-blue mb-6 transform hover:scale-105 flex justify-center items-center"
+            >
+              Let&apos;s Discuss
+            </Link>
           </div>
         </div>
       </section>
 
       {/* section 7  */}
       <div id="mobilesection7"></div>
-      <div className="bg-red w-full">
+      {/* <div className="w-full">
         <div className="flex justify-center items-center  flex-col mt-16 ">
-          <div className="text-3xl font-bold text-center">
+          <div className="text-[40px] text-center font-bebas tracking-custom">
             <span className="">TOOLS & </span>
             <span className="text-custom-blue">TECHNOLOGIES</span>
           </div>
-          <p className="w-4/6 mt-5 text-center text-xl">
-            {/* <p className="flex mx-64 sm:w-4/6 mt-11 text-center border-2 border-black"> */}
+          <p className="w-4/6 mt-5 text-center text-paraClr leading-tight">
             We have a rich background in native iOS and Android mobile
             applications as well as cross-platform apps . One of our Developed
             Mobile Application, Pharmapedia, is on 5th ranking around the globe
@@ -262,10 +581,38 @@ const MobileApp = () => {
               return (
                 <div
                   key={items.image}
-                  className="border-2 border-gray-300 px-16 py-10 text-center flex flex-col gap-12 justify-between items-center rounded-lg "
+                  className="border-2 border-gray-200 w-48 h-48 text-center flex flex-col gap-6 justify-center items-center rounded-lg "
                 >
                   <img src={items.image} className="rounded-lg" alt="image" />
-                  <span className="font-bold">{items.name}</span>
+                  <span className="font-semibold text-lg">{items.name}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div> */}
+      <div className="w-full">
+        <div className="flex justify-center items-center flex-col mt-16">
+          <div className="text-[40px] text-center font-bebas tracking-custom">
+            <span className="">TOOLS & </span>
+            <span className="text-custom-blue">TECHNOLOGIES</span>
+          </div>
+          <p className="w-4/5 md:w-3/5 mt-3 text-center text-paraClr leading-tight">
+            We have a rich background in native iOS and Android mobile
+            applications as well as cross-platform apps. One of our developed
+            mobile applications, Pharmapedia, is ranked 5th around the globe.
+            For developing a mobile application, we use the latest methodology
+            and up-to-date technologies as mentioned:
+          </p>
+          <div className=" grid grid-cols-2 md:grid-cols-6 gap-8 my-10  w-5/6">
+            {Mobileappslogo.map((items) => {
+              return (
+                <div
+                  key={items.image}
+                  className="border-2 border-gray-200 w-47 h-47 text-center flex flex-col gap-6 justify-center items-center rounded-lg "
+                >
+                  <img src={items.image} className="w-16" alt="image" />
+                  <span className="font-semibold text-lg">{items.name}</span>
                 </div>
               );
             })}
@@ -274,116 +621,413 @@ const MobileApp = () => {
       </div>
 
       {/* section 8 */}
-      <section className="bg-gray-300 pb-10 mt-20">
-        {" "}
-        <div className="flex pt-20 justify-center items-center text-2xl md:text-4xl font-bold">
+      {/* <section className="bg-gray-100 pb-10 mt-20">
+        <div className="flex pt-20 justify-center items-center text-2xl md:text-4xl font-bebas tracking-custom">
           <span>MOBILE</span>
-          <span className="text-custom-blue">&nbsp; APPLICATION</span>
+          <span className="text-custom-blue">&nbsp; APPLICATIONS</span>
         </div>
+
         <div
-          className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-20 gap-y-8 md:gap-x-8 md:w-5/6 m-auto p-8 rounded-md"
+          className="flex flex-col md:flex-row justify-start items-center px-6 md:px-32 mt-20 md:mt-8 gap-y-8 md:gap-x-16 md:w-5/6 m-auto p-8 rounded-lg"
           style={{ backgroundColor: "rgb(164, 189, 247)" }}
         >
-          <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
+          <div className="w-full md:w-[40%] h-auto md:h-full relative my-10">
             <Image
               src="/backgrounds/app2.png"
               alt="Logo"
               className="object-cover w-full h-full"
-              width={400}
-              height={400}
+              width={350}
+              height={350}
             />
           </div>
           <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
-            <div className="text-2xl font-bold text-black">
-              <span className="border-b-4 border-white"> v i d s </span>
+            <div className="text-2xl font-bold text-paraClr">
+              <span className="border-b-4 border-white">v i d s </span>
               <span className=" border-black">s a v e</span>
             </div>
-            <div className=" text-2xl font-bold text-white">
+            <div className="text-4xl text-white font-bebas tracking-custom">
               SOCIAL MEDIA VIDEO DOWNLOADER
             </div>
-            <p className="text-sm md:text-base font-medium">
+            <p className="text-paraClr leading-tight">
               With over 2 years of experience in AI, EncoderBytes helps build
               software for businesses that can be a source of revenue for them.
               We deliver AI services to businesses to enhance and add value to
               their existing products. We also help them enhance their portfolio
               by creating brand new software for them.
             </p>
-            <div className="text-white hover:text-white p-6 rounded-md h-10 md:mt-0  text-sm md:text-md border-2 hover:bg-custom-blue border-white text-center flex items-center font-bold">
-              <button>READ CASESTUDY</button>
-            </div>
+
+            <Link href='/Casestudy'>
+              <div className="text-white rounded-md w-40 h-11 border-2 hover:bg-custom-blue border-white text-center justify-center cursor-pointer flex items-center font-bold">
+                <button>Read Casestudy</button>
+              </div>
+            </Link>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-20 gap-y-8 md:gap-x-8 bg-pink-300 md:w-5/6 m-auto p-8 rounded-md">
+
+        <div
+          className="flex flex-col md:flex-row justify-start items-center px-6 md:px-32 my-20 md:my-14  gap-y-8 md:gap-x-16 md:w-5/6 m-auto p-8 rounded-lg bg-pink-300"
+        >
+
           <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
-            <div className="text-2xl font-bold text-black">
-              <span className="border-b-4 border-white "> s t a t s </span>
-              <span className="">s v e</span>
+            <div className="text-2xl font-bold text-paraClr">
+              <span className="border-b-4 border-white">v i d s </span>
+              <span className=" border-black">s a v e</span>
             </div>
-            <div className="text-4xl font-bold text-white">
-              STATUS DOWNLOADER
+            <div className="text-4xl text-white font-bebas tracking-custom">
+              SOCIAL MEDIA VIDEO DOWNLOADER
             </div>
-            <p className="text-sm md:text-base font-medium">
+            <p className="text-paraClr leading-tight">
               With over 2 years of experience in AI, EncoderBytes helps build
               software for businesses that can be a source of revenue for them.
               We deliver AI services to businesses to enhance and add value to
               their existing products. We also help them enhance their portfolio
               by creating brand new software for them.
             </p>
-            <div className="text-white p-6 rounded-md h-10 md:mt-0 hover:text-white text-sm md:text-md border-2 hover:bg-custom-blue border-white text-center flex items-center font-bold">
-              <button className="">READ CASESTADY</button>
+            <div className="text-white rounded-md w-40 h-11 border-2 hover:bg-custom-blue border-white text-center justify-center cursor-pointer flex items-center font-bold">
+              <button>Read Casestudy</button>
             </div>
           </div>
 
-          {/* iamge */}
-          <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
+          <div className="w-full md:w-[40%] h-auto md:h-full relative my-10">
             <Image
               src="/backgrounds/app3.png"
               alt="Logo"
               className="object-cover w-full h-full"
-              width={400}
-              height={400}
+              width={350}
+              height={350}
             />
           </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-center items-center px-6 md:px-32 mt-20 md:mt-20 gap-y-8 md:gap-x-8 bg-blue-300 md:w-5/6 m-auto p-8 rounded-md">
-          <div className="bg-yellow w-full md:w-[50%] h-auto md:h-full relative">
+
+        <div
+          className="flex flex-col md:flex-row justify-start items-center px-6 md:px-32 mt-20 md:mt-8 gap-y-8 md:gap-x-16 md:w-5/6 m-auto p-8 rounded-lg"
+          style={{ backgroundColor: "rgb(164, 189, 247)" }}
+        >
+          <div className="w-full md:w-[40%] h-auto md:h-full relative my-10">
             <Image
               src="/backgrounds/app1.png"
               alt="Logo"
               className="object-cover w-full h-full"
-              width={400}
-              height={400}
+              width={350}
+              height={350}
             />
           </div>
           <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
-            <div className="text-2xl font-bold text-black">
-              <span className="border-b-4 border-white"> v i d s </span>
-              <span className="">s a v e</span>
+            <div className="text-2xl font-bold text-paraClr">
+              <span className="border-b-4 border-white">v i d s </span>
+              <span className=" border-black">s a v e</span>
             </div>
-            <div className=" text-3xl font-bold text-white">
-              SOCIAL MEDIA VIDEO DOWNLOADER
+            <div className="text-4xl text-white font-bebas tracking-custom">
+              Social media video downloader
             </div>
-            <p className="text-md font-medium md:text-base">
+            <p className="text-paraClr leading-tight">
               With over 2 years of experience in AI, EncoderBytes helps build
               software for businesses that can be a source of revenue for them.
               We deliver AI services to businesses to enhance and add value to
               their existing products. We also help them enhance their portfolio
               by creating brand new software for them.
             </p>
-            <div className="text-white hover:text-white p-3 rounded-md h-10 md:mt-0  text-sm md:text-md border-2 hover:bg-custom-blue border-white text-center flex items-center font-bold">
-              <button>READ CASESTUDY</button>
+            <div className="text-white rounded-md w-40 h-11 border-2 hover:bg-custom-blue border-white text-center justify-center cursor-pointer flex items-center font-bold">
+              <button>Read Casestudy</button>
             </div>
           </div>
         </div>
+
         <div className="flex flex-col md:flex-row justify-center items-center  mt-10">
           <Link href="/Projects">
-            <button className="bg-custom-blue p-4 rounded-md font-bold text-white hover:bg-transparent boder-2 border-custom-blue">
-              VIEW PORTFOLIO
+            <button className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-gray-100 hover:border-2 hover:border-custom-blue hover:text-custom-blue">
+              View All Projects
             </button>
           </Link>
         </div>
-      </section>
-      {/* contact from */}
+
+      </section> */}
+
+      <section className="bg-gray-100 pb-10 mt-20 md:px-12" id="mobileprojects">
+                          <div className="flex pt-20 justify-center items-center text-4xl font-bebas tracking-custom">
+                            <span>MOBILE</span>
+                            <span className="text-custom-blue">&nbsp;APPLICATIONS</span>
+                          </div>
+                  
+                          {loading ? (
+                            // Show skeleton loaders while loading
+                            Array.from({ length: 3 }).map((_, index) => (
+                              <div
+                                key={index}
+                                className="flex flex-col md:flex-row justify-start items-center px-6 md:px-12 mt-20 md:mt-8 gap-y-8 md:gap-x-16 md:w-6/6 m-auto p-8 rounded-lg"
+                                style={{ backgroundColor: "rgb(164, 189, 247)" }}
+                              >
+                                <div
+                                  className={`w-full md:w-[55%] h-auto md:h-[400px] relative my-10 ${
+                                    index % 2 === 1 ? "md:order-2" : ""
+                                  }`}
+                                >
+                                  <Skeleton height={400} width={"100%"} borderRadius={12} />
+                                </div>
+                                <div
+                                  className={`flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[45%] ${
+                                    index % 2 === 1 ? "md:order-1" : ""
+                                  }`}
+                                >
+                                  <Skeleton width={150} height={25} />
+                                  <Skeleton width={250} height={25} />
+                                  <Skeleton width={400} count={5} />
+                                  <Skeleton width={150} height={40} borderRadius={6} />
+                                </div>
+                              </div>
+                            ))
+                          ) : Projects && Projects.length > 0 ? (
+                            // Show all projects dynamically
+                            Projects.map((project, index) => (
+                              <div
+                                key={project.id || project._id || index}
+                                className="flex flex-col lg:flex-row justify-start md:justify-center items-center px-6 md:px-12 mt-20 md:mt-8 gap-y-4 md:gap-x-16 md:w-6/6 m-auto p-8 rounded-lg"
+                          style={{ 
+                            backgroundColor: index % 2 === 0 
+                              ? "rgb(164, 189, 247)" // custom-blue for odd projects (1st, 3rd, 5th...)
+                              : "rgb(244, 163, 178)" // pink for even projects (2nd, 4th, 6th...)
+                              }}
+                              >
+                                <div
+                                  className={`w-full h-auto md:h-full relative my-10 ${
+                                    index % 2 === 1 ? "md:order-2" : ""
+                                  }`}
+                                >
+                                  <div className="relative    w-full h-full md:w-[700px] md:h-[420px] ">
+                                    <Image
+                                      src={project.Image || "/backgrounds/app2.png"}
+                                      alt={project.ProjectName || "Project Image"}
+                                      className="object-cover rounded-lg w-full h-full   lg:w-[700px] lg:h-[400px]"
+                                      width={400}
+                                      height={250}
+                                      onError={(e) => {
+                                        e.target.src = "/backgrounds/app2.png";
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                                <div
+                                  className={`flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-full md:px-2  ${
+                                    index % 2 === 1 ? "md:order-1" : ""
+                                  }`}
+                                >
+                                  <div className="text-2xl font-bold text-paraClr">
+                                    <span className="border-b-4 border-white">
+                                      {project.ProjectCategory || "Mobile App"}
+                                    </span>
+                                  </div>
+                                  <div className="text-4xl text-white font-bebas tracking-custom">
+                                    {project.ProjectName || "Project Name"}
+                                  </div>
+                                  <p className="text-paraClr leading-tight line-clamp-3">
+                                    {project.ProjectDescription ||
+                                      "Project description not available."}
+                                  </p>
+                                  <div className="text-white px-2 rounded-md w-42 h-11 border-2 hover:bg-white hover:text-paraClr border-white text-center justify-center cursor-pointer flex items-center font-bold">
+                                    <a
+                                      href={`/Case_Study?project=${
+                                        project.id || project._id || ""
+                                      }`}
+                                      rel="noopener noreferrer"
+                                    >
+                                      <button>READ CASE STUDY</button>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            ))
+                          ) : (
+                            // Show fallback content when no projects are available
+                            <div
+                              className="flex flex-col md:flex-row justify-start items-center px-6 md:px-12 mt-20 md:mt-8 gap-y-8 md:gap-x-16 md:w-6/6 m-auto p-8 rounded-lg"
+                              style={{ backgroundColor: "rgb(164, 189, 247)" }}
+                            >
+                              <div className="w-full md:w-[50%] h-auto md:h-full relative my-10">
+                                <Image
+                                  src="/backgrounds/app2.png"
+                                  alt="Default Mobile App"
+                                  className="object-cover w-full h-full"
+                                  width={350}
+                                  height={350}
+                                />
+                              </div>
+                              <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
+                                <div className="text-2xl font-bold text-paraClr">
+                                  <span className="border-b-4 border-white">
+                                    Mobile App
+                                  </span>
+                                </div>
+                                <div className="text-4xl text-white font-bebas tracking-custom">
+                                  NO PROJECTS AVAILABLE
+                                </div>
+                                <p className="text-paraClr leading-tight">
+                                  Currently, there are no Mobile App projects available to
+                                  display. Please check back later or contact us for more
+                                  information.
+                                </p>
+                                <div className="text-white rounded-md w-40 h-11 border-2 hover:bg-custom-blue border-white text-center justify-center cursor-pointer flex items-center font-bold">
+                                  <button>COMING SOON</button>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                  
+                          <div className="flex flex-col md:flex-row justify-center items-center mt-10">
+                            <Link href="/Projects">
+                              <button className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-gray-100 hover:border-2 hover:border-custom-blue hover:text-custom-blue">
+                                View All Projects
+                              </button>
+                            </Link>
+                          </div>
+                        </section>
+
+
+
+
+      {/* <section className="bg-gray-100 pb-10 mt-20 md:px-12">
+        <div className="flex pt-20 justify-center items-center text-4xl font-bebas tracking-custom">
+          <span>MOBILE</span>
+          <span className="text-custom-blue">&nbsp; APPLICATIONS</span>
+        </div>
+
+        {loading ? (
+          // Show skeleton loaders while loading
+          Array.from({ length: 3 }).map((_, index) => (
+            <div
+              key={index}
+              className="flex flex-col md:flex-row justify-start items-center px-6 md:px-2 mt-20 md:mt-8 gap-y-8 md:gap-x-16 md:w-4/6 m-auto p-8 rounded-lg"
+              style={{ 
+                backgroundColor: index % 2 === 0 
+                  ? "rgb(59, 130, 246)" // custom-blue for odd projects (1st, 3rd, 5th...)
+                  : "rgb(244, 163, 178)" // pink for even projects (2nd, 4th, 6th...)
+              }}
+            >
+              <div
+                className={`w-full md:w-[55%] h-auto md:h-full relative my-10 ${
+                  index % 2 === 1 ? "md:order-2" : ""
+                }`}
+              >
+                <Skeleton height={250} width={"100%"} borderRadius={12} />
+              </div>
+              <div
+                className={`flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[45%] ${
+                  index % 2 === 1 ? "md:order-1" : ""
+                }`}
+              >
+                <Skeleton width={150} height={25} />
+                <Skeleton width={250} height={25} />
+                <Skeleton width={300} count={3} />
+                <Skeleton width={150} height={40} borderRadius={6} />
+              </div>
+            </div>
+          ))
+        ) : Projects && Projects.length > 0 ? (
+          // Show all projects dynamically
+          Projects.map((project, index) => (
+            <div
+              key={project.id || project._id || index}
+              className="flex flex-col md:flex-row justify-start items-center px-6 md:px-12 mt-20 md:mt-8 gap-y-4 md:gap-x-16 md:w-6/6 m-auto p-8 rounded-lg"
+              style={{ 
+                backgroundColor: index % 2 === 0 
+                  ? "rgb(164, 189, 247)" // custom-blue for odd projects (1st, 3rd, 5th...)
+                  : "rgb(244, 163, 178)" // pink for even projects (2nd, 4th, 6th...)
+              }}
+            >
+              <div
+                className={`w-full h-auto md:h-full relative my-10 ${
+                  index % 2 === 1 ? "md:order-2" : ""
+                }`}
+              >
+                <div className="relative w-full h-[420px]">
+                  <Image
+                    src={project.Image || "/backgrounds/app2.png"}
+                    alt={project.ProjectName || "Project Image"}
+                    className="object-cover rounded-lg h-[400px] w-full"
+                    width={400}
+                    height={250}
+                    onError={(e) => {
+                      e.target.src = "/backgrounds/app2.png";
+                    }}
+                  />
+                </div>
+              </div>
+              <div
+                className={`flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-full md:px-2 ${
+                  index % 2 === 1 ? "md:order-1" : ""
+                }`}
+              >
+                <div className="text-2xl font-bold text-paraClr">
+                  <span className="border-b-4 border-white">
+                    {project.ProjectCategory || "Mobile App"}
+                  </span>
+                </div>
+                <div className="text-4xl text-white font-bebas tracking-custom">
+                  {project.ProjectName || "Project Name"}
+                </div>
+                <p className="text-paraClr leading-tight line-clamp-3">
+                  {project.ProjectDescription ||
+                    "Project description not available."}
+                </p>
+                <div className="text-white px-2 rounded-md w-42 h-11 border-2 hover:bg-white hover:text-paraClr border-white text-center justify-center cursor-pointer flex items-center font-bold">
+                  <a
+                    href={`/Case_Study?project=${
+                      project.id || project._id || ""
+                    }`}
+                    rel="noopener noreferrer"
+                  >
+                    <button>READ CASE STUDY</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          // Show fallback content when no projects are available
+          <div
+            className="flex flex-col md:flex-row justify-start items-center px-6 md:px-32 mt-20 md:mt-8 gap-y-8 md:gap-x-16 md:w-5/6 m-auto p-8 rounded-lg"
+            style={{ backgroundColor: "rgb(164, 189, 247)" }}
+          >
+            <div className="w-full md:w-[40%] h-auto md:h-full relative my-10">
+              <Image
+                src="/backgrounds/app2.png"
+                alt="Default Mobile App"
+                className="object-cover w-full h-full"
+                width={350}
+                height={350}
+              />
+            </div>
+            <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
+              <div className="text-2xl font-bold text-paraClr">
+                <span className="border-b-4 border-white">
+                  M o b i l e A p p
+                </span>
+              </div>
+              <div className="text-4xl text-white font-bebas tracking-custom">
+                NO PROJECTS AVAILABLE
+              </div>
+              <p className="text-paraClr leading-tight">
+                Currently, there are no Mobile App projects available to
+                display. Please check back later or contact us for more
+                information.
+              </p>
+              <div className="text-white rounded-md w-40 h-11 border-2 hover:bg-custom-blue border-white text-center justify-center cursor-pointer flex items-center font-bold">
+                <button>COMING SOON</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="flex flex-col md:flex-row justify-center items-center mt-10">
+          <Link href="/Projects">
+            <button className="text-customFull transition-all w-36 h-10 font-semibold mt-4 rounded-md bg-custom-blue mb-6 hover:bg-gray-100 hover:border-2 hover:border-custom-blue hover:text-custom-blue">
+              View All Projects
+            </button>
+          </Link>
+        </div>
+      </section> */}
+
+      
+
       <Contactform />
     </div>
   );

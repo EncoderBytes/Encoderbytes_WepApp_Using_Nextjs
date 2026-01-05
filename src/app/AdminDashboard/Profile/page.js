@@ -483,9 +483,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import { isAuthenticated } from "@/app/helper/verifytoken";
 import { useRouter } from "next/navigation";
+import { API_URL_USER } from "../components/ShowApidatas/apiUrls";
 
 const Profile = () => {
-  console.log("hi there is profile page")
   const [formData, setFormData] = useState({
     UserName: "",
     Email: "",
@@ -493,7 +493,7 @@ const Profile = () => {
     ConformPassword: "",
     Image: "",
   });
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConformPassword, setShowConformPassword] = useState(false);
 
@@ -509,7 +509,7 @@ const Profile = () => {
       }
 
       const userId = localStorage.getItem("userId");
-      console.log(userId);
+      console.log(userId)
       if (userId) {
         showalladmins(userId);
       }
@@ -518,9 +518,9 @@ const Profile = () => {
 
   const showalladmins = async (userId) => {
     try {
-      const res = await axios.get(`/api/Users/${userId}`);
-      console.log("res",res)
+      const res = await axios.get(`${API_URL_USER}/${userId}`);
       const adminData = res.data.result;
+      console.log(adminData)
       setFormData({
         UserName: adminData.username,
         Email: adminData.email,
@@ -540,12 +540,21 @@ const Profile = () => {
   };
 
   const handleImageChange = (e) => {
+    const file = e.target.files[0];
     setFormData({
       ...formData,
-      Image: e.target.files[0],
+      Image: file,
     });
-    setImagePreview(URL.createObjectURL(e.target.files[0]));
-
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // If no file selected, show API image
+      setImagePreview(formData.Image);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -599,17 +608,20 @@ const Profile = () => {
                   <div className="mb-4 flex flex-col items-center">
                     <div className="w-24 h-24 mb-4">
                       {imagePreview ? (
-                        <img
-                          src={imagePreview}
+                        <Image
+                          src={imagePreview.startsWith('http') || imagePreview.startsWith('data:')
+                            ? imagePreview
+                            : `/uploads/${imagePreview}`}
                           alt="Profile Preview"
                           className="w-full h-full object-cover rounded-full"
                           width={200}
                           height={200}
+                          unoptimized={imagePreview.startsWith('http') || imagePreview.startsWith('data:')}
                         />
                       ) : (
                         <div className="w-full h-full bg-gray-200 rounded-full flex items-center justify-center">
-                          <img
-                            src="https://static.vecteezy.com/system/resources/previews/048/216/761/non_2x/modern-male-avatar-with-black-hair-and-hoodie-illustration-free-png.png"
+                          <Image
+                            src="https://static.thenounproject.com/png/363639-200.png"
                             alt="Profile Preview"
                             className="w-full h-full object-cover rounded-full"
                             width={200}

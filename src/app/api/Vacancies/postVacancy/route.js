@@ -56,6 +56,7 @@ const Vacancy = require("@/app/models/VacancyModel").default;
 
 
 // mysql Method
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
@@ -91,12 +92,12 @@ export async function POST(request) {
   try {
     const db = await connect();
 
-    const { VacancyTitle, Requireds, Experience } = await request.json();
-    console.log(VacancyTitle, Requireds, Experience);
+    const { VacancyTitle, Requireds, Experience, totalVacancies } = await request.json();
+    console.log(VacancyTitle, Requireds, Experience, totalVacancies);
 
     const [result] = await db.query(
-      "INSERT INTO vacancy (VacancyTitle, Requireds, Experience) VALUES (?, ?, ?)",
-      [VacancyTitle, Requireds, Experience]
+      "INSERT INTO vacancy (VacancyTitle, Requireds, Experience, totalVacancies) VALUES (?, ?, ?, ?)",
+      [VacancyTitle, Requireds, Experience, totalVacancies]
     );
 
     if (result.affectedRows === 0) {
@@ -109,6 +110,7 @@ export async function POST(request) {
         VacancyTitle,
         Requireds,
         Experience,
+        totalVacancies
       },
       status: 200,
     });

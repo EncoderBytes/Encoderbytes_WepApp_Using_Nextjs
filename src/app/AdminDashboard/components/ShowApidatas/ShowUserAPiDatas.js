@@ -15,8 +15,8 @@ export const ShowAllAdmins = () => {
   return axios
     .get(`${API_URL_USER}/specificuser`)
     .then((res) => {
-      console.log(res.data.result);
-      console.log(res.data.count);
+      // console.log(res.data);
+      // console.log(res.data.count);
       return { admins: res.data.result, count: res.data.count };
     })
     .catch((error) => {
@@ -28,8 +28,8 @@ export const TeamCount = () => {
   return axios
     .get(`${API_URL_TEAM}`)
     .then((res) => {
-      console.log(res.data.Result);
-      console.log(res.data.count);
+      // console.log(res.data);
+      // console.log(res.data.count);
       return { admins: res.data.Result, count: res.data.count };
     })
     .catch((error) => {
@@ -41,8 +41,8 @@ export const VacancyCount = () => {
   return axios
     .get(`${API_URL_Vacancy}`)
     .then((res) => {
-      console.log(res.data.Result);
-      console.log(res.data.count);
+      // console.log(res.data);
+      // console.log(res.data.count);
       return { admins: res.data.Result, count: res.data.count };
     })
     .catch((error) => {
@@ -54,8 +54,8 @@ export const GetInCount = () => {
   return axios
     .get(`${API_URL_GetInTouch}`)
     .then((res) => {
-      console.log(res.data.result);
-      console.log(res.data.count);
+      // console.log(res.data);
+      // console.log(res.data.count);
       return { admins: res.data.result, count: res.data.count };
     })
     .catch((error) => {
@@ -67,8 +67,8 @@ export const RequestCount = () => {
   return axios
     .get(`${API_URL_Request}`)
     .then((res) => {
-      console.log(res.data.Result);
-      console.log(res.data.count);
+      // console.log(res.data);
+      // console.log(res.data.count);
       return { admins: res.data.Result, count: res.data.count };
     })
     .catch((error) => {
@@ -80,8 +80,8 @@ export const ProjectsCount = () => {
   return axios
     .get(`${API_URL_Projects}`)
     .then((res) => {
-      console.log(res.data.Result);
-      console.log(res.data.count);
+      // console.log(res.data);
+      // console.log(res.data.count);
       return { admins: res.data.Result, count: res.data.count };
     })
     .catch((error) => {
@@ -93,7 +93,7 @@ export const BlogsCount = () => {
   return axios
     .get(`${API_URL_Blog}`)
     .then((res) => {
-      console.log(res.data.Result);
+      // console.log(res.data);
       // console.log(res.data.count);
       return { admins: res.data.Result, count: res.data.count };
     })

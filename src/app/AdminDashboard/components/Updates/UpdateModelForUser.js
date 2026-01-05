@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const UpdateAdminModal = ({ isclose, adminId, getadmins }) => {
-  console.log(adminId);
+  // console.log(adminId);
   const [imagePreview, setImagePreview] = useState("");
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -21,11 +21,12 @@ const UpdateAdminModal = ({ isclose, adminId, getadmins }) => {
 
   const API_URL = "/api/Users";
 
+  // Fetch admin data and set preview
   const showalladmins = () => {
     axios
       .get(`${API_URL}/${adminId}`)
       .then((res) => {
-        const adminData = res.data.Result;
+        const adminData = res.data.result;
         setFormData({
           UserName: adminData.username,
           Email: adminData.email,
@@ -33,7 +34,16 @@ const UpdateAdminModal = ({ isclose, adminId, getadmins }) => {
           ConformPassword: adminData.confirmpassword,
           Image: adminData.Image,
         });
-        setImagePreview(adminData.Image);
+        // Only set preview if image exists
+        if (adminData.Image) {
+          setImagePreview(
+            adminData.Image.startsWith("http")
+              ? adminData.Image
+              : `/uploads/${adminData.Image}`
+          );
+        } else {
+          setImagePreview(""); // or set to a default image URL if you want
+        }
       })
       .catch((error) => {
         console.log(`error : ${error}`);
@@ -76,11 +86,20 @@ const UpdateAdminModal = ({ isclose, adminId, getadmins }) => {
     });
   };
 
+  // Show preview for new uploads
   const handleFileChange = (e) => {
+    const file = e.target.files[0];
     setFormData({
       ...formData,
-      Image: e.target.files[0],
+      Image: file,
     });
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const updateAdmin = async () => {
@@ -207,52 +226,18 @@ const UpdateAdminModal = ({ isclose, adminId, getadmins }) => {
               type={showPassword ? "text" : "password"}
               id="Password"
               name="Password"
-              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black pr-10"
               value={formData.Password}
               onChange={handleInputChange}
             />
             <button
               type="button"
-              className="absolute inset-y-12 right-0 pr-3 flex items-center text-sm leading-5 text-black"
-              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-12 -translate-y-1/2 text-xl text-black bg-transparent border-none cursor-pointer"
+              onClick={() => setShowPassword((prev) => !prev)}
+              tabIndex={-1}
+              style={{ padding: 0 }}
             >
-              {showPassword ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.418 0-8-3.582-8-8 0-1.05.202-2.052.567-2.971m4.243 10.908A9.977 9.977 0 0112 17c2.019 0 3.884-.597 5.433-1.625M20.426 9.54A9.978 9.978 0 0119 12c0 4.418-3.582 8-8 8-2.019 0-3.884-.597-5.433-1.625M12 5c2.019 0 3.884.597 5.433 1.625m1.64 8.86a9.978 9.978 0 001.393-5.485c0-4.418-3.582-8-8-8-2.019 0-3.884.597-5.433 1.625m4.242 10.907A9.977 9.977 0 0112 17c2.019 0 3.884-.597 5.433-1.625M3.5 3.5L20.5 20.5"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M2.458 12C3.732 7.943 7.522 5 12 5c2.045 0 3.974.623 5.56 1.688M20.542 12C19.268 16.057 15.478 19 11 19c-2.045 0-3.974-.623-5.56-1.688M12 5v.01"
-                  />
-                </svg>
-              )}
+              {showPassword ? "🙈" : "👁️"}
             </button>
           </div>
           <div className="relative">
@@ -264,56 +249,22 @@ const UpdateAdminModal = ({ isclose, adminId, getadmins }) => {
               type={showConformPassword ? "text" : "password"}
               id="ConformPassword"
               name="ConformPassword"
-              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black pr-10"
               value={formData.ConformPassword}
               onChange={handleInputChange}
             />
             <button
               type="button"
-              className="absolute inset-y-12 right-0 pr-3 flex items-center text-sm leading-5 text-black"
-              onClick={() => setShowConformPassword(!showConformPassword)}
+              className="absolute right-3 top-12 -translate-y-1/2 text-xl text-black bg-transparent border-none cursor-pointer"
+              onClick={() => setShowConformPassword((prev) => !prev)}
+              tabIndex={-1}
+              style={{ padding: 0 }}
             >
-              {showConformPassword ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.418 0-8-3.582-8-8 0-1.05.202-2.052.567-2.971m4.243 10.908A9.977 9.977 0 0112 17c2.019 0 3.884-.597 5.433-1.625M20.426 9.54A9.978 9.978 0 0119 12c0 4.418-3.582 8-8 8-2.019 0-3.884-.597-5.433-1.625M12 5c2.019 0 3.884.597 5.433 1.625m1.64 8.86a9.978 9.978 0 001.393-5.485c0-4.418-3.582-8-8-8-2.019 0-3.884.597-5.433 1.625m4.242 10.907A9.977 9.977 0 0112 17c2.019 0 3.884-.597 5.433-1.625M3.5 3.5L20.5 20.5"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M2.458 12C3.732 7.943 7.522 5 12 5c2.045 0 3.974.623 5.56 1.688M20.542 12C19.268 16.057 15.478 19 11 19c-2.045 0-3.974-.623-5.56-1.688M12 5v.01"
-                  />
-                </svg>
-              )}
+              {showConformPassword ? "🙈" : "👁️"}
             </button>
           </div>
 
-          <div className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black">
+          <div>
             <label className="block">
               <span className="text-gray-950">Upload file</span>
               <input
@@ -322,24 +273,22 @@ const UpdateAdminModal = ({ isclose, adminId, getadmins }) => {
                 onChange={handleFileChange}
               />
             </label>
-          </div>
-          <div className="w-24 h-24 mb-4">
-            {imagePreview ? (
+            {imagePreview && (
               <img
                 src={imagePreview}
                 alt={`Profile Picture of ${formData.UserName}`}
-                className="profile-picture"
+                className="mt-2 w-24 h-24 object-cover rounded-md"
               />
-            ) : (
-              <div className="w-full h-full bg-gray-200 rounded-full flex items-center justify-center">
-                {/* <span className="text-gray-400">No Image</span> */}
+            )}
+            {/* {!imagePreview && (
+              <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mt-2">
                 <img
                   src="https://static.thenounproject.com/png/363639-200.png"
                   alt="Profile Preview"
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
-            )}
+            )} */}
           </div>
         </section>
 

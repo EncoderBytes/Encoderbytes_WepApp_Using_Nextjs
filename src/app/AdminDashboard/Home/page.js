@@ -12,6 +12,9 @@ import { GrUserAdmin } from "react-icons/gr";
 import { FaPeopleGroup, FaNotesMedical } from "react-icons/fa6";
 import { RiFolderReceivedFill } from "react-icons/ri";
 import { MdTouchApp } from "react-icons/md";
+import { API_URL_TEAM } from "../components/ShowApidatas/apiUrls";
+import axios from "axios";
+
 import {
   GetInCount,
   RequestCount,
@@ -47,9 +50,23 @@ const AdminHome = () => {
         RequestCount(),
       ]);
 
-      setCounts({ admins, team, vacancies, getInTouch, requests });
+      setCounts({ 
+        admins: admins || 0, 
+        team: team || 0, 
+        vacancies: vacancies || 0, 
+        getInTouch: getInTouch || 0, 
+        requests: requests || 0 
+      });
     } catch (error) {
       console.log(`Failed to fetch data: ${error}`);
+      // Set all counts to 0 if there's an error
+      setCounts({
+        admins: 0,
+        team: 0,
+        vacancies: 0,
+        getInTouch: 0,
+        requests: 0,
+      });
     }
   }, []);
 
@@ -61,6 +78,30 @@ const AdminHome = () => {
 
     fetchCounts();
   }, [fetchCounts, router]);
+
+  const [showTeamMember, setShowTeamMember] = useState([]);
+  const [teamLoading, setTeamLoading] = useState(false);
+  const [teamError, setTeamError] = useState(null);
+
+  useEffect(() => {
+    const getTeamMembers = async () => {
+      setTeamLoading(true);
+      setTeamError(null);
+      try {
+        const response = await axios.get(API_URL_TEAM);
+        const showTeamMember = response.data.Result?.filter(t => t.order !== 0) || [];
+        setShowTeamMember(showTeamMember);
+      } catch (error) {
+        setTeamError("Failed to fetch team members.");
+        console.error("Error fetching team members:", error);
+      } finally {
+        setTeamLoading(false);
+      }
+    };
+    if (isAuthenticated()) {
+      getTeamMembers();
+    }
+  }, [router]);
 
   const data = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -75,9 +116,9 @@ const AdminHome = () => {
     <>
       <Header className="min-w-full" />
       <div className="flex gap-4">
-        <Sidebar />
-        <main className="w-full mt-5 h-60">
-          <section className="grid grid-cols-5 min-w-full justify-between gap-2 text-center rounded-xl">
+        <Sidebar /> 
+        <main className="w-full mt-5 md:mt-0 h-60">
+          <section className="grid grid-cols-2 md:grid-cols-5 min-w-full px-4 mt-14 justify-between gap-2 text-center rounded-xl">
             {[
               {
                 icon: <GrUserAdmin size={30} />,
@@ -102,7 +143,7 @@ const AdminHome = () => {
               {
                 icon: <RiFolderReceivedFill size={30} />,
                 title: "Requests",
-                count: counts.requests,
+                count: counts.requests || 0,
               },
             ].map((item, index) => (
               <div
@@ -119,34 +160,50 @@ const AdminHome = () => {
               </div>
             ))}
           </section>
-          <section className="grid grid-cols-2 min-w-full justify-evenly gap-4 mt-4">
+          <section className="flex flex-col min-w-full lg:flex-row justify-evenly gap-4 mt-4 px-4">
             <div className="w-full h-72 flex justify-center items-center  rounded-xl">
               <BarChart data={data} data1={data1} />
             </div>
             <div className="w-full h-72 flex justify-center items-center  rounded-xl">
               <DonutChart data={data} />
             </div>
-            <div className="w-full h-64 p-4  rounded-xl">
+          </section>
+          <section className="flex flex-col min-w-full lg:flex-row justify-evenly gap-10 mt-4">
+            <div className="w-[385px] md:w-full h-64 p-4  rounded-xl">
               <TableWithTitle />
             </div>
-            <div className="w-full h-72 flex flex-col items-center gap-3 text-white text-center">
+            <div className="w-full h-72 flex flex-col items-center gap-3 px-6 text-white">
+                <h1 className="text-lg md:text-2xl text-black font-semibold">Team Members</h1>
               <div className="h-16  rounded-xl w-full flex px-3 items-center border-2 border-custom-blue">
                 <div className="flex items-center text-black">
                   <div className="mr-2">
-                    <Image
-                      src="/team/001.jpg"
-                      alt="image"
-                      width={90}
-                      height={90}
-                      className="rounded-full h-10 w-10"
-                    />
+                    {showTeamMember[0] ? (
+                      <Image
+                        src={showTeamMember[0]?.image}
+                        alt="image"
+                        width={90}
+                        height={90}
+                        className="rounded-full h-10 w-10"
+                        loading="lazy"
+                        unoptimized
+                      />
+                    ) : (
+                      <Image
+                        src="/team/001.jpg"
+                        alt="image"
+                        width={90}
+                        height={90}
+                        className="rounded-full h-10 w-10"
+                        loading="lazy"
+                      />
+                    )}
                   </div>
                   <div className="flex flex-col pl-5">
                     <span className="flex justify-start text-black">
-                      Sultan Khan
+                      {showTeamMember[0]? showTeamMember[0].username.toUpperCase() : "Sultan Khan"}
                     </span>
                     <span className="text-xs text-gray-400 flex justify-start">
-                      Hi there
+                      Hello Admin!
                     </span>
                   </div>
                 </div>
@@ -154,20 +211,33 @@ const AdminHome = () => {
               <div className="h-16  rounded-xl w-full flex px-3 items-center border-2 border-custom-blue">
                 <div className="flex items-center text-black">
                   <div className="mr-2">
-                    <Image
-                      src="/team/Nouman.jpg"
-                      alt="image"
-                      width={90}
-                      height={90}
-                      className="rounded-full h-10 w-10"
-                    />
+                    {showTeamMember[1] ? (
+                      <Image
+                        src={showTeamMember[1]?.image}
+                        alt="image"
+                        width={90}
+                        height={90}
+                        className="rounded-full h-10 w-10"
+                        loading="lazy"
+                        unoptimized
+                      />
+                    ) : (
+                      <Image
+                        src="/team/Nouman.jpg"
+                        alt="image"
+                        width={90}
+                        height={90}
+                        className="rounded-full h-10 w-10"
+                        loading="lazy"
+                      />
+                    )}
                   </div>
                   <div className="flex flex-col pl-5">
                     <span className="flex justify-start text-black">
-                      Eng. Mueez
+                      {showTeamMember[1] ? showTeamMember[1].username.toUpperCase() : "Eng . Mueez"}
                     </span>
                     <span className="text-xs text-gray-400 flex justify-start">
-                      Hi there
+                      Hi Fella!
                     </span>
                   </div>
                 </div>
@@ -175,20 +245,33 @@ const AdminHome = () => {
               <div className="h-16  rounded-xl w-full flex px-3 items-center border-2 border-custom-blue">
                 <div className="flex items-center text-black">
                   <div className="mr-2">
-                    <Image
-                      src="/team/team9.jpg"
-                      alt="image"
-                      width={90}
-                      height={90}
-                      className="rounded-full h-10 w-10"
-                    />
+                    {showTeamMember[2] ? (
+                      <Image
+                        src={showTeamMember[2]?.image}
+                        alt="image"
+                        width={90}
+                        height={90}
+                        className="rounded-full h-10 w-10"
+                        loading="lazy"
+                        unoptimized
+                      />
+                    ) : (
+                      <Image
+                        src="/team/team9.jpg"
+                        alt="image"
+                        width={90}
+                        height={90}
+                        className="rounded-full h-10 w-10"
+                        loading="lazy"
+                      />
+                    )}
                   </div>
                   <div className="flex flex-col pl-5">
                     <span className="flex justify-start text-black">
-                      M. Ubaid Ullah
+                      {showTeamMember[2] ? showTeamMember[2].username.toUpperCase() : "M. Ubaid Ullah"}
                     </span>
                     <span className="text-xs text-gray-400 flex justify-start">
-                      Hi there
+                      Welcome Back!
                     </span>
                   </div>
                 </div>

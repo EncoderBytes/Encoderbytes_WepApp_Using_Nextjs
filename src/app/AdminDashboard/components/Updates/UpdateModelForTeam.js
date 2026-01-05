@@ -10,6 +10,9 @@ const UpdateTeamModal = ({ isclose, teamId, getteams }) => {
     UserName: "",
     Email: "",
     Designation: "",
+    Github: "",
+    LinkedIn: "",
+    order: 0,
     Image: "",
   });
   const modalRef = useRef();
@@ -61,6 +64,9 @@ const UpdateTeamModal = ({ isclose, teamId, getteams }) => {
           UserName: teamData.username,
           Email: teamData.email,
           Designation: teamData.designation,
+          Github: teamData.Github,
+          LinkedIn: teamData.LinkedIn,
+          order: teamData.order,
           Image: teamData.image,
         });
         setImagePreview(teamData.image);
@@ -80,6 +86,9 @@ const UpdateTeamModal = ({ isclose, teamId, getteams }) => {
     formDataToSend.append("username", formData.UserName);
     formDataToSend.append("email", formData.Email);
     formDataToSend.append("designation", formData.Designation);
+    formDataToSend.append("Github", formData.Github);
+    formDataToSend.append("LinkedIn", formData.LinkedIn);
+    formDataToSend.append("order", formData.order);
     if (formData.Image) {
       formDataToSend.append(
         "image",
@@ -111,6 +120,9 @@ const UpdateTeamModal = ({ isclose, teamId, getteams }) => {
         UserName: "",
         Email: "",
         Designation: "",
+        Github: "",
+        LinkedIn: "",
+        order: 0,
         Image: "",
       });
     } catch (error) {
@@ -190,6 +202,53 @@ const UpdateTeamModal = ({ isclose, teamId, getteams }) => {
               onChange={handleInputChange}
             />
           </div>
+
+          <div className="">
+            <label htmlFor="Order" className="text-gray-950">
+              order :
+            </label>
+            <br />
+            <input
+              type="number"
+              id="order"
+              name="order"
+              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+              value={formData.order}
+              onChange={handleInputChange}
+              min={1}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="LinkedIn" className="text-gray-950">
+              LinkedIn Link:
+            </label>
+            <br />
+            <input
+              type="text"
+              id="LinkedIn"
+              name="LinkedIn"
+              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+              value={formData.LinkedIn}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="Github" className="text-gray-950">
+              Github Link:
+            </label>
+            <br />
+            <input
+              type="text"
+              id="Github"
+              name="Github"
+              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+              value={formData.Github}
+              onChange={handleInputChange}
+            />
+          </div>
+
         </section>
         <section className="w-5/6 m-auto flex pb-6 rounded-full">
           <div class="mt-1 px-3 py-1.5 w-full rounded-full border-gray-400 border focus:outline-none focus:border-indigo-500 text-black">
@@ -202,10 +261,14 @@ const UpdateTeamModal = ({ isclose, teamId, getteams }) => {
               />
             </label>
           </div>
+
+
+
+
           <div className="w-[200px] h-24 mb-4">
             {imagePreview ? (
               <img
-                src={"/uploads/" + imagePreview}
+                src={imagePreview}
                 alt={`Profile Picture of ${imagePreview}`}
                 className="profile-picture"
               />

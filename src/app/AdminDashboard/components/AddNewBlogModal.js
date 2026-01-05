@@ -29,6 +29,7 @@ const AddNewBlogModal = ({ isclose, reload }) => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleKeyDown]);
+  const [imagePreview, setImagePreview] = useState("");
 
   const [formData, setFormData] = useState({
     blogtitle: "",
@@ -52,6 +53,16 @@ const AddNewBlogModal = ({ isclose, reload }) => {
       ...prevData,
       image: file || null,
     }));
+    // Add image preview functionality
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImagePreview("");
+    }
   };
 
   const sendMessage = async () => {
@@ -145,13 +156,29 @@ const AddNewBlogModal = ({ isclose, reload }) => {
               onChange={handleInputChange}
             />
           </div>
-          <div>
+        </section>
+        <div>
+          <label htmlFor="description" className="text-gray-950">
+            Discription :
+          </label>
+          <br />
+          <textarea
+            type="text"
+            id="description"
+            name="description"
+            className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+            value={formData.description}
+            onChange={handleInputChange}
+          />
+        </div>
+        <section className="grid grid-cols-2 gap-4">
+           <div>
             <label htmlFor="datetime" className="text-gray-950">
               Date And Time :
             </label>
             <br />
             <input
-              type="date" // Use datetime-local for date and time input
+              type="datetime-local" // Use datetime-local for date and time input
               id="date"
               name="datetime"
               className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
@@ -169,23 +196,20 @@ const AddNewBlogModal = ({ isclose, reload }) => {
                 type="file"
                 class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
               />
+              {/* Image preview */}
+              {imagePreview && (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="mt-2 w-24 h-24 object-cover rounded-md border"
+                />
+              )}
             </label>
           </div>
         </section>
-        <div>
-          <label htmlFor="description" className="text-gray-950">
-            Discription :
-          </label>
-          <br />
-          <textarea
-            type="text"
-            id="description"
-            name="description"
-            className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
-            value={formData.description}
-            onChange={handleInputChange}
-          />
-        </div>
+         
+        
+        
 
         <button
           className="border-2 bg-white text-black p-2 rounded-md hover:shadow-md hover:shadow-cyan-400"

@@ -5,8 +5,35 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { url } from "./ShowApidatas/apiUrls";
 
-const Modal = ({ isclose, getadmins }) => {
+const Modal = ({ isclose, getadmins, showModal }) => {
   const modalRef = useRef();
+
+  const [formData, setFormData] = useState({
+    UserName: "",
+    Email: "",
+    Password: "",
+    ConformPassword: "",
+    file: null,
+  });
+
+  // Show/hide password states
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
+
+  // Reset form when modal opens
+  useEffect(() => {
+    setFormData({
+      UserName: "",
+      Email: "",
+      Password: "",
+      ConformPassword: "",
+      file: null,
+    });
+    setShowPassword(false);
+    setShowConfirmPassword(false);
+    setImagePreview(null); // Reset preview when modal opens
+  }, [showModal]);
 
   const handleClose = (e) => {
     if (modalRef.current === e.target) {
@@ -30,14 +57,6 @@ const Modal = ({ isclose, getadmins }) => {
     };
   }, [handleKeyDown]);
 
-  const [formData, setFormData] = useState({
-    UserName: "",
-    Email: "",
-    Password: "",
-    ConformPassword: "",
-    file: null,
-  });
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -52,6 +71,11 @@ const Modal = ({ isclose, getadmins }) => {
       ...prevData,
       file: file || null,
     }));
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+    } else {
+      setImagePreview(null);
+    }
   };
 
   const sendMessage = async () => {
@@ -118,6 +142,7 @@ const Modal = ({ isclose, getadmins }) => {
               type="text"
               id="UserName"
               name="UserName"
+              defaultValue=""
               className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
               value={formData.UserName}
               onChange={handleInputChange}
@@ -132,6 +157,7 @@ const Modal = ({ isclose, getadmins }) => {
               type="email"
               id="Email"
               name="Email"
+              defaultValue=""
               className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
               value={formData.Email}
               onChange={handleInputChange}
@@ -142,28 +168,66 @@ const Modal = ({ isclose, getadmins }) => {
               Password :
             </label>
             <br />
-            <input
-              type="password"
-              id="Password"
-              name="Password"
-              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
-              value={formData.Password}
-              onChange={handleInputChange}
-            />
+            <div style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="Password"
+                name="Password"
+                className="mt-1 px-3 py-1.5 w-full pr-10 rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+                value={formData.Password}
+                onChange={handleInputChange}
+              />
+              <button
+                type="button"
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "1.2rem",
+                }}
+                onClick={() => setShowPassword((prev) => !prev)}
+                tabIndex={-1}
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </button>
+            </div>
           </div>
           <div>
             <label htmlFor="ConformPassword" className="text-gray-950">
               ConformPassword :
             </label>
             <br />
-            <input
-              type="password"
-              id="ConformPassword"
-              name="ConformPassword"
-              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
-              value={formData.ConformPassword}
-              onChange={handleInputChange}
-            />
+            <div style={{ position: "relative" }}>
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                id="ConformPassword"
+                name="ConformPassword"
+                className="mt-1 px-3 py-1.5 w-full pr-10 rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black"
+                value={formData.ConformPassword}
+                onChange={handleInputChange}
+              />
+              <button
+                type="button"
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "1.2rem",
+                }}
+                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                tabIndex={-1}
+              >
+                {showConfirmPassword ? "🙈" : "👁️"}
+              </button>
+            </div>
           </div>
         </section>
         <div className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border focus:outline-none focus:border-indigo-500 text-black">
@@ -173,9 +237,19 @@ const Modal = ({ isclose, getadmins }) => {
               onChange={handleFileChange}
               type="file"
               id="file"
+              accept="image/*"
               className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
             />
           </label>
+          {imagePreview && (
+            <div className="mt-2">
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="max-h-32 rounded-md border"
+              />
+            </div>
+          )}
         </div>
 
         <button
