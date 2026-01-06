@@ -47,22 +47,22 @@ import mysql from 'mysql2/promise';
 
 export async function connect() {
   try {
-    const connection = await mysql.createConnection({
-      host: 'localhost',
-      // user: 'root',           
-      user: 'encolzgh_encolzgh',           
-      password: 'encolzgh_encolzgh',           
-      database: 'encolzgh_encoderbytes',
-      // port: 3306              
-    });
-
     // const connection = await mysql.createConnection({
     //   host: 'localhost',
-    //   user: 'root',           
-    //   password: '',           
-    //   database: 'encoderbytes',
-    //   port: 3306              
+    //   // user: 'root',           
+    //   user: 'encolzgh_encolzgh',           
+    //   password: 'encolzgh_encolzgh',           
+    //   database: 'encolzgh_encoderbytes',
+    //   // port: 3306              
     // });
+
+    const connection = await mysql.createConnection({
+      host: 'localhost',
+      user: 'root',           
+      password: '',           
+      database: 'encoderbytes',
+      port: 3306              
+    });
 
     console.log('MySQL connected successfully');
     return connection;
@@ -70,3 +70,30 @@ export async function connect() {
     console.error('MySQL connection failed:', error.message);
   }
 }
+
+
+// import mysql from "mysql2/promise";
+
+// let connection;
+
+// export async function connect() {
+//   try {
+//     if (connection) {
+//       return connection; // reuse connection (important for Next.js)
+//     }
+
+//     connection = await mysql.createConnection({
+//       host: process.env.DB_HOST,
+//       user: process.env.DB_USER,
+//       password: process.env.DB_PASSWORD,
+//       database: process.env.DB_NAME,
+//       port: process.env.DB_PORT || 3306,
+//     });
+
+//     console.log("✅ MySQL connected successfully");
+//     return connection;
+//   } catch (error) {
+//     console.error("❌ MySQL connection failed:", error.message);
+//     throw error; // IMPORTANT
+//   }
+// }

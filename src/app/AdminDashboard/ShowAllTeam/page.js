@@ -13,8 +13,13 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 
 const ShowAllTeam = () => {
-  const AddNewMemModal = dynamic(() => import("../components/AddNewMemModal"), { ssr: false });
-  const UpdateAdminModal = dynamic(() => import("../components/Updates/UpdateModelForTeam"), { ssr: false });
+  const AddNewMemModal = dynamic(() => import("../components/AddNewMemModal"), {
+    ssr: false,
+  });
+  const UpdateAdminModal = dynamic(
+    () => import("../components/Updates/UpdateModelForTeam"),
+    { ssr: false }
+  );
   const router = useRouter();
   const [showmodal, setshowmodal] = useState(false);
   const [showUpdateModel, setUpdateModel] = useState(false);
@@ -44,15 +49,28 @@ const ShowAllTeam = () => {
     setFilteredTeam(filtered);
   };
 
+  // const getTeam = async () => {
+  //   try {
+  //     const { admins } = await TeamCount();
+  //     setshowAllTeam(admins);
+  //     setTeamLoading(false);
+  //   } catch (error) {
+  //     setTeamError("Failed to fetch team members.");
+  //     setTeamLoading(false);
+  //     console.log(`Failed to fetch team: ${error}`);
+  //   }
+  // };
+
   const getTeam = async () => {
     try {
       const { admins } = await TeamCount();
-      setshowAllTeam(admins);
+      setshowAllTeam(Array.isArray(admins) ? admins : []);
+      setFilteredTeam([]);
       setTeamLoading(false);
     } catch (error) {
       setTeamError("Failed to fetch team members.");
+      setshowAllTeam([]);
       setTeamLoading(false);
-      console.log(`Failed to fetch team: ${error}`);
     }
   };
 
@@ -72,8 +90,14 @@ const ShowAllTeam = () => {
   };
 
   // Sort the team data by `order` before rendering
-  const sortedTeam = (searchTerm !== "" ? filteredTeam : showAllTeam)
-    .sort((a, b) => a.order - b.order);  // Sort based on the `order` field
+  //const sortedTeam = (searchTerm !== "" ? filteredTeam : showAllTeam)
+  //  .sort((a, b) => a.order - b.order);  // Sort based on the `order` field
+
+  const dataToSort = searchTerm !== "" ? filteredTeam || [] : showAllTeam || [];
+
+  const sortedTeam = dataToSort
+    .slice()
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   return (
     <>

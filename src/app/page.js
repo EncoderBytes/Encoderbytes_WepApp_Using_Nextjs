@@ -767,7 +767,7 @@ export default function Home() {
           )}
 
           <div className="flex gap-3 mt-5">
-            <a
+            {/* <a
               href={`/Case_Study?project=${
                 latestProject[0]?.id || latestProject[0]?._id || ""
               }`}
@@ -776,7 +776,19 @@ export default function Home() {
               <button className="bg-custom-blue hover:bg-transparent hover:border-2 hover:border-custom-blue hover:text-custom-blue text-white font-bold px-4 py-2 rounded text-xs sm:text-sm">
                 READ CASE STUDY
               </button>
-            </a>
+            </a> */}
+
+            {latestProject[0]?.id || latestProject[0]?._id ? (
+              <Link
+                href={`/Case_Study?project=${
+                  latestProject[0].id || latestProject[0]._id
+                }`}
+              >
+                <button className="bg-custom-blue hover:bg-transparent hover:border-2 hover:border-custom-blue hover:text-custom-blue text-white font-bold px-4 py-2 rounded text-xs sm:text-sm">
+                  READ CASE STUDY
+                </button>
+              </Link>
+            ) : null}
 
             <Link
               href="#form"

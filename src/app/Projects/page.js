@@ -5,6 +5,7 @@ import Image from "next/image";
 // import { projects } from "../components/carts";
 import Contactform from "../Utils/Contactform";
 import { ProjectsCount } from "../AdminDashboard/components/ShowApidatas/ShowUserAPiDatas";
+import Link from "next/link";
 const Page = () => {
   const [Projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -85,12 +86,12 @@ const filteredProjects = React.useMemo(() => {
               four years. Some of them are the following.
             </p>
           </div>
-          <a
+          <Link
             href="/"
             className="text-black font-bold mt-20 text-center md:text-left text-md"
           >
             Home - <span className="text-custom-blue">Our Portfolio</span>
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -218,12 +219,12 @@ const filteredProjects = React.useMemo(() => {
                 </span>
               </div>
               <div className="mt-5">
-                <a key={project.id} href={`../Case_Study?project=${project.id}`} rel="noopener noreferrer">
+                <Link key={project.id} href={`../case-study?project=${project.id}`} rel="noopener noreferrer">
                   <button
                     className="bg-custom-blue hover:bg-transparent hover:border-2 hover:border-custom-blue hover:text-custom-blue text-white font-bold px-4 py-2 rounded text-xs sm:text-sm">
                     READ CASE STUDY
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

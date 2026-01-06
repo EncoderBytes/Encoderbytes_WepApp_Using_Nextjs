@@ -62,7 +62,7 @@ const Header = () => {
       {/* Left side: Logo */}
       <div className="flex items-center">
         <img
-          src="/logos/logo.png"
+          src="/logos/logo.webp"
           alt="Logo"
           className="h-7 w-auto sm:h-8"
           height={40}

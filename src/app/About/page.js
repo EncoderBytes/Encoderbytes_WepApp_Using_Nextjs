@@ -28,7 +28,10 @@ const Page = () => {
   //   // Example: Sort by username alphabetically
   //   return a.username.localeCompare(b.username);
   // });
-  const sortedEmployees = employees.sort((a, b) => a.order - b.order);
+  // const sortedEmployees = employees.sort((a, b) => a.order - b.order);
+  const sortedEmployees = Array.isArray(employees)
+  ? [...employees].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+  : [];
 
   return (
     <div className="bg-white">
