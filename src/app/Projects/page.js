@@ -219,7 +219,7 @@ const filteredProjects = React.useMemo(() => {
                 </span>
               </div>
               <div className="mt-5">
-                <Link key={project.id} href={`../case-study?project=${project.id}`} rel="noopener noreferrer">
+                <Link key={project.id} href={`../Case_Study?project=${project.id}`} rel="noopener noreferrer">
                   <button
                     className="bg-custom-blue hover:bg-transparent hover:border-2 hover:border-custom-blue hover:text-custom-blue text-white font-bold px-4 py-2 rounded text-xs sm:text-sm">
                     READ CASE STUDY
