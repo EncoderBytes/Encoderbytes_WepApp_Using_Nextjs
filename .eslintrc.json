@@ -1,3 +1,11 @@
+// {
+//   "extends": "next/core-web-vitals"
+// }
+
 {
-  "extends": "next/core-web-vitals"
+  "eslint.nodePath": "node_modules",
+  "eslint.workingDirectories": [
+    { "mode": "auto" }
+  ],
+  "eslint.runtime": "node"
 }

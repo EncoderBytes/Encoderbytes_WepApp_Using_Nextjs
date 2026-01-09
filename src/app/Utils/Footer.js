@@ -35,7 +35,7 @@ const Footer = () => {
           <div className="flex flex-col justify-start items-start md:items-start w-full py-5">
             <div>
               <Image
-                src="/logos/logo.png"
+                src="/logos/logoPNG.png"
                 className="mx-auto md:ml-0 -mt-6"
                 alt="Logo"
                 width={200}
