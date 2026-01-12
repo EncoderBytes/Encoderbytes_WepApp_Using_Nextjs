@@ -60,7 +60,7 @@ const { NextResponse } = require("next/server");
 //     });
 //   }
 // }
-
+export const dynamic = "force-dynamic";
 
 // mysql method
 export async function DELETE(request, content) {

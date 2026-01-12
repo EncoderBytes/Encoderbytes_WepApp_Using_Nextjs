@@ -101,7 +101,7 @@ cloudinary.v2.config({
 //     return NextResponse.json({ Message: "Internal Server Error " });
 //   }
 // }
-
+export const dynamic = "force-dynamic";
 
 // mysql method
 export async function GET() {

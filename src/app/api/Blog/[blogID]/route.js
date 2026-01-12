@@ -179,9 +179,7 @@ cloudinary.v2.config({
 //       { error: "Failed to update blog" },
 //       { status: 500 }
 //     );
-//   }
-// }
-
+//   }export const dynamic = "force-dynamic";
 
 // Mysql Method 
 export async function GET(request, context) {
@@ -203,7 +201,6 @@ export async function GET(request, context) {
     return NextResponse.json({ Message: "Internal Server Error" }, { status: 500 });
   }
 }
-
 
 export async function DELETE(request, context) {
   try {
@@ -252,7 +249,6 @@ export async function DELETE(request, context) {
     return NextResponse.json({ error: "Failed to delete blog", status: 500 });
   }
 }
-
 
 export async function PUT(request, context) {
   try {
@@ -340,3 +336,5 @@ export async function PUT(request, context) {
     return NextResponse.json({ error: "Failed to update blog" }, { status: 500 });
   }
 }
+// }
+

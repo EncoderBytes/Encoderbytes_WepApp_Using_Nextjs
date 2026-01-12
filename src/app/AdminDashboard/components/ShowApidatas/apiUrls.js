@@ -2,7 +2,7 @@
 
 //  export const url = "https://www.encoderbytes.com";
 export const url = "http://localhost:3000";
-// export const url = "http://elab.encoderbytes.com";
+// export const url = "https://elab.encoderbytes.com";
 
 export const API_URL_USER = `${url}/api/Users`;
 export const API_URL_Verify = `${url}/api/Users/verifyEmail`;

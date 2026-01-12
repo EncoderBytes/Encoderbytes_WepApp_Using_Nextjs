@@ -55,6 +55,7 @@ const { NextResponse } = require("next/server");
 //   }
 // }
 
+export const dynamic = "force-dynamic";
 
 // Mysql Method
 export async function GET() {

@@ -12,6 +12,8 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const db = await connect(); // MySQL connect

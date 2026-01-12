@@ -91,6 +91,7 @@ const Vacancy = require("@/app/models/VacancyModel").default;
 
 
 // mysql method
+export const dynamic = "force-dynamic";
 
 export async function GET(request, context) {
   try {

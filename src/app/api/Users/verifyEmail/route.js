@@ -2,6 +2,8 @@ import { connect } from "@/app/config/db.js";
 import { NextResponse } from "next/server";
 import User from "@/app/models/UserModel";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req) {
   try {
     const reqBody = await req.json();

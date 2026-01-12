@@ -158,7 +158,7 @@ const MobileApp = () => {
 
           {/* {latestProject[0] ? (
             <a
-              href={`/Case_Study?project=${
+              href={`/case-study?project=${
                 latestProject[0]?.id || latestProject[0]?._id || ""
               }`}
               rel="noopener noreferrer"
@@ -825,7 +825,7 @@ const MobileApp = () => {
                                   </p>
                                   <div className="text-white px-2 rounded-md w-42 h-11 border-2 hover:bg-white hover:text-paraClr border-white text-center justify-center cursor-pointer flex items-center font-bold">
                                     <a
-                                      href={`/Case_Study?project=${
+                                      href={`/case-study?project=${
                                         project.id || project._id || ""
                                       }`}
                                       rel="noopener noreferrer"
@@ -970,7 +970,7 @@ const MobileApp = () => {
                 </p>
                 <div className="text-white px-2 rounded-md w-42 h-11 border-2 hover:bg-white hover:text-paraClr border-white text-center justify-center cursor-pointer flex items-center font-bold">
                   <a
-                    href={`/Case_Study?project=${
+                    href={`/case-study?project=${
                       project.id || project._id || ""
                     }`}
                     rel="noopener noreferrer"

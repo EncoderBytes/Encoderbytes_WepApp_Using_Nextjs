@@ -93,6 +93,8 @@ import bcryptjs from "bcryptjs";
 import { NextResponse } from "next/server";
 import { connect } from "@/app/config/db"; // Your custom MySQL connection function
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request) {
   try {
     const connection = await connect(); // Your MySQL connection

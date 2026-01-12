@@ -104,7 +104,7 @@ cloudinary.config({
 
 
 
-
+export const dynamic = "force-dynamic";
 // mysql method
 export async function GET() {
   try {

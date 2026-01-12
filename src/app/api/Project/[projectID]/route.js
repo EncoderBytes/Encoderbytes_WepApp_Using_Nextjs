@@ -181,7 +181,7 @@ cloudinary.v2.config({
 //     );
 //   }
 // }
-
+export const dynamic = "force-dynamic";
 
 // mysql method
 
@@ -293,21 +293,21 @@ export async function PUT(request, context) {
     for (const [key, value] of data.entries()) {
       formDataObject[key] = value;
     }
-    const { 
-      ProjectName, 
-      ProjectCategory, 
-      ProjectDescription, 
-      ProjectTeam, 
-      ProjectTechnology, 
-      ProjectProblem, 
-      ProjectSolution, 
-      ProjectImpact, 
-      ProjectTimeline, 
+    const {
+      ProjectName,
+      ProjectCategory,
+      ProjectDescription,
+      ProjectTeam,
+      ProjectTechnology,
+      ProjectProblem,
+      ProjectSolution,
+      ProjectImpact,
+      ProjectTimeline,
       ProjectProccess,
       LatestProject,
-      errorsResolved,
-      userIncreased
-      } = formDataObject;
+      // errorsResolved,
+      // userIncreased
+    } = formDataObject;
 
     // Fetch the existing project from the DB
     const [rows] = await db.query("SELECT * FROM project WHERE id = ?", [id]);
@@ -358,9 +358,7 @@ export async function PUT(request, context) {
            ProjectImpact = ?,
            ProjectTimeline = ?,
            ProjectProccess = ?,
-           LatestProject = ?,
-           errorsResolved = ?,
-           userIncreased = ?
+           LatestProject = ?
        WHERE id = ?`,
       [
         ProjectName || project.ProjectName,
@@ -376,8 +374,8 @@ export async function PUT(request, context) {
         ProjectTimeline || project.ProjectTimeline,
         ProjectProccess || project.ProjectProccess,
         LatestProject !== undefined ? LatestProject : project.LatestProject,
-        errorsResolved || project.errorsResolved,
-        userIncreased || project.userIncreased,
+        // errorsResolved || project.errorsResolved,
+        // userIncreased || project.userIncreased,
         id,
 
       ]
@@ -407,8 +405,8 @@ export async function PUT(request, context) {
         ProjectTimeline: ProjectTimeline || project.ProjectTimeline,
         ProjectProccess: ProjectProccess || project.ProjectProccess,
         LatestProject: LatestProject !== undefined ? LatestProject : project.LatestProject,
-        errorsResolved: errorsResolved || project.errorsResolved,
-        userIncreased: userIncreased || project.userIncreased
+        // errorsResolved: errorsResolved || project.errorsResolved,
+        // userIncreased: userIncreased || project.userIncreased
       },
     });
   } catch (error) {

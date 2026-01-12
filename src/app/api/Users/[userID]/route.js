@@ -203,6 +203,7 @@ cloudinary.v2.config({
 // import { connect } from "@/app/config/db"; // MySQL connection
 // import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
 export async function GET(request, context) {
   try {
     const connection = await connect();

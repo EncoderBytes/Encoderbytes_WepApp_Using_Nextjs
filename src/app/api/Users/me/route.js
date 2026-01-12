@@ -24,6 +24,8 @@ import { connect } from "@/app/config/db";
 import { getDataFromToken } from "@/app/helper/GetDataFromToken";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request) {
   try {
     const connection = await connect();
