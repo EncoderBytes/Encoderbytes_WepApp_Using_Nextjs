@@ -192,9 +192,7 @@ export async function POST(request) {
       ProjectTechnology,
       ProjectTimeline,
       ProjectProccess,
-      LatestProject,
-      errorsResolved,
-      userIncreased
+      LatestProject
     } = formEntries;
 
     // Convert boolean to string for MySQL storage
@@ -206,8 +204,8 @@ export async function POST(request) {
         return [];
       }
       return str.split(',')
-                .map(item => item.trim())
-                .filter(item => item !== '');
+        .map(item => item.trim())
+        .filter(item => item !== '');
     };
 
     const projectTeamArray = processStringToArray(ProjectTeam);
@@ -260,9 +258,7 @@ export async function POST(request) {
         ProjectImpact,
         ProjectTimeline,
         ProjectProccess,
-        LatestProject,
-        errorsResolved,
-        userIncreased
+        LatestProject
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         ProjectName,
@@ -277,9 +273,7 @@ export async function POST(request) {
         ProjectImpact,
         ProjectTimeline,
         ProjectProccess,
-        latestProjectValue, // Now stores 1 or 0
-        errorsResolved,
-        userIncreased
+        latestProjectValue
       ]
     );
 
@@ -310,9 +304,7 @@ export async function POST(request) {
         ProjectTechnology: projectTechnologyArray,
         ProjectTimeline,
         ProjectProccess,
-        LatestProject,
-        errorsResolved,
-        userIncreased
+        LatestProject
       }
     });
   } catch (error) {
