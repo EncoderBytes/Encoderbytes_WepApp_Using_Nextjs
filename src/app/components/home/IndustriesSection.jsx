@@ -7,45 +7,41 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { FaArrowCircleRight } from "react-icons/fa";
 
 export default function IndustriesSection({ latestProject = [], loading }) {
+  const projectsToShow = latestProject || [];
+
   return (
-    <div className="flex flex-col">
-      {/* Heading */}
-      <div className="flex flex-col md:flex-row mt-20 md:px-10 md:justify-between items-center">
-        <div className="px-4 font-bebas tracking-custom leading-tight text-4xl">
-          <p className="-mb-2">
-            INDUSTRIES &nbsp;
-            <span className="text-custom-blue">WE ARE SERVING</span>
-          </p>
-        </div>
+    <div className="flex flex-col pt-8 md:pt-10 lg:pt-12">
+      
+      {/* ================== HEADING ================== */}
+      <div className="text-center px-4 md:px-12 mb-16 md:mb-20">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-wide">
+          INDUSTRIES <span className="text-custom-blue">WE ARE SERVING</span>
+        </h2>
 
-        <div className="mt-3 md:mt-0 mx-4 md:mx-8">
-          <Link href="/Industries">
-            <button className="text-custom-blue font-semibold transition-all w-[171px] h-11 border-2 border-custom-blue rounded-md hover:text-white hover:bg-custom-blue">
-              Explore All
-            </button>
-          </Link>
-        </div>
-      </div>
-
-      {/* Description */}
-      <div className="mt-7 px-2 md:mt-3 md:px-10 ml-4 md:w-8/12 text-paraClr leading-tight">
-        <p>
-          We are working with several industries to improve their businesses
-          and experiences through technology. We have built many web and
-          mobile applications for them.
+        <p className="mt-4 max-w-4xl mx-auto text-sm md:text-base text-paraClr leading-relaxed">
+          We are working with several industries to improve their businesses and
+          experiences through technology. We have built many web and mobile
+          applications for them.
         </p>
       </div>
+      {/* ================================================= */}
 
-      {/* Industry Blocks */}
-      {latestProject.map((project, idx) => {
-        const isReverse = idx % 2 === 1; // alternate layout
+      {/* ================== PROJECTS ================== */}
+      {projectsToShow.map((project, idx) => {
+        const isReverse = idx % 2 === 1;
+        const isLast = idx === projectsToShow.length - 1;
+
         return (
           <div
-            key={idx}
-            className={`flex flex-col ${isReverse ? "md:flex-row-reverse" : "md:flex-row"} justify-center items-center px-6 md:px-12 mt-20 gap-y-8 md:gap-x-8`}
+            key={project.id || idx}
+            className={`flex flex-col ${
+              isReverse ? "md:flex-row-reverse" : "md:flex-row"
+            } justify-center items-center px-4 sm:px-6 md:px-12 gap-8 ${
+              !isLast ? "mb-16 md:mb-20 lg:mb-28" : "-mb-10 md:-mb-16"
+            }`}
           >
-            {/* Text */}
-            <div className="flex flex-col justify-center items-center md:items-start gap-y-5 text-center md:text-left md:w-[50%]">
+            {/* -------- TEXT -------- */}
+            <div className="flex flex-col justify-center items-center md:items-start gap-5 text-center md:text-left md:w-1/2">
               <div className="text-2xl font-bold">
                 <span className="border-b-4 border-custom-blue">I n d u</span>
                 <span>
@@ -65,35 +61,21 @@ export default function IndustriesSection({ latestProject = [], loading }) {
                 <Skeleton count={3} width={400} />
               ) : (
                 <p className="text-paraClr leading-tight line-clamp-3">
-                  {project?.ProjectDescription ||
-                    "We are helping and educating doctors and other people through our applications."}
+                  {project?.ProjectDescription || "Description not available."}
                 </p>
               )}
 
-              {project ? (
-                <a
-                  href={`/Case_Study?project=${project?.id || project?._id || ""}`}
-                  rel="noopener noreferrer"
-                >
-                  <button className="text-custom-blue font-semibold transition-all w-[157px] h-11 border-2 border-custom-blue rounded-md hover:text-white hover:bg-custom-blue flex items-center justify-center gap-3">
-                    Read Details <FaArrowCircleRight />
-                  </button>
-                </a>
-              ) : (
-                <Link href="#">
-                  <button className="text-custom-blue font-semibold transition-all w-[157px] h-11 border-2 border-custom-blue rounded-md hover:text-white hover:bg-custom-blue flex items-center justify-center gap-3">
-                    Read Details <FaArrowCircleRight />
-                  </button>
-                </Link>
-              )}
+              <Link href={`/Case_Study?project=${project?.id || ""}`}>
+                <button className="text-custom-blue font-semibold transition-all w-[157px] h-11 border-2 border-custom-blue rounded-md hover:text-white hover:bg-custom-blue flex items-center justify-center gap-3">
+                  Read Details <FaArrowCircleRight />
+                </button>
+              </Link>
             </div>
 
-            {/* Image */}
-            <div
-              className="bg-yellow w-full md:w-[70%] relative h-[300px] md:h-[400px] lg:w-[746px] lg:h-[469px] rounded-lg overflow-hidden"
-            >
+            {/* -------- IMAGE -------- */}
+            <div className="w-full md:w-[70%] lg:w-[746px] relative h-[300px] md:h-[400px] lg:h-[469px] rounded-lg overflow-hidden">
               {loading ? (
-                <Skeleton height={300} width={"100%"} borderRadius={12} />
+                <Skeleton height={300} width="100%" borderRadius={12} />
               ) : project?.Image ? (
                 <Image
                   src={project.Image}
@@ -105,15 +87,15 @@ export default function IndustriesSection({ latestProject = [], loading }) {
                 <Image
                   src="/backgrounds/Mask-group1.webp"
                   alt="Industry Illustration"
-                  className="w-full h-full object-cover"
-                  width={400}
-                  height={400}
+                  fill
+                  className="object-cover"
                 />
               )}
             </div>
           </div>
         );
       })}
+      {/* ================================================= */}
     </div>
   );
 }

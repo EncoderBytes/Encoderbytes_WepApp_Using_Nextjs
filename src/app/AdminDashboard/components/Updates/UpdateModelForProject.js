@@ -21,8 +21,6 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
     ProTimeline: "",
     ProProccess: "",
     LatestProject: "",
-    errorsResolved: "",
-    userIncreased: ""
   });
 
   const [timeline, setTimeline] = useState({
@@ -47,23 +45,13 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
     ProProccess: "",
   });
 
-  const countWords = (text) => text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+  const countWords = (text) => (text.trim() === "" ? 0 : text.trim().split(/\s+/).length);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    let newValue = value;
-    // Clamp errorsResolved and userIncreased between 0 and 100
-    if (name === "errorsResolved" || name === "userIncreased") {
-      const num = parseInt(value);
-      if (isNaN(num)) {
-        newValue = "";
-      } else {
-        newValue = Math.max(0, Math.min(100, num));
-      }
-    }
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : newValue, // Handle checkbox
+      [name]: type === "checkbox" ? checked : value,
     }));
 
     if (Object.keys(wordCounts).includes(name)) {
@@ -79,20 +67,13 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData((prev) => ({
-        ...prev,
-        Image: file,
-      }));
-      // Use FileReader for preview
+      setFormData((prev) => ({ ...prev, Image: file }));
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
+      reader.onloadend = () => setImagePreview(reader.result);
       reader.readAsDataURL(file);
     }
   };
 
-  // Helper to format date as DD-MM-YYYY
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
     const date = new Date(dateStr);
@@ -104,7 +85,6 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
 
   const handleTimelineChange = (e) => {
     const { name, value, checked } = e.target;
-
     if (name === "inProgress") {
       setTimeline((prev) => ({
         ...prev,
@@ -118,7 +98,6 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
     } else {
       const updatedTimeline = { ...timeline, [name]: value };
       setTimeline(updatedTimeline);
-
       setFormData((prev) => ({
         ...prev,
         ProTimeline: `${formatDate(updatedTimeline.start)} - ${updatedTimeline.inProgress ? "In Progress" : formatDate(updatedTimeline.end)}`,
@@ -156,9 +135,7 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
         ProTeam: JSON.parse(data.ProjectTeam) || "",
         ProTechnology: JSON.parse(data.ProjectTechnology) || "",
         ProTimeline: data.ProjectTimeline || "",
-        LatestProject : data.LatestProject || "",
-        errorsResolved : data.errorsResolved || "",
-        userIncreased : data.userIncreased || "",
+        LatestProject: data.LatestProject || "",
       });
 
       const [start, end] = (data.ProjectTimeline || "").split(" - ");
@@ -168,9 +145,7 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
         inProgress: end === "In Progress",
       });
 
-      const imageURL = data.Image?.startsWith("http")
-        ? data.Image
-        : `/uploads/${data.Image}`;
+      const imageURL = data.Image?.startsWith("http") ? data.Image : `/uploads/${data.Image}`;
       setImagePreview(imageURL);
 
       setWordCounts({
@@ -180,7 +155,6 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
         ProImpact: countWords(data.ProjectImpact || ""),
         ProProccess: countWords(data.ProjectProccess || ""),
       });
-
     } catch (err) {
       toast.error("Failed to fetch project data");
     }
@@ -191,7 +165,7 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
   }, []);
 
   const sendMessage = async () => {
-    if (Object.values(wordCounts).some(count => count < 100)) {
+    if (Object.values(wordCounts).some((count) => count < 100)) {
       toast.error("All text sections must have at least 100 words.");
       return;
     }
@@ -206,32 +180,30 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
       formDataToSend.append("ProjectImpact", formData.ProImpact);
       formDataToSend.append("ProjectTimeline", formData.ProTimeline);
       formDataToSend.append("ProjectProccess", formData.ProProccess);
-      formDataToSend.append("LatestProject", formData.LatestProject ? "1" : "0"); // Send as "1" or "0"
-      formDataToSend.append("errorsResolved",formData.errorsResolved);
-      formDataToSend.append("userIncreased", formData.userIncreased);
+      formDataToSend.append("LatestProject", formData.LatestProject ? "1" : "0");
 
-      // Convert to JSON strings
       formDataToSend.append(
         "ProjectTeam",
         JSON.stringify(
-          (Array.isArray(formData.ProTeam) ? formData.ProTeam : String(formData.ProTeam).split(",")).map(item => item.trim())
+          (Array.isArray(formData.ProTeam) ? formData.ProTeam : String(formData.ProTeam).split(",")).map((item) => item.trim())
         )
       );
+
       formDataToSend.append(
         "ProjectTechnology",
         JSON.stringify(
-          (Array.isArray(formData.ProTechnology) ? formData.ProTechnology : String(formData.ProTechnology).split(",")).map(item => item.trim())
+          (Array.isArray(formData.ProTechnology) ? formData.ProTechnology : String(formData.ProTechnology).split(",")).map((item) => item.trim())
         )
       );
 
       if (formData.Image && typeof formData.Image !== "string") {
         formDataToSend.append("Image", formData.Image);
       } else {
-        formDataToSend.append("OldImage", formData.Image); // Optional fallback
+        formDataToSend.append("OldImage", formData.Image);
       }
 
       await axios.put(`${API_URL_Projects}/${proId}`, formDataToSend, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       toast.success("Project updated successfully");
@@ -244,7 +216,11 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
   };
 
   return (
-    <div ref={modalRef} onClick={handleClose} className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
+    <div
+      ref={modalRef}
+      onClick={handleClose}
+      className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
+    >
       <div className="mt-10 flex flex-col gap-4 text-white bg-slate-400 rounded-md p-8 w-[600px] max-h-[90vh] overflow-y-auto">
         <button className="self-end" onClick={isclose}>✖️</button>
         <h2 className="text-xl font-semibold text-gray-950">Update Project</h2>
@@ -301,41 +277,6 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
               <div className="text-red-600 text-sm">{errors[field]}</div>
             </div>
           ))}
-          {/* Errors Resolved */}
-          <div>
-            <label htmlFor="errorsResolved" className="text-gray-950">
-              Errors Resolved (%) :
-            </label>
-            <input
-              type="number"
-              id="errorsResolved"
-              name="errorsResolved"
-              min="0"
-              max="100"
-              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border text-black"
-              value={formData.errorsResolved}
-              onChange={handleInputChange}
-              placeholder="Enter percentage (0-100)"
-            />
-          </div>
-
-          {/* User Increased */}
-          <div>
-            <label htmlFor="userIncreased" className="text-gray-950">
-              User Increased (%) :
-            </label>
-            <input
-              type="number"
-              id="userIncreased"
-              name="userIncreased"
-              min="0"
-              max="100"
-              className="mt-1 px-3 py-1.5 w-full rounded-md border-gray-400 border text-black"
-              value={formData.userIncreased}
-              onChange={handleInputChange}
-              placeholder="Enter percentage (0-100)"
-            />
-          </div>
         </section>
 
         {/* Timeline */}
@@ -359,13 +300,14 @@ const UpdateProjectModal = ({ isclose, proId, getallprojects }) => {
                 : "")}
           </div>
         </div>
+
         <label className="flex items-center ml-2 text-md text-black">
           Is this a Latest Project ?
           <input 
             type="checkbox"
             name="LatestProject"
             className="ml-2 w-6"
-            checked={!!formData.LatestProject && formData.LatestProject !== "false"} // Show checked if value is true or "1"
+            checked={!!formData.LatestProject && formData.LatestProject !== "false"}
             onChange={handleInputChange}
           />
         </label>

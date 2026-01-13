@@ -13,7 +13,7 @@ export default function WeProvideSection({
   const showServices = services.length > 0 ? services : fallbackServices;
 
   return (
-    <div className="flex flex-col md:px-12 pb-16 bg-greybg">
+    <div className="flex flex-col md:px-12 pb-16 -mt-4 bg-greybg">
       {/* Heading */}
       <div className="flex flex-col md:flex-row mt-20 md:justify-between items-center w-5/7">
         <div className="text-4xl text-center md:text-left font-bebas tracking-custom leading-8">

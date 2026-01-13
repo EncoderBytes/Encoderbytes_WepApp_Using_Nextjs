@@ -11,6 +11,7 @@ import { isAuthenticated } from "@/app/helper/verifytoken";
 import { useRouter } from "next/navigation";
 import { ProjectsCount } from "../components/ShowApidatas/ShowUserAPiDatas";
 import { API_URL_Projects } from "../components/ShowApidatas/apiUrls";
+
 const ProjectTable = () => {
   const AddNewProModal = dynamic(() => import("../components/AddNewProjectModal"), { ssr: false });
   const UpdateProjectModal = dynamic(() => import("../components/Updates/UpdateModelForProject"), { ssr: false });
@@ -23,6 +24,7 @@ const ProjectTable = () => {
   const [selectedProId, setSelectedProId] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredTeam, setFilteredTeam] = useState([]);
+
   useEffect(() => {
     if (!isAuthenticated()) {
       router.push("/AdminDashboard/Login");
@@ -32,6 +34,7 @@ const ProjectTable = () => {
     setProjectsError(null);
     fetchProjects();
   }, [router]);
+
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchTerm(value);
@@ -40,9 +43,11 @@ const ProjectTable = () => {
     );
     setFilteredTeam(filtered);
   };
+
   const fetchProjects = () => {
     ProjectsCount()
       .then(({ admins }) => {
+        console.log("Projects from API:", admins);
         setShowAllPro(admins);
         setProjectsLoading(false);
       })
@@ -109,8 +114,6 @@ const ProjectTable = () => {
                   <th className="px-4 py-2">Project Impact</th>
                   <th className="px-4 py-2">Project Timeline</th>
                   <th className="px-4 py-2">Is Latest Project?</th>
-                  <th className="px-4 py-2">Errors Resolved</th>
-                  <th className="px-4 py-2">User Increased </th>
                   <th className="px-4 py-2">Edit</th>
                   <th className="px-4 py-2">Delete</th>
                 </tr>
@@ -157,8 +160,7 @@ const ProjectTable = () => {
                               ? pro.ProjectTeam.map((member, i) => (
                                   <div key={i}>{member}</div>
                                 ))
-                              : // If it's a JSON string, parse it
-                                (() => {
+                              : (() => {
                                   try {
                                     const teamArr = JSON.parse(pro.ProjectTeam);
                                     return Array.isArray(teamArr)
@@ -219,17 +221,7 @@ const ProjectTable = () => {
                         </td>
                         <td className="px-4 py-2">
                           <div className="overflow-y-scroll no-scrollbar max-h-[4rem] leading-[1.2rem]">
-                            {pro.LatestProject}
-                          </div>
-                        </td>
-                        <td className="px-4 py-2">
-                          <div className="overflow-y-scroll no-scrollbar max-h-[4rem] leading-[1.2rem]">
-                            {pro.errorsResolved} %
-                          </div>
-                        </td>
-                        <td className="px-4 py-2">
-                          <div className="overflow-y-scroll no-scrollbar max-h-[4rem] leading-[1.2rem]">
-                            {pro.userIncreased} %
+                            {pro.LatestProject ? "Yes" : "No"}
                           </div>
                         </td>
                         <td className="px-4 py-2 text-center">
@@ -261,6 +253,7 @@ const ProjectTable = () => {
               </tbody>
             </table>
           </div>
+
           {showmodal && (
             <AddNewProModal
               isclose={() => setShowModal(false)}

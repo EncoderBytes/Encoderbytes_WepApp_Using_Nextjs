@@ -259,7 +259,7 @@ export async function POST(request) {
         ProjectTimeline,
         ProjectProccess,
         LatestProject
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         ProjectName,
         ProjectCategory,
