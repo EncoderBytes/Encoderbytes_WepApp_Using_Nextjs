@@ -37,7 +37,7 @@ export default function IndustriesSection({ latestProject = [], loading }) {
             className={`flex flex-col ${
               isReverse ? "md:flex-row-reverse" : "md:flex-row"
             } justify-center items-center px-4 sm:px-6 md:px-12 gap-8 ${
-              !isLast ? "mb-16 md:mb-20 lg:mb-28" : "-mb-10 md:-mb-16"
+              !isLast ? "mb-12 md:mb-16 lg:mb-18" : "-mb-10 md:-mb-16"
             }`}
           >
             {/* -------- TEXT -------- */}
