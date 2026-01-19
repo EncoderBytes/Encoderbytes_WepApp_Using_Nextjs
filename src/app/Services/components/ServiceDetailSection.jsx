@@ -40,7 +40,7 @@ const ServiceDetailSection = () => {
   ];
 
   return (
-    <section className="pb-16 w-8/6 m-auto">
+    <section className="pb-16 w-8/6 -mt-6 m-auto">
       {serviceDetails.map((item, index) => (
         <div
           key={index}
