@@ -358,7 +358,7 @@ const ApplyContactForm = () => {
       className="flex flex-col md:flex-row items-center justify-center md:px-12"
       id="Apply"
     >
-      <div className="flex flex-col bg-black md:flex-row  md:w-6/6 items-center justify-center mt-10 md:mt-20 rounded-md py-16 mb-28">
+      <div className="flex flex-col bg-black md:flex-row  md:w-6/6 items-center justify-center mt-14 rounded-md py-14 mb-14">
         <div className="w-4/5 md:w-2/5">
           <div className="flex flex-col justify-center items-start text-start md:m-16">
             <span className="text-custom-blue text-5xl  font-bebas tracking-custom">
