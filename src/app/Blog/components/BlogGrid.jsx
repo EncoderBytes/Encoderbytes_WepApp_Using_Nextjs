@@ -6,7 +6,7 @@ import BlogCard from "./BlogCard";
 
 const BlogGrid = ({ blogs, loading, expandedBlogs, toggleBlogExpand }) => {
   return (
-    <div className="container mx-auto px-6 lg:px-16 py-14">
+    <div className="container mx-auto px-6 lg:px-16 py-6 md:py-10 lg:py-14">
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {[1, 2, 3, 4].map((item) => (
