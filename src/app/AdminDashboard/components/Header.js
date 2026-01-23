@@ -62,7 +62,7 @@ const Header = () => {
       {/* Left side: Logo */}
       <div className="flex items-center">
         <img
-          src="/logos/logo.png"
+          src="/logos/logoPNG.png"
           alt="Logo"
           className="h-7 w-auto sm:h-8"
           height={40}
@@ -79,7 +79,7 @@ const Header = () => {
       <div className="flex items-center">
         <div className="relative">
           <img
-            src={imagePreview}
+            src="/user.png"
             alt="Profile"
             className="h-7 w-7 sm:h-8 sm:w-8 rounded-full cursor-pointer object-cover"
             onClick={toggleDropdown}
